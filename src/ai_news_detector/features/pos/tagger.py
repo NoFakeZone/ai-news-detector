@@ -1,4 +1,10 @@
-"""Polish POS tagger. spaCy is imported lazily so importing this module stays cheap and tests using MagicMock taggers do not require spaCy."""
+""" Polish POS tagger.
+
+spaCy is imported lazily
+so importing this module stays cheap
+and tests using MagicMock taggers
+do not require spaCy.
+"""
 import functools
 from dataclasses import dataclass
 from typing import Protocol
