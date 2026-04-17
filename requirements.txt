@@ -1,0 +1,6 @@
+# Runtime: none (text feature extraction uses only the Python stdlib).
+# Dev/test dependency:
+pytest>=8
+
+# Note: pyproject.toml is the canonical source of truth.
+# Preferred install: `pip install -e ".[dev]"` from the repo root.
