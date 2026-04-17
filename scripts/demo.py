@@ -25,10 +25,13 @@ def _demo_pos() -> None:
     print("\nPOS features (Polish)")
     print(f"text: {text!r}\n")
 
-    for tag in (PosTag.NOUN, PosTag.VERB, PosTag.ADJ):
-        for variant in PosVariant:
-            extractor = PosExtractorFactory.create(variant, tag)
-            print(f"{extractor.name:>28}: {extractor.extract(text):.4f}")
+    try:
+        for tag in (PosTag.NOUN, PosTag.VERB, PosTag.ADJ):
+            for variant in PosVariant:
+                extractor = PosExtractorFactory.create(variant, tag)
+                print(f"{extractor.name:>28}: {extractor.extract(text):.4f}")
+    except RuntimeError as exc:
+        print(f"[skipped] {exc}")
 
 
 def main() -> None:
