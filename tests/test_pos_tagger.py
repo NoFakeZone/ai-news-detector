@@ -1,17 +1,13 @@
 import pytest
 
-pytest.importorskip("spacy")
-
-try:
-    import spacy
-    spacy.load("pl_core_news_sm")
-    _has_model = True
-except Exception:
-    _has_model = False
+spacy = pytest.importorskip("spacy")
 
 pytestmark = [
     pytest.mark.slow,
-    pytest.mark.skipif(not _has_model, reason="pl_core_news_sm spaCy model not installed"),
+    pytest.mark.skipif(
+        not spacy.util.is_package("pl_core_news_sm"),
+        reason="pl_core_news_sm spaCy model not installed",
+    ),
 ]
 
 
