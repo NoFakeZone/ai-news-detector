@@ -12,10 +12,7 @@ Implemented:
   - raw count
   - count per word (count / total words)
   - count per letter (count / total letters)
-
-Planned:
-
-- Part-of-speech (POS) tagging
+- **POS tagging** — count and ratio variants per tag (NOUN, VERB, ADJ, …) behind a factory; uses [spaCy](https://spacy.io/) with the `pl_core_news_sm` Polish model (install with `python -m spacy download pl_core_news_sm`)
 
 ## Project layout
 
@@ -28,17 +25,29 @@ ai-news-detector/
 │       └── features/
 │           ├── base.py            # TextFeatureExtractor ABC
 │           ├── text_utils.py      # count_words, count_letters
-│           └── punctuation/
-│               ├── variants.py    # PunctuationVariant StrEnum
-│               ├── base.py        # PunctuationExtractor ABC (holds punctuation_chars)
-│               ├── count.py       # PunctuationCountExtractor (base type)
-│               ├── ratio.py       # PerWord + PerLetter extractors
-│               └── factory.py     # PunctuationExtractorFactory
+│           ├── punctuation/
+│           │   ├── variants.py    # PunctuationVariant StrEnum
+│           │   ├── base.py        # PunctuationExtractor ABC (holds punctuation_chars)
+│           │   ├── count.py       # PunctuationCountExtractor (base type)
+│           │   ├── ratio.py       # PerWord + PerLetter extractors
+│           │   └── factory.py     # PunctuationExtractorFactory
+│           └── pos/
+│               ├── tags.py        # PosTag StrEnum
+│               ├── variants.py    # PosVariant StrEnum
+│               ├── tagger.py      # PosTagger protocol + SpacyPolishPosTagger
+│               ├── base.py        # PosExtractor ABC
+│               ├── count.py       # PosCountExtractor
+│               ├── ratio.py       # PosRatioExtractor
+│               └── factory.py     # PosExtractorFactory
 └── tests/
     ├── test_text_utils.py
     ├── test_punctuation_count.py
     ├── test_punctuation_ratio.py
-    └── test_punctuation_factory.py
+    ├── test_punctuation_factory.py
+    ├── test_pos_count.py
+    ├── test_pos_ratio.py
+    ├── test_pos_tagger.py
+    └── test_pos_factory.py
 ```
 
 ## Requirements
@@ -193,7 +202,7 @@ class TextFeatureExtractor(ABC):
 
 Ratio extractors **compose** `PunctuationCountExtractor` rather than duplicating counting logic — `counter` is injectable via the constructor, which makes testing straightforward (a `MagicMock` can be passed in). Edge cases (empty text, punctuation-only text) return `0.0` instead of raising `ZeroDivisionError`.
 
-POS tagging will follow the same pattern as a sibling `features/pos/` package.
+POS tagging follows the same pattern in the sibling [`features/pos/`](src/ai_news_detector/features/pos/) package.
 
 ## Adding a new text feature
 
