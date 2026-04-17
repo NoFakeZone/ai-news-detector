@@ -1,0 +1,42 @@
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Python cache and build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.egg
+build/
+dist/
+
+# IDE / editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment / secrets
+.env.local
+.env.production
+.env.development
+*.env
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Test outputs
+.coverage
+htmlcov/
+pytest_cache/
+
+# Dependencies
+pip-wheel-metadata/

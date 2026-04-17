@@ -1,0 +1,220 @@
+# -------------------------
+# Python Virtual Environments (expanded)
+# -------------------------
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.virtualenv/
+.virtualenvs/
+.python-venv/
+.python_env/
+*/.venv/
+*/venv/
+
+# Conda environments
+conda-env/
+*.conda
+*.yaml  # environment.yml variants if auto-generated
+
+# Pipenv/Poetry/PDM virtualenvs (local)
+.pipenv/
+.poetry/
+.pdm-venv/
+
+# -------------------------
+# OS-specific junk
+# -------------------------
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.nfs*
+
+# -------------------------
+# IDE / Editor-specific (expanded)
+# -------------------------
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# PyCharm / IntelliJ
+.idea/*
+!.idea/codeStyles/
+!.idea/runConfigurations/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*.swn
+.vim/
+.vimrc
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Cursor AI Editor
+.cursor/
+.cursorignore
+.cursorindexingignore
+
+# -------------------------
+# Cloud / Deployment
+# -------------------------
+
+# Docker
+docker-compose.override.yml
+.docker/
+docker-data/
+
+# AWS
+.aws/
+*.pem
+*.ppk
+
+# Google Cloud
+.gcloud/
+*.json  # service accounts
+
+# Azure
+.azure/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# -------------------------
+# Python tooling (expanded)
+# -------------------------
+
+# Pyright / Pylance
+pyrightconfig.json
+
+# Black
+.black_cache/
+
+# Ruff
+.ruff_cache/
+
+# Bandit
+.bandit/
+
+# PyInstaller extra
+build/
+dist/
+*.spec
+
+# Cython
+cython_debug/
+
+# -------------------------
+# Data / ML / Notebooks
+# -------------------------
+
+# Jupyter
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# ML experiment logs
+logs/
+mlruns/
+wandb/
+tensorboard/
+tb_logs/
+
+# Large datasets
+data/
+datasets/
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.joblib
+*.npz
+*.npy
+*.csv
+*.tsv
+
+# HuggingFace
+huggingface/
+hf_cache/
+transformers_cache/
+datasets_cache/
+
+# -------------------------
+# Local app/runtime files
+# -------------------------
+
+# SQLite
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+
+# Cache
+.cache/
+*.log
+
+# Environment files
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*
+
+# Secrets
+secrets.json
+secret.key
+*.key
+*.crt
+
+# -------------------------
+# Build / Packaging extras
+# -------------------------
+
+# PyInstaller
+*.manifest
+
+# Wheelhouse
+wheelhouse/
+
+# Build artifacts
+*.whl
+*.tar.gz
+
+# -------------------------
+# Misc
+# -------------------------
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Lock files (optional)
+*.lock
