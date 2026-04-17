@@ -1,23 +1,19 @@
 """Polish POS tagger. spaCy is imported lazily so importing this module stays cheap and tests using MagicMock taggers do not require spaCy."""
+import functools
 from dataclasses import dataclass
 from typing import Protocol
 
 
-_nlp = None
-
-
+@functools.cache
 def _load_nlp():
-    global _nlp
-    if _nlp is None:
-        import spacy
-        try:
-            _nlp = spacy.load("pl_core_news_sm")
-        except OSError as exc:
-            raise RuntimeError(
-                "Polish spaCy model not found. Install with: "
-                "python -m spacy download pl_core_news_sm"
-            ) from exc
-    return _nlp
+    import spacy
+    try:
+        return spacy.load("pl_core_news_sm")
+    except OSError as exc:
+        raise RuntimeError(
+            "Polish spaCy model not found. Install with: "
+            "python -m spacy download pl_core_news_sm"
+        ) from exc
 
 
 class PosTagger(Protocol):
