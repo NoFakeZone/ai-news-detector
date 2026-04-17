@@ -12,7 +12,7 @@ Helper scripts live under `scripts/` and are the preferred entrypoints — each 
 | `bash scripts/install.sh` | Reinstall deps into existing venv (e.g. after `pyproject.toml` changes). |
 | `bash scripts/test.sh [args]` | `pytest -v`, extra args forwarded (e.g. `bash scripts/test.sh -k per_word`). |
 | `bash scripts/build.sh` | Build sdist + wheel into `dist/` (installs `build` on demand). |
-| `bash scripts/run.sh` | Run `scripts/demo.py` exercising all punctuation variants. |
+| `bash scripts/run.sh` | Run `scripts/demo.py` exercising all punctuation and POS variants. |
 | `scripts/_activate.sh` | Shared sourced helper — not meant to be executed directly. |
 
 Running pytest directly (when venv is already active):
@@ -27,7 +27,7 @@ Python **3.11+** is required (uses `StrEnum` and modern typing). Tests are confi
 
 ## Architecture
 
-This is a text-feature extraction library for classifying news authenticity. Each feature lives under `src/ai_news_detector/features/<feature>/` and follows the same four-part shape: **variants enum → base ABC → concrete extractors → factory**. Currently implemented: `punctuation/`. Planned sibling: `pos/`.
+This is a text-feature extraction library for classifying news authenticity. Each feature lives under `src/ai_news_detector/features/<feature>/` and follows the same four-part shape: **variants enum → base ABC → concrete extractors → factory**. Currently implemented: `punctuation/` and `pos/`.
 
 **Root contract** (`features/base.py`): every extractor is a `TextFeatureExtractor` subclass exposing `extract(text) -> float` and a `name` property (stable snake_case identifier used as a feature key). Return type is uniformly `float` across *all* features — this is non-negotiable.
 
@@ -41,7 +41,7 @@ This is a text-feature extraction library for classifying news authenticity. Eac
 
 ## Adding a new feature
 
-When adding POS tagging or any new feature, mirror the `punctuation/` package layout exactly and follow the checklist in `README.md` §"Adding a new text feature". Tests go under `tests/` as `test_<feature>_<variant>.py` and `test_<feature>_factory.py`; factory tests must be parametrized over every enum value and include a `ValueError` case for unknown variants.
+When adding a new feature, mirror the `punctuation/` or `pos/` package layout exactly and follow the checklist in `README.md` §"Adding a new text feature". Tests go under `tests/` as `test_<feature>_<variant>.py` and `test_<feature>_factory.py`; factory tests must be parametrized over every enum value and include a `ValueError` case for unknown variants.
 
 ## Code style
 
