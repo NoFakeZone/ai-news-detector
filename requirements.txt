@@ -1,6 +1,12 @@
-# Runtime: none (text feature extraction uses only the Python stdlib).
+# Runtime dependency: spaCy (used by the Polish POS tagger).
+spacy>=3.7
+
+# Polish spaCy model — install with one of:
+#   pip install -e ".[pl]"                       (via the pyproject "pl" extra)
+#   python -m spacy download pl_core_news_sm     (via spaCy's downloader)
+
 # Dev/test dependency:
 pytest>=8
 
 # Note: pyproject.toml is the canonical source of truth.
-# Preferred install: `pip install -e ".[dev]"` from the repo root.
+# Preferred install: `pip install -e ".[dev,pl]"` from the repo root.

@@ -7,10 +7,11 @@ name = "ai-news-detector"
 version = "0.1.0"
 description = "Text feature extraction for news authenticity analysis"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = ["spacy>=3.7"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+pl = ["pl_core_news_sm @ https://github.com/explosion/spacy-models/releases/download/pl_core_news_sm-3.7.0/pl_core_news_sm-3.7.0-py3-none-any.whl"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -18,3 +19,4 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+markers = ["slow: integration tests requiring spaCy Polish model"]
