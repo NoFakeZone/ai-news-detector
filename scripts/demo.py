@@ -1,4 +1,4 @@
-"""Small demo exercising the punctuation and POS extractors on sample texts."""
+"""Small demo exercising the punctuation and POS feature functions on sample texts."""
 from ai_news_detector.features.punctuation import (
     punctuation_count,
     punctuation_per_word,

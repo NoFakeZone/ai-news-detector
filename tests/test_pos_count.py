@@ -43,3 +43,18 @@ def test_pos_count_tagger_called_once_with_text():
     spy = _mock_tagger([("Kot", "NOUN"), ("biegnie", "VERB")])
     pos_count("Kot biegnie", tag="NOUN", tagger=spy)
     spy.assert_called_once_with("Kot biegnie")
+
+
+def test_pos_count_validate_raises_on_unknown_tag():
+    with pytest.raises(ValueError, match="NOU N"):
+        pos_count("Kot", tag="NOU N", tagger=_mock_tagger([]), validate=True)
+
+
+def test_pos_count_validate_accepts_known_tag():
+    result = pos_count("Kot", tag="NOUN", tagger=_mock_tagger([("Kot", "NOUN")]), validate=True)
+    assert result == 1.0
+
+
+def test_pos_count_no_validate_silent_on_unknown_tag():
+    result = pos_count("Kot", tag="NOU N", tagger=_mock_tagger([("Kot", "NOUN")]))
+    assert result == 0.0

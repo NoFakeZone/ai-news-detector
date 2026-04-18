@@ -37,3 +37,18 @@ def test_pos_per_word_passes_tagger_through():
     result = pos_per_word("Kot biegnie szybko czysto", tag="NOUN", tagger=spy)
     spy.assert_called_once_with("Kot biegnie szybko czysto")
     assert result == pytest.approx(0.25)
+
+
+def test_pos_per_word_validate_raises_on_unknown_tag():
+    with pytest.raises(ValueError, match="NOU N"):
+        pos_per_word("Kot", tag="NOU N", tagger=_mock_tagger([]), validate=True)
+
+
+def test_pos_per_word_validate_accepts_known_tag():
+    result = pos_per_word("Kot biegnie", tag="NOUN", tagger=_mock_tagger([("Kot", "NOUN"), ("biegnie", "VERB")]), validate=True)
+    assert result == pytest.approx(0.5)
+
+
+def test_pos_per_word_no_validate_silent_on_unknown_tag():
+    result = pos_per_word("Kot", tag="NOU N", tagger=_mock_tagger([("Kot", "NOUN")]))
+    assert result == 0.0

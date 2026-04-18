@@ -6,6 +6,7 @@ from ai_news_detector.features.punctuation import (
     punctuation_per_letter,
 )
 from ai_news_detector.features.pos import (
+    UD_TAGS,
     default_tagger,
     pos_count,
     pos_per_word,
@@ -18,6 +19,7 @@ __all__ = [
     "punctuation_count",
     "punctuation_per_word",
     "punctuation_per_letter",
+    "UD_TAGS",
     "default_tagger",
     "pos_count",
     "pos_per_word",
