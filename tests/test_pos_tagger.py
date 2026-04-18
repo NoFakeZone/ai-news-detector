@@ -11,11 +11,10 @@ pytestmark = [
 ]
 
 
-def test_spacy_polish_tagger_returns_ud_tags():
-    from ai_news_detector.features.pos import SpacyPolishPosTagger
+def test_default_tagger_returns_ud_tags():
+    from ai_news_detector.features.pos import default_tagger
 
-    tagger = SpacyPolishPosTagger()
-    result = tagger.tag("Kot biegnie szybko.")
+    result = default_tagger("Kot biegnie szybko.")
     tokens = {tok for tok, _ in result}
     tags = {tag for _, tag in result}
     assert "Kot" in tokens

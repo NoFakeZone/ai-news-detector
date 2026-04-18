@@ -1,13 +1,19 @@
 """Small demo exercising the punctuation and POS extractors on sample texts."""
-from ai_news_detector.features.pos import (
-    PosExtractorFactory,
-    PosTag,
-    PosVariant,
-)
 from ai_news_detector.features.punctuation import (
-    PunctuationExtractorFactory,
-    PunctuationVariant,
+    punctuation_count,
+    punctuation_per_word,
+    punctuation_per_letter,
 )
+from ai_news_detector.features.pos import pos_count, pos_per_word
+
+
+PUNCT_FNS = [
+    ("punctuation_count", punctuation_count),
+    ("punctuation_per_word", punctuation_per_word),
+    ("punctuation_per_letter", punctuation_per_letter),
+]
+POS_FNS = [("count", pos_count), ("per_word", pos_per_word)]
+TAGS = ["NOUN", "VERB", "ADJ"]
 
 
 def _demo_punctuation() -> None:
@@ -15,9 +21,8 @@ def _demo_punctuation() -> None:
     print("Punctuation features")
     print(f"text: {text!r}\n")
 
-    for variant in PunctuationVariant:
-        extractor = PunctuationExtractorFactory.create(variant)
-        print(f"{extractor.name:>28}: {extractor.extract(text):.4f}")
+    for name, fn in PUNCT_FNS:
+        print(f"{name:>28}: {fn(text):.4f}")
 
 
 def _demo_pos() -> None:
@@ -26,10 +31,10 @@ def _demo_pos() -> None:
     print(f"text: {text!r}\n")
 
     try:
-        for tag in (PosTag.NOUN, PosTag.VERB, PosTag.ADJ):
-            for variant in PosVariant:
-                extractor = PosExtractorFactory.create(variant, tag)
-                print(f"{extractor.name:>28}: {extractor.extract(text):.4f}")
+        for tag in TAGS:
+            for variant_name, fn in POS_FNS:
+                label = f"pos_{tag.lower()}_{variant_name}"
+                print(f"{label:>28}: {fn(text, tag):.4f}")
     except RuntimeError as exc:
         print(f"[skipped] {exc}")
 

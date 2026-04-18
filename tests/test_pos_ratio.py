@@ -1,58 +1,39 @@
 import pytest
 from unittest.mock import MagicMock
 
-from ai_news_detector.features.pos import (
-    PosTag,
-    PosTagCountExtractor,
-    PosTagPerWordExtractor,
-)
+from ai_news_detector.features.pos import pos_per_word
 
 
-def _mock_counter(return_value):
+def _mock_tagger(tagged):
     m = MagicMock()
-    m.extract.return_value = return_value
+    m.return_value = tagged
     return m
 
 
-@pytest.mark.parametrize("text, counter_return, expected", [
-    ("Kot biegnie szybko", 1.0, pytest.approx(1 / 3)),
-    ("Kot biegnie", 2.0, pytest.approx(1.0)),
-    ("one two three four", 4.0, pytest.approx(1.0)),
-    ("one two three four", 0.0, pytest.approx(0.0)),
+@pytest.mark.parametrize("text, tagged, expected", [
+    ("Kot biegnie szybko", [("Kot", "NOUN"), ("biegnie", "VERB"), ("szybko", "ADV")], pytest.approx(1 / 3)),
+    ("Kot pies", [("Kot", "NOUN"), ("pies", "NOUN")], pytest.approx(1.0)),
+    ("one two three four", [("one", "NUM"), ("two", "NUM"), ("three", "NUM"), ("four", "NUM")], pytest.approx(0.0)),
+    ("a b c d", [("a", "NOUN"), ("b", "NOUN"), ("c", "NOUN"), ("d", "NOUN")], pytest.approx(1.0)),
 ])
-def test_per_word_extract(text, counter_return, expected):
-    extractor = PosTagPerWordExtractor(counter=_mock_counter(counter_return))
-    assert extractor.extract(text) == expected
+def test_pos_per_word(text, tagged, expected):
+    assert pos_per_word(text, tag="NOUN", tagger=_mock_tagger(tagged)) == expected
 
 
-def test_per_word_zero_words_empty():
-    spy = _mock_counter(5.0)
-    extractor = PosTagPerWordExtractor(counter=spy)
-    assert extractor.extract("") == 0.0
-    spy.extract.assert_not_called()
+def test_pos_per_word_empty():
+    spy = _mock_tagger([])
+    assert pos_per_word("", tagger=spy) == 0.0
+    spy.assert_not_called()
 
 
-def test_per_word_zero_words_whitespace():
-    spy = _mock_counter(5.0)
-    extractor = PosTagPerWordExtractor(counter=spy)
-    assert extractor.extract("   ") == 0.0
-    spy.extract.assert_not_called()
+def test_pos_per_word_whitespace():
+    spy = _mock_tagger([])
+    assert pos_per_word("   ", tagger=spy) == 0.0
+    spy.assert_not_called()
 
 
-@pytest.mark.parametrize("tag, expected_name", [
-    (PosTag.NOUN, "pos_noun_per_word"),
-    (PosTag.VERB, "pos_verb_per_word"),
-    (PosTag.ADJ, "pos_adj_per_word"),
-    (PosTag.PUNCT, "pos_punct_per_word"),
-])
-def test_per_word_name_derives_from_counter_tag(tag, expected_name):
-    extractor = PosTagPerWordExtractor(counter=PosTagCountExtractor(tag=tag))
-    assert extractor.name == expected_name
-
-
-def test_per_word_delegates_to_counter():
-    spy = _mock_counter(2.0)
-    extractor = PosTagPerWordExtractor(counter=spy)
-    result = extractor.extract("Kot biegnie szybko czysto")
-    spy.extract.assert_called_once_with("Kot biegnie szybko czysto")
-    assert result == pytest.approx(0.5)
+def test_pos_per_word_passes_tagger_through():
+    spy = _mock_tagger([("Kot", "NOUN"), ("biegnie", "VERB"), ("szybko", "ADV"), ("czysto", "ADV")])
+    result = pos_per_word("Kot biegnie szybko czysto", tag="NOUN", tagger=spy)
+    spy.assert_called_once_with("Kot biegnie szybko czysto")
+    assert result == pytest.approx(0.25)
