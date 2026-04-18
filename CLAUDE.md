@@ -10,38 +10,53 @@ Helper scripts live under `scripts/` and are the preferred entrypoints — each 
 |---|---|
 | `bash scripts/setup.sh` | First-time bootstrap: create venv, activate, `pip install -e ".[dev]"`. |
 | `bash scripts/install.sh` | Reinstall deps into existing venv (e.g. after `pyproject.toml` changes). |
-| `bash scripts/test.sh [args]` | `pytest -v`, extra args forwarded (e.g. `bash scripts/test.sh -k per_word`). |
+| `bash scripts/test.sh [args]` | `pytest -v`, extra args forwarded (e.g. `bash scripts/test.sh -k ttr`). |
 | `bash scripts/build.sh` | Build sdist + wheel into `dist/` (installs `build` on demand). |
-| `bash scripts/run.sh` | Run `scripts/demo.py` exercising all punctuation variants. |
+| `bash scripts/run.sh` | Run `scripts/demo.py` exercising all feature functions on sample texts. |
 | `scripts/_activate.sh` | Shared sourced helper — not meant to be executed directly. |
 
 Running pytest directly (when venv is already active):
 
 ```bash
-pytest -v                                            # full suite
-pytest tests/test_punctuation_ratio.py -v            # single file
-pytest tests/test_punctuation_ratio.py::test_name    # single test
+pytest -v                              # full suite
+pytest tests/test_punctuation.py -v   # single file
+pytest tests/test_pos.py::test_count  # single test
 ```
 
-Python **3.11+** is required (uses `StrEnum` and modern typing). Tests are configured in `pyproject.toml` with `testpaths = ["tests"]` and `pythonpath = ["src"]` — no `PYTHONPATH` setup needed when running pytest. The `run.sh` demo sets `PYTHONPATH=src` itself so it works without an editable install.
+Python **3.11+** is required (uses `StrEnum` and modern typing). Tests are configured in `pyproject.toml` with `testpaths = ["tests"]` and `pythonpath = ["src"]` — no `PYTHONPATH` setup needed when running pytest.
 
 ## Architecture
 
-This is a text-feature extraction library for classifying news authenticity. Each feature lives under `src/ai_news_detector/features/<feature>/` and follows the same four-part shape: **variants enum → base ABC → concrete extractors → factory**. Currently implemented: `punctuation/`. Planned sibling: `pos/`.
+This is a text-feature extraction library for classifying news authenticity. Features are **plain functions returning `float`** — no classes, factories, or enums.
 
-**Root contract** (`features/base.py`): every extractor is a `TextFeatureExtractor` subclass exposing `extract(text) -> float` and a `name` property (stable snake_case identifier used as a feature key). Return type is uniformly `float` across *all* features — this is non-negotiable.
+Each feature lives in a single flat module under `src/ai_news_detector/features/`:
 
-**Composition over duplication for derived variants.** When a variant is a transformation of a base count (e.g. ratio, normalized, log-scaled), inject the base extractor as a dataclass field rather than re-implementing the count. `PunctuationPerWordExtractor` / `PunctuationPerLetterExtractor` in `punctuation/ratio.py` demonstrate the pattern: they hold a `counter: PunctuationCountExtractor` field and delegate. This keeps counting logic in one place and lets tests inject a `MagicMock` for the inner extractor.
+| Module | Functions |
+|---|---|
+| `punctuation.py` | `punctuation_count`, `punctuation_per_word`, `punctuation_per_letter` |
+| `pos.py` | `pos_count`, `pos_per_word` |
+| `text_stats.py` | `ttr`, `ttr_lemmatized`, `capital_ratio`, `avg_sentence_len` |
+| `text_utils.py` | `count_words`, `count_letters` (shared helpers) |
 
-**Immutability.** Extractors are `@dataclass(frozen=True)` — they must be hashable and safe to reuse. Per-feature shared configuration (like `punctuation_chars`) is held on a feature-level ABC (`punctuation/base.py`) so all variants inherit it consistently.
+**Return type is always `float`** across all features — non-negotiable.
 
-**Edge-case convention.** Empty text, whitespace-only text, and inputs that would otherwise divide by zero must return `0.0` — never raise `ZeroDivisionError`. Shared helpers for tokenization live in `features/text_utils.py` (`count_words`, `count_letters`); add new shared helpers there rather than duplicating inside feature packages.
+**Edge-case convention.** Empty text, whitespace-only text, and inputs that would cause division by zero must return `0.0` — never raise.
 
-**Factory pattern.** Each feature exposes a factory whose `_registry` maps a `StrEnum` variant to the concrete extractor class. `create()` accepts both the enum and a plain string (passing a string to `EnumClass(value)` auto-raises `ValueError` for unknown variants — rely on this instead of hand-rolled validation). Public names (enum, extractors, factory) are re-exported from each feature package's `__init__.py` so callers import from the package root.
+**Injectable callables for external models.** `pos.py` accepts a `tagger: (str) -> list[tuple[str, str]]` parameter; `text_stats.py` accepts a `lemmatize: (str) -> list[str]` parameter for `ttr_lemmatized`. Both default to a spaCy-backed implementation that loads `pl_core_news_sm` lazily via `functools.cache`. Pass a plain lambda or closure in tests — the model is never required.
+
+**Shared text helpers** live in `text_utils.py`. Add new helpers there rather than duplicating inside feature modules.
 
 ## Adding a new feature
 
-When adding POS tagging or any new feature, mirror the `punctuation/` package layout exactly and follow the checklist in `README.md` §"Adding a new text feature". Tests go under `tests/` as `test_<feature>_<variant>.py` and `test_<feature>_factory.py`; factory tests must be parametrized over every enum value and include a `ValueError` case for unknown variants.
+1. Add a single file `src/ai_news_detector/features/your_feature.py` with plain functions.
+2. If the feature needs an external model, load it lazily with `functools.cache` and accept an injectable callable parameter (see `pos.py` or `text_stats.py`).
+3. Add `tests/test_your_feature.py` — one file, no sub-files. Required coverage:
+   - Happy-path cases with known expected outputs.
+   - Edge cases: empty string, whitespace-only, division-by-zero inputs.
+   - For injectable callables: confirm the callable is invoked with the correct argument (plain lambda, no `MagicMock`).
+   - spaCy integration tests must use `pytest.mark.slow` and `pytest.mark.skipif` guarded by a model-availability check.
+4. Re-export from `features/__init__.py` if the function should be importable from the package root.
+5. Run `pytest -v` — all tests must pass.
 
 ## Code style
 
