@@ -8,14 +8,9 @@ Features are based on the wiki article: [text features](https://github.com/NoFak
 
 Implemented:
 
-- **Punctuation extraction** — three variants behind a factory:
-  - raw count
-  - count per word (count / total words)
-  - count per letter (count / total letters)
-
-Planned:
-
-- Part-of-speech (POS) tagging
+- **Punctuation** — `punctuation_count`, `punctuation_per_word`, `punctuation_per_letter`
+- **Part-of-speech (POS) tagging** — `pos_count`, `pos_per_word` (Polish, via spaCy `pl_core_news_sm`)
+- **Text statistics** — `ttr`, `ttr_lemmatized`, `capital_ratio`, `avg_sentence_len`
 
 ## Project layout
 
@@ -26,19 +21,15 @@ ai-news-detector/
 ├── src/
 │   └── ai_news_detector/
 │       └── features/
-│           ├── base.py            # TextFeatureExtractor ABC
 │           ├── text_utils.py      # count_words, count_letters
-│           └── punctuation/
-│               ├── variants.py    # PunctuationVariant StrEnum
-│               ├── base.py        # PunctuationExtractor ABC (holds punctuation_chars)
-│               ├── count.py       # PunctuationCountExtractor (base type)
-│               ├── ratio.py       # PerWord + PerLetter extractors
-│               └── factory.py     # PunctuationExtractorFactory
+│           ├── punctuation.py     # punctuation_count, punctuation_per_word, punctuation_per_letter
+│           ├── pos.py             # pos_count, pos_per_word (Polish spaCy)
+│           └── text_stats.py      # ttr, ttr_lemmatized, capital_ratio, avg_sentence_len
 └── tests/
     ├── test_text_utils.py
-    ├── test_punctuation_count.py
-    ├── test_punctuation_ratio.py
-    └── test_punctuation_factory.py
+    ├── test_punctuation.py
+    ├── test_pos.py
+    └── test_text_stats.py
 ```
 
 ## Requirements
@@ -129,170 +120,118 @@ All scripts live under `scripts/` and can be invoked from any working directory 
 
 ## Usage
 
-### Via the factory (recommended)
+### Punctuation
 
 ```python
 from ai_news_detector.features.punctuation import (
-    PunctuationExtractorFactory,
-    PunctuationVariant,
+    punctuation_count,
+    punctuation_per_word,
+    punctuation_per_letter,
 )
 
 text = "Hello, world! How are you?"
-
-# Using the enum
-counter = PunctuationExtractorFactory.create(PunctuationVariant.COUNT)
-print(counter.extract(text))        # 3.0
-
-# Using a string variant
-per_word = PunctuationExtractorFactory.create("per_word")
-print(per_word.extract(text))       # 3.0 / 5  = 0.6
-
-per_letter = PunctuationExtractorFactory.create("per_letter")
-print(per_letter.extract(text))     # 3.0 / 20 = 0.15
+punctuation_count(text)        # 3.0
+punctuation_per_word(text)     # 0.6  (3 / 5 words)
+punctuation_per_letter(text)   # 0.15 (3 / 20 letters)
 ```
 
-### Direct instantiation
-
-```python
-from ai_news_detector.features.punctuation import (
-    PunctuationCountExtractor,
-    PunctuationPerWordExtractor,
-    PunctuationPerLetterExtractor,
-)
-
-PunctuationCountExtractor().extract("Hi!")          # 1.0
-PunctuationPerWordExtractor().extract("hi, there!") # 1.0
-PunctuationPerLetterExtractor().extract("Hi!")      # 0.5
-```
-
-### Custom punctuation set
-
-The default punctuation set is `string.punctuation` (ASCII). Override it for Unicode punctuation (e.g. `—`, `„`, `…`):
+Custom punctuation set (default is `string.punctuation`):
 
 ```python
 import string
-from ai_news_detector.features.punctuation import PunctuationCountExtractor
-
 chars = frozenset(string.punctuation) | {"—", "„", "…"}
-extractor = PunctuationCountExtractor(punctuation_chars=chars)
-extractor.extract("She said „hello"… — really?")
+punctuation_count("She said „hello"… — really?", chars=chars)
 ```
+
+### POS tagging (Polish)
+
+```python
+from ai_news_detector.features.pos import pos_count, pos_per_word
+
+text = "Kot biegnie szybko przez zielony ogród."
+pos_count(text, tag="NOUN")     # float — number of nouns
+pos_per_word(text, tag="VERB")  # float — verbs / total words
+```
+
+Requires the `pl_core_news_sm` spaCy model (see [Setup](#setup)). An injectable `tagger` callable can be passed for testing.
+
+### Text statistics
+
+```python
+from ai_news_detector.features.text_stats import (
+    ttr,
+    ttr_lemmatized,
+    capital_ratio,
+    avg_sentence_len,
+)
+
+text = "Kot biegnie. Pies biegnie."
+ttr(text)              # type-token ratio (simple, regex-based)
+ttr_lemmatized(text)   # TTR after lemmatisation via spaCy (requires pl_core_news_sm)
+capital_ratio(text)    # ratio of non-sentence-start capitals to text length
+avg_sentence_len(text) # average word count per sentence
+```
+
+An injectable `lemmatize` callable can be passed to `ttr_lemmatized` for testing.
 
 ## Design
 
-Extractors implement a shared abstract contract:
+All features are **plain functions** that return `float`. There are no classes, factories, or enums.
 
-```python
-class TextFeatureExtractor(ABC):
-    @abstractmethod
-    def extract(self, text: str) -> float: ...
-    @property
-    @abstractmethod
-    def name(self) -> str: ...
-```
+Each module is self-contained:
 
-Ratio extractors **compose** `PunctuationCountExtractor` rather than duplicating counting logic — `counter` is injectable via the constructor, which makes testing straightforward (a `MagicMock` can be passed in). Edge cases (empty text, punctuation-only text) return `0.0` instead of raising `ZeroDivisionError`.
+- `punctuation.py` — pure string operations, no dependencies beyond `text_utils`
+- `pos.py` — spaCy loaded lazily via `functools.cache`; `tagger` is an injectable callable (`(str) -> list[tuple[str, str]]`) so tests never need the model
+- `text_stats.py` — same pattern; `lemmatize` is an injectable callable (`(str) -> list[str]`) for `ttr_lemmatized`
 
-POS tagging will follow the same pattern as a sibling `features/pos/` package.
+**Edge-case convention.** Empty or whitespace-only text and division-by-zero inputs always return `0.0`.
 
 ## Adding a new text feature
 
-All features follow the same pattern. Use this checklist when adding a new one (e.g. POS tagging, average word length, type-token ratio).
+### 1. Create a module under `src/ai_news_detector/features/`
 
-### 1. Create a package under `src/ai_news_detector/features/`
+Add a single file `features/your_feature.py`. No packages, no factories, no base classes.
 
-```
-features/
-└── your_feature/
-    ├── __init__.py        # re-export public names
-    ├── variants.py        # (optional) StrEnum of variants
-    ├── base.py            # (optional) shared ABC holding common config
-    ├── <variant>.py       # concrete extractor(s), one file per variant group
-    └── factory.py         # factory mapping variants to classes
-```
-
-### 2. Extend `TextFeatureExtractor`
-
-Every extractor must implement the root contract in `features/base.py`:
+### 2. Write plain functions returning `float`
 
 ```python
-from ai_news_detector.features.base import TextFeatureExtractor
+# features/your_feature.py
 
-@dataclass(frozen=True)
-class MyFeatureExtractor(TextFeatureExtractor):
-    @property
-    def name(self) -> str:
-        return "my_feature"
-
-    def extract(self, text: str) -> float:
-        ...
+def your_feature(text: str) -> float:
+    if not text.strip():
+        return 0.0
+    ...
 ```
 
 Guidelines:
 
-- Return type is always `float` (uniform API across all features).
-- Use `@dataclass(frozen=True)` — extractors must be immutable and hashable.
-- The `name` property must return a stable, snake_case identifier used as a feature key downstream.
-- Handle edge cases explicitly: empty text, whitespace-only, missing tokens. Never raise `ZeroDivisionError` — return `0.0` instead.
+- Return type is always `float`.
+- Handle edge cases explicitly: empty text, whitespace-only, potential division by zero — always return `0.0` instead of raising.
+- If the function depends on an external model (e.g. spaCy), load it lazily with `functools.cache` and accept an injectable callable parameter so tests never need the model installed.
+- Shared text helpers belong in `features/text_utils.py` (`count_words`, `count_letters`).
 
-### 3. Prefer composition for derived variants
-
-If a variant is a transformation of a base count (ratio, normalized value, log-scaled), **inject the base extractor as a field** — do not duplicate counting logic. See `features/punctuation/ratio.py` for the reference pattern:
+### 3. Write tests in `tests/test_<feature>.py`
 
 ```python
-@dataclass(frozen=True)
-class MyRatioExtractor(TextFeatureExtractor):
-    counter: MyCountExtractor = field(default_factory=MyCountExtractor)
-    ...
+from ai_news_detector.features.your_feature import your_feature
+
+def test_empty():
+    assert your_feature("") == 0.0
+
+def test_happy_path():
+    assert your_feature("some text") == pytest.approx(expected)
 ```
 
-This keeps counting logic in one place and lets tests inject a `MagicMock` for the inner extractor.
-
-### 4. Reuse `text_utils`
-
-Common text helpers live in `features/text_utils.py` (`count_words`, `count_letters`). Add new shared helpers there rather than duplicating them inside feature packages.
-
-### 5. Add a factory
-
-Use a `StrEnum` for variants and a classmethod registry. The factory must accept both enum values and plain strings, and raise `ValueError` on unknown variants (free via `EnumClass(variant)`):
-
-```python
-class MyFeatureFactory:
-    _registry: dict[MyVariant, type[TextFeatureExtractor]] = {
-        MyVariant.A: MyAExtractor,
-        MyVariant.B: MyBExtractor,
-    }
-
-    @classmethod
-    def create(cls, variant: MyVariant | str) -> TextFeatureExtractor:
-        return cls._registry[MyVariant(variant)]()
-```
-
-### 6. Re-export the public API
-
-In `features/your_feature/__init__.py`, re-export the enum, extractors, and factory so callers can import from the package root:
-
-```python
-from ai_news_detector.features.your_feature.variants import MyVariant
-from ai_news_detector.features.your_feature.factory import MyFeatureFactory
-# ... etc.
-
-__all__ = ["MyVariant", "MyFeatureFactory", ...]
-```
-
-### 7. Write tests under `tests/`
-
-One file per module (`test_<feature>_<variant>.py`, `test_<feature>_factory.py`). Each extractor needs:
+Each function needs:
 
 - A happy-path case with a known expected output.
-- Edge cases: empty string, whitespace-only, inputs that would cause division by zero.
-- A `name` property assertion.
-- For composed extractors: a `MagicMock` delegation test proving the inner extractor is called (composition over duplication).
-- For the factory: parametrized tests over every enum value, a string-input case, and a `ValueError` case for an unknown variant.
+- Edge cases: empty string, whitespace-only, division-by-zero inputs.
+- For functions with injectable callables: a test that confirms the callable is invoked with the right argument (use a plain lambda or closure — no `MagicMock` needed).
+- Integration tests that hit a real external model should use `pytest.mark.slow` and `pytest.mark.skipif` guarded by a model-availability check.
 
 Use `pytest.approx` for float comparisons and `@pytest.mark.parametrize` to keep tests compact.
 
-### 8. Run the suite
+### 4. Run the suite
 
 ```bash
 pytest -v
