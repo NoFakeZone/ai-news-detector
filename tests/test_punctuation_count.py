@@ -1,5 +1,6 @@
 import pytest
-from ai_news_detector.features.punctuation.count import PunctuationCountExtractor
+
+from ai_news_detector.features.punctuation import punctuation_count
 
 
 @pytest.mark.parametrize("text, expected", [
@@ -10,19 +11,13 @@ from ai_news_detector.features.punctuation.count import PunctuationCountExtracto
     ("!!!", 3.0),
     ("Hello, world! How are you?", 3.0),
 ])
-def test_extract(text, expected):
-    assert PunctuationCountExtractor().extract(text) == expected
+def test_punctuation_count(text, expected):
+    assert punctuation_count(text) == expected
 
 
-def test_name():
-    assert PunctuationCountExtractor().name == "punctuation_count"
+def test_custom_chars():
+    assert punctuation_count("hi!, bye.", chars=frozenset({"!"})) == 1.0
 
 
-def test_custom_punctuation_chars():
-    extractor = PunctuationCountExtractor(punctuation_chars=frozenset({"!"}))
-    assert extractor.extract("hi!, bye.") == 1.0
-
-
-def test_extract_returns_float():
-    result = PunctuationCountExtractor().extract("hi!")
-    assert isinstance(result, float)
+def test_returns_float():
+    assert isinstance(punctuation_count("hi!"), float)
