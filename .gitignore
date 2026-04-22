@@ -112,6 +112,12 @@ docker-data/
 # Python tooling (expanded)
 # -------------------------
 
+# Bytecode / compiled files
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
 # Pyright / Pylance
 pyrightconfig.json
 
@@ -120,6 +126,9 @@ pyrightconfig.json
 
 # Ruff
 .ruff_cache/
+
+# Pytest
+.pytest_cache/
 
 # Bandit
 .bandit/
