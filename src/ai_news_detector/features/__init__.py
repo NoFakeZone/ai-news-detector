@@ -11,6 +11,12 @@ from ai_news_detector.features.pos import (
     pos_count,
     pos_per_word,
 )
+from ai_news_detector.features.text_stats import (
+    ttr,
+    ttr_lemmatized,
+    capital_ratio,
+    avg_sentence_len,
+)
 
 __all__ = [
     "count_words",
@@ -23,4 +29,8 @@ __all__ = [
     "default_tagger",
     "pos_count",
     "pos_per_word",
+    "ttr",
+    "ttr_lemmatized",
+    "capital_ratio",
+    "avg_sentence_len",
 ]

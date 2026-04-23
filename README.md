@@ -8,11 +8,9 @@ Features are based on the wiki article: [text features](https://github.com/NoFak
 
 Implemented:
 
-- **Punctuation extraction** — three plain functions:
-  - `punctuation_count` — raw count
-  - `punctuation_per_word` — count / total words
-  - `punctuation_per_letter` — count / total letters
-- **POS tagging** — `pos_count` and `pos_per_word` functions accepting a UD tag string (`"NOUN"`, `"VERB"`, `"ADJ"`, …); uses [spaCy](https://spacy.io/) with the `pl_core_news_sm` Polish model (install with `python -m spacy download pl_core_news_sm`)
+- **Punctuation** — `punctuation_count`, `punctuation_per_word`, `punctuation_per_letter`
+- **Part-of-speech (POS) tagging** — `pos_count`, `pos_per_word` (Polish, via spaCy `pl_core_news_sm`)
+- **Text statistics** — `ttr`, `ttr_lemmatized`, `capital_ratio`, `avg_sentence_len`
 
 ## Project layout
 
@@ -23,22 +21,20 @@ ai-news-detector/
 ├── src/
 │   └── ai_news_detector/
 │       └── features/
-│           ├── __init__.py         # re-exports all public functions
-│           ├── text_utils.py       # count_words, count_letters
-│           ├── punctuation.py      # punctuation_count / per_word / per_letter
-│           └── pos.py              # pos_count, pos_per_word, default_tagger
+│           ├── text_utils.py      # count_words, count_letters
+│           ├── punctuation.py     # punctuation_count, punctuation_per_word, punctuation_per_letter
+│           ├── pos.py             # pos_count, pos_per_word (Polish spaCy)
+│           └── text_stats.py      # ttr, ttr_lemmatized, capital_ratio, avg_sentence_len
 └── tests/
     ├── test_text_utils.py
-    ├── test_punctuation_count.py
-    ├── test_punctuation_ratio.py
-    ├── test_pos_count.py
-    ├── test_pos_ratio.py
-    └── test_pos_tagger.py
+    ├── test_punctuation.py
+    ├── test_pos.py
+    └── test_text_stats.py
 ```
 
 ## Requirements
 
-- Python **3.11+**
+- Python **3.11+** (uses `StrEnum` and modern typing)
 - `pip`
 
 ## Setup
@@ -119,7 +115,7 @@ All scripts live under `scripts/` and can be invoked from any working directory 
 | `scripts/install.sh` | Reinstall the package with dev deps into the existing venv. |
 | `scripts/test.sh` | Run `pytest -v`. Extra args forward to pytest (`scripts/test.sh -k per_word`). |
 | `scripts/build.sh` | Build sdist + wheel into `dist/` (installs `build` on demand). |
-| `scripts/run.sh` | Run `scripts/demo.py`, which prints each punctuation and POS variant on a sample text. |
+| `scripts/run.sh` | Run `scripts/demo.py`, which demos punctuation, POS, and text stats features on sample texts. |
 | `scripts/_activate.sh` | Shared helper sourced by the other scripts; creates venv if missing and activates it. Not meant to be run directly. |
 
 ## Usage
@@ -134,117 +130,108 @@ from ai_news_detector.features.punctuation import (
 )
 
 text = "Hello, world! How are you?"
-
-punctuation_count(text)       # 3.0
-punctuation_per_word(text)    # 3.0 / 5  = 0.6
-punctuation_per_letter(text)  # 3.0 / 19 ≈ 0.1579
+punctuation_count(text)        # 3.0
+punctuation_per_word(text)     # 0.6  (3 / 5 words)
+punctuation_per_letter(text)   # ≈ 0.1579 (3 / 19 letters)
 ```
 
-### POS tagging
+Custom punctuation set (default is `string.punctuation`):
+
+```python
+import string
+chars = frozenset(string.punctuation) | {"—", "„", "…"}
+punctuation_count('She said „hello"… — really?', chars=chars)
+```
+
+### POS tagging (Polish)
 
 ```python
 from ai_news_detector.features.pos import pos_count, pos_per_word
 
 text = "Kot biegnie szybko przez zielony ogród."
-
-pos_count(text, tag="NOUN")       # number of nouns as a float
-pos_per_word(text, tag="VERB")    # verbs per word
+pos_count(text, tag="NOUN")     # float — number of nouns
+pos_per_word(text, tag="VERB")  # float — verbs / total words
 ```
 
-The `tag` argument is any [Universal Dependencies POS tag](https://universaldependencies.org/u/pos/) string. Default is `"NOUN"`.
+Requires the `pl_core_news_sm` spaCy model (see [Setup](#setup)). An injectable `tagger` callable can be passed for testing.
 
-### Custom punctuation set
-
-The default punctuation set is `string.punctuation` (ASCII). Override it for Unicode punctuation (e.g. `—`, `„`, `…`) via the `chars` keyword:
+### Text statistics
 
 ```python
-import string
-from ai_news_detector.features.punctuation import punctuation_count
+from ai_news_detector.features.text_stats import (
+    ttr,
+    ttr_lemmatized,
+    capital_ratio,
+    avg_sentence_len,
+)
 
-chars = frozenset(string.punctuation) | {"—", "„", "…"}
-punctuation_count("She said „hello"… — really?", chars=chars)
+text = "Kot biegnie. Pies biegnie."
+ttr(text)              # type-token ratio (simple, regex-based)
+ttr_lemmatized(text)   # TTR after lemmatisation via spaCy (requires pl_core_news_sm)
+capital_ratio(text)    # ratio of non-sentence-start capitals to text length
+avg_sentence_len(text) # average word count per sentence
 ```
 
-### Custom tagger (testing or non-spaCy backends)
-
-`pos_count` and `pos_per_word` accept a `tagger` callable so the spaCy boundary can be swapped out (e.g. for tests or alternative NLP backends). It must take a string and return a `list[tuple[str, str]]` of `(token, pos_tag)` pairs:
-
-```python
-from ai_news_detector.features.pos import pos_count
-
-def fake_tagger(text):
-    return [("Kot", "NOUN"), ("biegnie", "VERB")]
-
-pos_count("Kot biegnie", tag="NOUN", tagger=fake_tagger)  # 1.0
-```
+An injectable `lemmatize` callable can be passed to `ttr_lemmatized` for testing.
 
 ## Design
 
-Each feature variant is a plain module-level function returning `float`. There are no classes, ABCs, or factory dispatch layers — callers import the function they want and call it.
+All features are **plain functions** that return `float`. There are no classes, factories, or enums.
 
-Conventions every function follows:
+Each module is self-contained:
 
-- **Return type is always `float`** (uniform API across all features).
-- **Edge cases return `0.0`** — empty text, whitespace-only, or anything that would divide by zero. Never raise `ZeroDivisionError`.
-- **Derived variants delegate to the base count** rather than duplicating logic. `punctuation_per_word` calls `punctuation_count` internally; `pos_per_word` calls `pos_count` internally.
-- **External dependencies are injectable as parameters** with sensible defaults — `chars` for punctuation, `tagger` for POS — so tests can pass mocks without monkey-patching.
+- `punctuation.py` — pure string operations, no dependencies beyond `text_utils`
+- `pos.py` — spaCy loaded lazily via `functools.cache`; `tagger` is an injectable callable (`(str) -> list[tuple[str, str]]`) so tests never need the model
+- `text_stats.py` — same pattern; `lemmatize` is an injectable callable (`(str) -> list[str]`) for `ttr_lemmatized`
 
-Shared text-tokenization helpers live in `features/text_utils.py` (`count_words`, `count_letters`).
+**Edge-case convention.** Empty or whitespace-only text and division-by-zero inputs always return `0.0`.
 
 ## Adding a new text feature
 
-The pattern is intentionally minimal. To add a feature (e.g. average word length, type-token ratio):
+### 1. Create a module under `src/ai_news_detector/features/`
 
-### 1. Create one module under `src/ai_news_detector/features/`
+Add a single file `features/your_feature.py`. No packages, no factories, no base classes.
 
-```
-features/
-└── your_feature.py
-```
-
-A single flat module. Don't create a package directory unless the feature genuinely needs multiple files.
-
-### 2. Write one function per variant
+### 2. Write plain functions returning `float`
 
 ```python
-from ai_news_detector.features.text_utils import count_words
+# features/your_feature.py
 
-def my_feature_count(text: str) -> float:
-    ...
-
-def my_feature_per_word(text: str) -> float:
-    words = count_words(text)
-    if words == 0:
+def your_feature(text: str) -> float:
+    if not text.strip():
         return 0.0
-    return my_feature_count(text) / words
+    ...
 ```
 
 Guidelines:
 
-- Return `float`.
-- Handle empty / whitespace-only / divide-by-zero by returning `0.0`.
-- Derived variants should call the base count function directly, not duplicate logic.
-- Make external dependencies (taggers, models, char sets) optional parameters with defaults, so tests can inject mocks.
+- Return type is always `float`.
+- Handle edge cases explicitly: empty text, whitespace-only, potential division by zero — always return `0.0` instead of raising.
+- If the function depends on an external model (e.g. spaCy), load it lazily with `functools.cache` and accept an injectable callable parameter so tests never need the model installed.
+- Shared text helpers belong in `features/text_utils.py` (`count_words`, `count_letters`).
 
-### 3. Reuse `text_utils`
+### 3. Write tests in `tests/test_<feature>.py`
 
-Tokenization helpers (`count_words`, `count_letters`) live in `features/text_utils.py`. Add new shared helpers there rather than duplicating them.
+```python
+from ai_news_detector.features.your_feature import your_feature
 
-### 4. Re-export from `features/__init__.py`
+def test_empty():
+    assert your_feature("") == 0.0
 
-Add the new functions to the package-level imports and `__all__` so callers can write `from ai_news_detector.features import my_feature_count`.
+def test_happy_path():
+    assert your_feature("some text") == pytest.approx(expected)
+```
 
-### 5. Write tests under `tests/`
+Each function needs:
 
-One file per variant group: `test_<feature>_<variant>.py`. Each function needs:
-
-- Parametrized happy-path cases with known expected outputs.
-- Edge cases: empty string, whitespace-only, divide-by-zero inputs.
-- For functions taking a `tagger` (or other injectable dep): assertions that the dep is called with the right args, and that it is **not** called when the early-return short-circuits.
+- A happy-path case with a known expected output.
+- Edge cases: empty string, whitespace-only, division-by-zero inputs.
+- For functions with injectable callables: a test that confirms the callable is invoked with the right argument (use a plain lambda or closure — no `MagicMock` needed).
+- Integration tests that hit a real external model should use `pytest.mark.slow` and `pytest.mark.skipif` guarded by a model-availability check.
 
 Use `pytest.approx` for float comparisons and `@pytest.mark.parametrize` to keep tests compact.
 
-### 6. Run the suite
+### 4. Run the suite
 
 ```bash
 pytest -v
