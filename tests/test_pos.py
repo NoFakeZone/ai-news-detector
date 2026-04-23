@@ -2,10 +2,9 @@ import pytest
 from ai_news_detector.features.pos import pos_count, pos_per_word, UD_TAGS
 
 try:
-    import spacy
-    spacy.load("pl_core_news_sm")
-    _has_model = True
-except Exception:
+    import spacy as _spacy
+    _has_model = _spacy.util.is_package("pl_core_news_sm")
+except ImportError:
     _has_model = False
 
 _requires_model = pytest.mark.skipif(not _has_model, reason="pl_core_news_sm not installed")
@@ -26,14 +25,26 @@ def test_count(tagged, tag, expected):
     assert pos_count("text", tag=tag, tagger=_tagger(tagged)) == expected
 
 
-def test_count_empty_text():
-    tagger = _tagger([("Kot", "NOUN")])
-    assert pos_count("", tagger=tagger) == 0.0
+def test_count_empty_text_does_not_call_tagger():
+    called = []
+
+    def spy(text):
+        called.append(text)
+        return [("Kot", "NOUN")]
+
+    assert pos_count("", tagger=spy) == 0.0
+    assert called == []
 
 
-def test_count_whitespace_only():
-    tagger = _tagger([("Kot", "NOUN")])
-    assert pos_count("   ", tagger=tagger) == 0.0
+def test_count_whitespace_only_does_not_call_tagger():
+    called = []
+
+    def spy(text):
+        called.append(text)
+        return [("Kot", "NOUN")]
+
+    assert pos_count("   ", tagger=spy) == 0.0
+    assert called == []
 
 
 def test_count_returns_float():

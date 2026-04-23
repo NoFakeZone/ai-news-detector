@@ -115,7 +115,7 @@ All scripts live under `scripts/` and can be invoked from any working directory 
 | `scripts/install.sh` | Reinstall the package with dev deps into the existing venv. |
 | `scripts/test.sh` | Run `pytest -v`. Extra args forward to pytest (`scripts/test.sh -k per_word`). |
 | `scripts/build.sh` | Build sdist + wheel into `dist/` (installs `build` on demand). |
-| `scripts/run.sh` | Run `scripts/demo.py`, which prints each punctuation variant's output on a sample text. |
+| `scripts/run.sh` | Run `scripts/demo.py`, which demos punctuation, POS, and text stats features on sample texts. |
 | `scripts/_activate.sh` | Shared helper sourced by the other scripts; creates venv if missing and activates it. Not meant to be run directly. |
 
 ## Usage
@@ -132,7 +132,7 @@ from ai_news_detector.features.punctuation import (
 text = "Hello, world! How are you?"
 punctuation_count(text)        # 3.0
 punctuation_per_word(text)     # 0.6  (3 / 5 words)
-punctuation_per_letter(text)   # 0.15 (3 / 20 letters)
+punctuation_per_letter(text)   # ≈ 0.1579 (3 / 19 letters)
 ```
 
 Custom punctuation set (default is `string.punctuation`):
@@ -140,7 +140,7 @@ Custom punctuation set (default is `string.punctuation`):
 ```python
 import string
 chars = frozenset(string.punctuation) | {"—", "„", "…"}
-punctuation_count("She said „hello"… — really?", chars=chars)
+punctuation_count('She said „hello"… — really?', chars=chars)
 ```
 
 ### POS tagging (Polish)

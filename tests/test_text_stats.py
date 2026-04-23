@@ -7,10 +7,9 @@ from ai_news_detector.features.text_stats import (
 )
 
 try:
-    import spacy
-    spacy.load("pl_core_news_sm")
-    _has_model = True
-except Exception:
+    import spacy as _spacy
+    _has_model = _spacy.util.is_package("pl_core_news_sm")
+except ImportError:
     _has_model = False
 
 _requires_model = pytest.mark.skipif(not _has_model, reason="pl_core_news_sm not installed")
@@ -86,6 +85,9 @@ def test_ttr_lemmatized_spacy_integration():
     ("all lowercase", 0.0),
     ("Hello world.", 0.0),
     ("Hello. World.", 0.0),
+    ("Hello! World", 0.0),
+    ("Hello? World", 0.0),
+    ("Hello! World? Yes.", 0.0),
 ])
 def test_capital_ratio_no_internal_caps(text, expected):
     assert capital_ratio(text) == pytest.approx(expected)

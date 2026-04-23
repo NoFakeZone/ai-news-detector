@@ -44,7 +44,7 @@ def capital_ratio(text: str) -> float:
     if not text:
         return 0.0
     all_caps = len(re.findall(r'[A-Z]', text))
-    sentence_starts = len(re.findall(r'(?:^|[.;]\s*)[A-Z]', text))
+    sentence_starts = len(re.findall(r'(?:^|[.!?]+\s*)[A-Z]', text))
     internal_caps = max(0, all_caps - sentence_starts)
     return internal_caps / len(text)
 
