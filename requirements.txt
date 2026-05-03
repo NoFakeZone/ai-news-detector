@@ -1,5 +1,8 @@
 # Runtime dependency: spaCy (used by the Polish POS tagger).
 spacy>=3.7
+torch==2.11.0
+transformers==5.7.0
+scikit-learn==1.8.0
 
 # Polish spaCy model — install with one of:
 #   pip install -e ".[pl]"                       (via the pyproject "pl" extra)

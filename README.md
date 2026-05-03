@@ -46,7 +46,29 @@ git clone https://github.com/NoFakeZone/ai-news-detector.git
 cd ai-news-detector
 ```
 
-### 2. Bootstrap the environment (recommended)
+### 2. Download the dataset
+
+The required data sets for model training are hosted independently in the generator repo. To fetch and configure them:
+
+```bash
+git clone https://github.com/NoFakeZone/ai-news-generator.git ../ai-news-generator
+mkdir -p dataset
+cp -r ../ai-news-generator/*/ dataset/
+```
+Make sure `dataset/` is populated with the model directories in the `ai-news-detector` root directory. 
+
+The structure of the `dataset/` directory should look like this:
+```
+dataset/
+├── gemini-2.5-flash/
+│   ├── 126.json
+│   └── ...
+├── gpt-oss-120b/
+│   ├── ...
+```
+Each JSON file contains generated news data, including fields like `Provider`, `Wygenerowany tytuł`, `Wygenerowany tekst`, and the corresponding `Model`.
+
+### 3. Bootstrap the environment (recommended)
 
 The `scripts/` folder contains bash helpers that handle venv creation, activation, installing deps, running the demo, running tests, and building. Run them from the repo root (on Windows, use Git Bash):
 
@@ -63,7 +85,7 @@ source venv/Scripts/activate   # Windows (Git Bash)
 source venv/bin/activate       # Linux / macOS
 ```
 
-### 3. Manual setup (alternative)
+### 4. Manual setup (alternative)
 
 If you prefer not to use the helper scripts:
 
@@ -98,7 +120,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-### 4. Run the tests
+### 5. Run the tests
 
 ```bash
 bash scripts/test.sh      # via helper (activates venv for you)
@@ -117,6 +139,14 @@ All scripts live under `scripts/` and can be invoked from any working directory 
 | `scripts/build.sh` | Build sdist + wheel into `dist/` (installs `build` on demand). |
 | `scripts/run.sh` | Run `scripts/demo.py`, which demos punctuation, POS, and text stats features on sample texts. |
 | `scripts/_activate.sh` | Shared helper sourced by the other scripts; creates venv if missing and activates it. Not meant to be run directly. |
+
+## Training the Model
+
+Before testing or using the features in production, you can train a `MultiModalBertModel` with your pulled dataset by invoking the training script. This script manages reading data subsets, calculating specific dynamic popularity indexes, loading tensors to correct available device, and setting the model hyperparameters.
+
+```bash
+python src/train.py
+```
 
 ## Usage
 

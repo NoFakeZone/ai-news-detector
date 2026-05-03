@@ -7,7 +7,12 @@ name = "ai-news-detector"
 version = "0.1.0"
 description = "Text feature extraction for news authenticity analysis"
 requires-python = ">=3.11"
-dependencies = ["spacy>=3.7"]
+dependencies = [
+    "spacy>=3.7",
+    "torch==2.11.0",
+    "transformers==5.7.0",
+    "scikit-learn==1.8.0"
+]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
