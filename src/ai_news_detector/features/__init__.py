@@ -17,6 +17,11 @@ from ai_news_detector.features.text_stats import (
     capital_ratio,
     avg_sentence_len,
 )
+from ai_news_detector.features.syllables import (
+    count_syllables_word,
+    avg_syllables_per_sentence,
+    avg_word_length,
+)
 
 __all__ = [
     "count_words",
@@ -33,4 +38,7 @@ __all__ = [
     "ttr_lemmatized",
     "capital_ratio",
     "avg_sentence_len",
+    "count_syllables_word",
+    "avg_syllables_per_sentence",
+    "avg_word_length",
 ]
