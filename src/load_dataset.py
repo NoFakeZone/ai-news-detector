@@ -23,7 +23,6 @@ def build_popularity_dictionary(train_texts: list, train_labels: list, nlp) -> d
     human_texts = [text for text, label in zip(train_texts, train_labels) if label == 0]
     word_counts = Counter()
     
-    # Using nlp.pipe is much faster for processing large lists of text
     for doc in nlp.pipe(human_texts, disable=["parser", "ner"]):
         for token in doc:
             if not token.is_stop and not token.is_punct and not token.is_space and token.is_alpha:
@@ -39,8 +38,6 @@ def build_popularity_dictionary(train_texts: list, train_labels: list, nlp) -> d
     return popularity_dict
 
 def append_popularity_feature(texts: list, features: list, popularity_dict: dict, nlp):
-    """Calculates the index for a list of texts and appends it to the features list."""
-    # Process texts in bulk for speed
     docs = nlp.pipe(texts, disable=["parser", "ner"])
     
     for i, doc in enumerate(docs):
@@ -54,7 +51,6 @@ def append_popularity_feature(texts: list, features: list, popularity_dict: dict
                 valid_words_count += 1
                 
         pop_index = total_score / valid_words_count if valid_words_count > 0 else 0.0
-        # Append the new feature to the existing feature list for this specific text
         features[i].append(pop_index)
 
 def preprocess_for_bert(text: str) -> str:
@@ -63,29 +59,44 @@ def preprocess_for_bert(text: str) -> str:
     text = re.sub(r'\s+', ' ', text)
     return text.strip()
 
-# Dodano opcję use_stylistic_features, by łatwo wyłączać ciężkie obliczenia
-def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_popularity_index=True, wiki_popularity_index=False, wiki_dict_path="wiki_popularity_dict.json"):
+def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_popularity_index=True, wiki_popularity_index=False, wiki_dict_path="wiki_popularity_dict.json", max_train_samples=7200, max_test_samples=2000):
     if test_dataset not in FOLDERS:
         raise ValueError('Invalid dataset name')
     
+    # Calculate target splits (50% AI, 50% Human)
+    target_test_ai = max_test_samples // 2
+    target_test_human = max_test_samples - target_test_ai
+    target_train_ai = max_train_samples // 2
+    target_train_human = max_train_samples - target_train_ai
+
     test_ids = []
     test_texts = []
     test_labels = []
     test_features = []
     
-    n = len(os.listdir(os.path.join(dataset_path, test_dataset)))
-    i = 0
-    for file in os.listdir(os.path.join(dataset_path, test_dataset)):
+    # ---------------------------------------------------------
+    # 1. LOAD TEST AI DATA (Label 1)
+    # ---------------------------------------------------------
+    print(f"Loading AI Test Data (Target: {target_test_ai})...")
+    # sorted() is CRITICAL for getting the exact same files every run
+    test_files = sorted(os.listdir(os.path.join(dataset_path, test_dataset))) 
+    
+    for file in test_files:
+        if len(test_texts) >= target_test_ai:
+            break
+            
         with open(os.path.join(dataset_path, test_dataset, file), 'r', encoding='utf-8') as f:
             data = json.load(f)
             test_ids.append(int(file.split('.')[0]))
             texts = [sentence.strip() for sentence in data['Wygenerowany tekst'].split('\n\n')]
+            
             for t in texts:
                 if len(t.split(' ')) < 15:
                     continue 
+                if len(test_texts) >= target_test_ai:
+                    break # Stop if we reached the limit
                 
                 temp_features = []
-                # Obliczaj cechy stylistyczne tylko jeśli flaga jest True
                 if use_stylistic_features:
                     pos_ratios = all_pos_per_word(t)
                     for pos in UD_TAGS:
@@ -103,9 +114,6 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
                 test_features.append(temp_features)
                 test_texts.append(preprocess_for_bert(t))
                 test_labels.append(1)
-        i += 1
-        if i % 100 == 0:
-            print(f'{i}/{n}')
 
     test_ids = set(test_ids)
     train_ids = []
@@ -113,21 +121,34 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
     train_labels = []
     train_features = []
 
-    for folder in FOLDERS:
-        if folder == test_dataset:
-            continue
-        n = len(os.listdir(os.path.join(dataset_path, folder)))
-        i = 0
-        for file in os.listdir(os.path.join(dataset_path, folder)):
+    # ---------------------------------------------------------
+    # 2. LOAD TRAIN AI DATA (Label 1)
+    # ---------------------------------------------------------
+    train_folders = [folder for folder in FOLDERS if folder != test_dataset]
+    per_folder_limit = target_train_ai // len(train_folders) # Distribute evenly across LLMs
+    print(f"Loading AI Train Data (Target: {target_train_ai}, ~{per_folder_limit} per model)...")
+
+    for folder in train_folders:
+        folder_count = 0
+        train_files = sorted(os.listdir(os.path.join(dataset_path, folder)))
+        
+        for file in train_files:
+            if folder_count >= per_folder_limit:
+                break
+                
             with open(os.path.join(dataset_path, folder, file), 'r', encoding='utf-8') as f:
                 data = json.load(f)
                 if int(file.split('.')[0]) in test_ids:
                     continue
+                
                 train_ids.append(int(file.split('.')[0]))
                 texts = [sentence.strip() for sentence in data['Wygenerowany tekst'].split('\n\n')]
+                
                 for t in texts:
                     if len(t.split(' ')) < 15:
                         continue 
+                    if folder_count >= per_folder_limit:
+                        break
                     
                     temp_features = []
                     if use_stylistic_features:
@@ -144,24 +165,41 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
                         temp_features.append(avg_word_length(t))
                     else:
                         temp_features.append(0)
+                        
                     train_features.append(temp_features)
                     train_texts.append(preprocess_for_bert(t))
                     train_labels.append(1)
-            i += 1
-            if i % 100 == 0:
-                print(f'{i}/{n}')
+                    folder_count += 1
 
     train_ids = set(train_ids)
 
+    # ---------------------------------------------------------
+    # 3. LOAD HUMAN DATA (Label 0)
+    # ---------------------------------------------------------
+    print(f"Loading Human Data (Target Train: {target_train_human}, Target Test: {target_test_human})...")
+    human_test_added = 0
+    human_train_added = 0
+
     with open(os.path.join(dataset_path, 'scraped_news.json'), 'r', encoding='utf-8') as f:
         data = json.load(f)
-        n = len(data)
-        i = 0
+        # Sort data by ID to guarantee the same human samples are picked every time
+        data = sorted(data, key=lambda x: x.get('id', 0)) 
+        
         for row in data:
+            if human_test_added >= target_test_human and human_train_added >= target_train_human:
+                break # Stop processing JSON entirely once both quotas are met
+                
             texts = [sentence.strip() for sentence in row['body'].split('\n\n')]
             for t in texts:
                 if len(t.split(' ')) < 15:
                     continue 
+                
+                # Check limits BEFORE extracting heavy features
+                is_test_target = row['id'] in test_ids and human_test_added < target_test_human
+                is_train_target = row['id'] in train_ids and human_train_added < target_train_human
+                
+                if not is_test_target and not is_train_target:
+                    continue
                 
                 temp_features = []
                 if use_stylistic_features:
@@ -178,32 +216,32 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
                     temp_features.append(avg_word_length(t))
                 else:
                     temp_features.append(0)
-                if row['id'] in test_ids:
+                
+                if is_test_target:
                     test_features.append(temp_features)
                     test_texts.append(preprocess_for_bert(t))
                     test_labels.append(0)
-                elif row['id'] in train_ids:
+                    human_test_added += 1
+                elif is_train_target:
                     train_features.append(temp_features)
                     train_texts.append(preprocess_for_bert(t))
                     train_labels.append(0)
-            i += 1
-            if i % 100 == 0:
-                print(f'{i}/{n}')
+                    human_train_added += 1
+
+    print(f"Final Counts -> TRAIN: {len(train_texts)} | TEST: {len(test_texts)}")
 
     # ==========================================
     # --- POPULARITY INDEX INTEGRATION ---
     # ==========================================
     if basic_popularity_index or wiki_popularity_index:
         print("\nLoading Polish NLP model for popularity indices...")
-        nlp = spacy.load("pl_core_news_md") # Loads only once to save time
+        nlp = spacy.load("pl_core_news_md")
 
     if basic_popularity_index:
         print("\n--- Applying Basic Popularity Index ---")
         popularity_dict = build_popularity_dictionary(train_texts, train_labels, nlp)
-        
         print("Calculating basic popularity index for training data...")
         append_popularity_feature(train_texts, train_features, popularity_dict, nlp)
-        
         print("Calculating basic popularity index for testing data...")
         append_popularity_feature(test_texts, test_features, popularity_dict, nlp)
 
@@ -217,7 +255,6 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
             
         print("Calculating Wiki popularity index for training data...")
         append_popularity_feature(train_texts, train_features, wiki_popularity_dict, nlp)
-        
         print("Calculating Wiki popularity index for testing data...")
         append_popularity_feature(test_texts, test_features, wiki_popularity_dict, nlp)
 
