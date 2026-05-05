@@ -1,3 +1,5 @@
 2026-05-05 18:41:58,732 [INFO] Chosen DEVICE: cuda
 2026-05-05 18:41:58,732 [INFO] All outputs will be saved to directory: wb_training_run_nf_gpt-oss-120b/
 2026-05-05 18:42:00,774 [INFO] Train samples: 20023 | Val samples: 2224 | Test samples: 6781
+2026-05-05 18:44:02,528 [INFO] Chosen DEVICE: cuda
+2026-05-05 18:44:02,529 [INFO] All outputs will be saved to directory: wb_training_run_nf_gpt-oss-120b/
