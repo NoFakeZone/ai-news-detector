@@ -132,6 +132,7 @@ def load_dataset(test_dataset, dataset_path, basic_popularity_index=True, wiki_p
                     temp_features.append(avg_sentence_len(t))
                     temp_features.append(capital_ratio(t))
                     temp_features.append(ttr(t))
+                    temp_features.append(ttr_lemmatized(t))
                     temp_features.append(avg_syllables_per_sentence(t))
                     temp_features.append(avg_word_length(t))
                     train_features.append(temp_features)
@@ -161,6 +162,7 @@ def load_dataset(test_dataset, dataset_path, basic_popularity_index=True, wiki_p
                 temp_features.append(avg_sentence_len(t))
                 temp_features.append(capital_ratio(t))
                 temp_features.append(ttr(t))
+                temp_features.append(ttr_lemmatized(t))
                 temp_features.append(avg_syllables_per_sentence(t))
                 temp_features.append(avg_word_length(t))
                 if row['id'] in test_ids:
