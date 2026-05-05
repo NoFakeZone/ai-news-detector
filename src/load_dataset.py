@@ -63,8 +63,8 @@ def preprocess_for_bert(text: str) -> str:
     text = re.sub(r'\s+', ' ', text)
     return text.strip()
 
-# Dodano opcję wiki_popularity_index oraz ścieżkę do pliku ze słownikiem
-def load_dataset(test_dataset, dataset_path, basic_popularity_index=True, wiki_popularity_index=False, wiki_dict_path="wiki_popularity_dict.json"):
+# Dodano opcję use_stylistic_features, by łatwo wyłączać ciężkie obliczenia
+def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_popularity_index=True, wiki_popularity_index=False, wiki_dict_path="wiki_popularity_dict.json"):
     if test_dataset not in FOLDERS:
         raise ValueError('Invalid dataset name')
     
@@ -83,18 +83,23 @@ def load_dataset(test_dataset, dataset_path, basic_popularity_index=True, wiki_p
             for t in texts:
                 if len(t.split(' ')) < 15:
                     continue 
+                
                 temp_features = []
-                pos_ratios = all_pos_per_word(t)
-                for pos in UD_TAGS:
-                    temp_features.append(pos_ratios[pos])
-                temp_features.append(punctuation_per_letter(t))
-                temp_features.append(punctuation_per_word(t))
-                temp_features.append(avg_sentence_len(t))
-                temp_features.append(capital_ratio(t))
-                temp_features.append(ttr(t))
-                temp_features.append(ttr_lemmatized(t))
-                temp_features.append(avg_syllables_per_sentence(t))
-                temp_features.append(avg_word_length(t))
+                # Obliczaj cechy stylistyczne tylko jeśli flaga jest True
+                if use_stylistic_features:
+                    pos_ratios = all_pos_per_word(t)
+                    for pos in UD_TAGS:
+                        temp_features.append(pos_ratios[pos])
+                    temp_features.append(punctuation_per_letter(t))
+                    temp_features.append(punctuation_per_word(t))
+                    temp_features.append(avg_sentence_len(t))
+                    temp_features.append(capital_ratio(t))
+                    temp_features.append(ttr(t))
+                    temp_features.append(ttr_lemmatized(t))
+                    temp_features.append(avg_syllables_per_sentence(t))
+                    temp_features.append(avg_word_length(t))
+                else:
+                    temp_features.append(None)
                 test_features.append(temp_features)
                 test_texts.append(preprocess_for_bert(t))
                 test_labels.append(1)
@@ -123,18 +128,22 @@ def load_dataset(test_dataset, dataset_path, basic_popularity_index=True, wiki_p
                 for t in texts:
                     if len(t.split(' ')) < 15:
                         continue 
+                    
                     temp_features = []
-                    pos_ratios = all_pos_per_word(t)
-                    for pos in UD_TAGS:
-                        temp_features.append(pos_ratios[pos])
-                    temp_features.append(punctuation_per_letter(t))
-                    temp_features.append(punctuation_per_word(t))
-                    temp_features.append(avg_sentence_len(t))
-                    temp_features.append(capital_ratio(t))
-                    temp_features.append(ttr(t))
-                    temp_features.append(ttr_lemmatized(t))
-                    temp_features.append(avg_syllables_per_sentence(t))
-                    temp_features.append(avg_word_length(t))
+                    if use_stylistic_features:
+                        pos_ratios = all_pos_per_word(t)
+                        for pos in UD_TAGS:
+                            temp_features.append(pos_ratios[pos])
+                        temp_features.append(punctuation_per_letter(t))
+                        temp_features.append(punctuation_per_word(t))
+                        temp_features.append(avg_sentence_len(t))
+                        temp_features.append(capital_ratio(t))
+                        temp_features.append(ttr(t))
+                        temp_features.append(ttr_lemmatized(t))
+                        temp_features.append(avg_syllables_per_sentence(t))
+                        temp_features.append(avg_word_length(t))
+                    else:
+                        temp_features.append(None)
                     train_features.append(temp_features)
                     train_texts.append(preprocess_for_bert(t))
                     train_labels.append(1)
@@ -153,18 +162,22 @@ def load_dataset(test_dataset, dataset_path, basic_popularity_index=True, wiki_p
             for t in texts:
                 if len(t.split(' ')) < 15:
                     continue 
+                
                 temp_features = []
-                pos_ratios = all_pos_per_word(t)
-                for pos in UD_TAGS:
-                    temp_features.append(pos_ratios[pos])
-                temp_features.append(punctuation_per_letter(t))
-                temp_features.append(punctuation_per_word(t))
-                temp_features.append(avg_sentence_len(t))
-                temp_features.append(capital_ratio(t))
-                temp_features.append(ttr(t))
-                temp_features.append(ttr_lemmatized(t))
-                temp_features.append(avg_syllables_per_sentence(t))
-                temp_features.append(avg_word_length(t))
+                if use_stylistic_features:
+                    pos_ratios = all_pos_per_word(t)
+                    for pos in UD_TAGS:
+                        temp_features.append(pos_ratios[pos])
+                    temp_features.append(punctuation_per_letter(t))
+                    temp_features.append(punctuation_per_word(t))
+                    temp_features.append(avg_sentence_len(t))
+                    temp_features.append(capital_ratio(t))
+                    temp_features.append(ttr(t))
+                    temp_features.append(ttr_lemmatized(t))
+                    temp_features.append(avg_syllables_per_sentence(t))
+                    temp_features.append(avg_word_length(t))
+                else:
+                    temp_features.append(None)
                 if row['id'] in test_ids:
                     test_features.append(temp_features)
                     test_texts.append(preprocess_for_bert(t))

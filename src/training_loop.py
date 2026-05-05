@@ -14,7 +14,7 @@ from dataset import NewsPopularityDataset
 from load_dataset import load_dataset
 
 # --- KONFIGURACJA ŚCIEŻEK I FOLDERÓW ---
-OUTPUT_DIR = "wb_training_run_01" # Nazwa folderu na logi i modele
+OUTPUT_DIR = "wb_training_run_nf_gpt-oss-120b" # Nazwa folderu na logi i modele
 os.makedirs(OUTPUT_DIR, exist_ok=True) # Tworzy folder, jeśli nie istnieje
 
 BEST_MODEL_PATH = os.path.join(OUTPUT_DIR, "best_bert_stylistic_model.pt")
@@ -45,6 +45,7 @@ TEST_DATA = 'gpt-oss-120b'
 DATA_PATH = r'C:\Users\PC\OneDrive\Pulpit\projekty\ai-news-generator'
 BASIC_POPULARITY_INDEX = False
 WIKIPEDIA_POPULARITY_INDEX = True
+USE_STYLISTIC_FEATURES = True
 
 RESUME_TRAINING = False 
 
@@ -53,7 +54,7 @@ logger.info(f'Chosen DEVICE: {device}')
 logger.info(f"All outputs will be saved to directory: {OUTPUT_DIR}/")
 
 # --- PRZYGOTOWANIE DANYCH ---
-data = load_dataset(TEST_DATA, DATA_PATH, BASIC_POPULARITY_INDEX, WIKIPEDIA_POPULARITY_INDEX)
+data = load_dataset(TEST_DATA, DATA_PATH, USE_STYLISTIC_FEATURES, BASIC_POPULARITY_INDEX, WIKIPEDIA_POPULARITY_INDEX)
 size_of_train = len(data[3])
 indices = random.sample(range(size_of_train), int(size_of_train * 0.1))
 # ... (Zakładam, że Twoje dane są wczytywane poprawnie tak jak wcześniej) ...
