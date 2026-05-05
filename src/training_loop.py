@@ -83,9 +83,9 @@ val_text = list(val_text)
 logger.info(f"Train samples: {len(train_text)} | Val samples: {len(val_text)} | Test samples: {len(test_text)}")
 
 # --- INICJALIZACJA DATASETÓW I LOADERÓW ---
-train_dataset = NewsPopularityDataset(train_text, train_features, train_labels, BERT_MODEL_NAME)
-val_dataset = NewsPopularityDataset(val_text, val_features, val_labels, BERT_MODEL_NAME)
-test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME)
+train_dataset = NewsPopularityDataset(train_text, train_features, train_labels, BERT_MODEL_NAME, USE_STYLISTIC_FEATURES)
+val_dataset = NewsPopularityDataset(val_text, val_features, val_labels, BERT_MODEL_NAME, USE_STYLISTIC_FEATURES)
+test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME, USE_STYLISTIC_FEATURES)
 
 train_loader = DataLoader(train_dataset, batch_size=REAL_BATCH, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=REAL_BATCH, shuffle=False)
