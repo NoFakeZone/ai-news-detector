@@ -144,9 +144,8 @@ for epoch in range(start_epoch, EPOCHS):
         input_ids = batch['input_ids'].to(device)
         attention_mask = batch['attention_mask'].to(device)
         float_vectors = batch['float_vectors'].to(device)
-        labels = batch['labels'].to(device).float().squeeze() 
-
-        logits = model(input_ids, attention_mask, float_vectors).squeeze()
+        labels = batch['labels'].to(device).float().view(-1) 
+        logits = model(input_ids, attention_mask, float_vectors).view(-1)
         
         loss = criterion(logits, labels)
         loss = loss / BATCH_ACCUMULATION 
@@ -188,9 +187,8 @@ for epoch in range(start_epoch, EPOCHS):
             input_ids = batch['input_ids'].to(device)
             attention_mask = batch['attention_mask'].to(device)
             float_vectors = batch['float_vectors'].to(device)
-            labels = batch['labels'].to(device).float().squeeze()
-
-            logits = model(input_ids, attention_mask, float_vectors).squeeze()
+            labels = batch['labels'].to(device).float().view(-1) 
+            logits = model(input_ids, attention_mask, float_vectors).view(-1)
             loss = criterion(logits, labels)
             
             val_loss += loss.item()
@@ -240,9 +238,8 @@ with torch.no_grad():
         input_ids = batch['input_ids'].to(device)
         attention_mask = batch['attention_mask'].to(device)
         float_vectors = batch['float_vectors'].to(device)
-        labels = batch['labels'].to(device).float().squeeze()
-
-        logits = model(input_ids, attention_mask, float_vectors).squeeze()
+        labels = batch['labels'].to(device).float().view(-1) 
+        logits = model(input_ids, attention_mask, float_vectors).view(-1)
         loss = criterion(logits, labels)
         
         test_loss += loss.item()
