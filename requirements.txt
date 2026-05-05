@@ -1,6 +1,9 @@
+--extra-index-url https://download.pytorch.org/whl/cu126
+
 # Runtime dependency: spaCy (used by the Polish POS tagger).
 spacy>=3.7
-torch==2.11.0
+torch==2.11.0+cu126
+torchvision==0.26.0+cu126
 transformers==5.7.0
 scikit-learn==1.8.0
 

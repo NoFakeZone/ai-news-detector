@@ -4,4 +4,4 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 source scripts/_activate.sh
-python -m pip install -e ".[dev]"
+python -m pip install -e ".[dev]" --extra-index-url https://download.pytorch.org/whl/cu126

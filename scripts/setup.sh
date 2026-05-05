@@ -30,7 +30,7 @@ fi
 
 # 3. Install packages
 python -m pip install --upgrade pip setuptools wheel
-python -m pip install -e ".[dev]"
+python -m pip install -e ".[dev]" --extra-index-url https://download.pytorch.org/whl/cu126
 
 echo
 echo "Environment ready. To activate it in your own shell:"
