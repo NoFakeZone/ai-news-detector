@@ -14,7 +14,7 @@ from dataset import NewsPopularityDataset
 from load_dataset import load_dataset
 
 # --- KONFIGURACJA ŚCIEŻEK I FOLDERÓW ---
-OUTPUT_DIR = "training_run_01" # Nazwa folderu na logi i modele
+OUTPUT_DIR = "wb_training_run_01" # Nazwa folderu na logi i modele
 os.makedirs(OUTPUT_DIR, exist_ok=True) # Tworzy folder, jeśli nie istnieje
 
 BEST_MODEL_PATH = os.path.join(OUTPUT_DIR, "best_bert_stylistic_model.pt")
@@ -43,8 +43,8 @@ EPOCHS = 30
 WARMUP_PROPORTION = 0.1 
 TEST_DATA = 'gpt-oss-120b'
 DATA_PATH = r'C:\Users\PC\OneDrive\Pulpit\projekty\ai-news-generator'
-BASIC_POPULAIRTY_INDEX = True
-WIKIPEDIA_POPULAIRTY_INDEX = False
+BASIC_POPULARITY_INDEX = True
+WIKIPEDIA_POPULARITY_INDEX = False
 
 RESUME_TRAINING = False 
 
