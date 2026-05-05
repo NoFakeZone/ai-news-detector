@@ -135,8 +135,7 @@ for epoch in range(start_epoch, EPOCHS):
     train_loss, train_correct, train_total = 0, 0, 0
     
     # Zmienne do śledzenia targetu dla poszczególnych grup predykcji
-    sum_target_p1, count_p1 = 0.0, 0 
-    sum_target_p0, count_p0 = 0.0, 0 
+    train_sum_target = 0.0
 
     optimizer.zero_grad() 
     
@@ -164,34 +163,24 @@ for epoch in range(start_epoch, EPOCHS):
         train_total += labels.size(0)
 
         # MASKI PREDYKCJI: Grupowanie targetów na podstawie przewidywań
-        p1_mask = (preds == 1)
-        p0_mask = (preds == 0)
-        
-        sum_target_p1 += labels[p1_mask].sum().item()
-        count_p1 += p1_mask.sum().item()
-        
-        sum_target_p0 += labels[p0_mask].sum().item()
-        count_p0 += p0_mask.sum().item()
+        train_sum_target += labels.sum().item()
 
         if (batch_idx + 1) % 10 == 0:
             batch_acc = (preds == labels).sum().item() / labels.size(0)
             current_lr = scheduler.get_last_lr()[0] 
             
-            b_avg_targ_p1 = labels[p1_mask].mean().item() if p1_mask.sum() > 0 else 0.0
-            b_avg_targ_p0 = labels[p0_mask].mean().item() if p0_mask.sum() > 0 else 0.0
+            avg_target = train_sum_target / train_total
             
-            logger.info(f"Epoch {epoch+1} | Train Batch {batch_idx+1}/{len(train_loader)} | Loss: {loss.item() * BATCH_ACCUMULATION:.4f} | Acc: {batch_acc:.2%} | Avg Target [Pred0: {b_avg_targ_p0:.3f}, Pred1: {b_avg_targ_p1:.3f}]")
+            logger.info(f"Epoch {epoch+1} | Train Batch {batch_idx+1}/{len(train_loader)} | Loss: {loss.item() * BATCH_ACCUMULATION:.4f} | Acc: {batch_acc:.2%} | Avg Target [{avg_target}]")
 
     avg_train_loss = train_loss / len(train_loader)
     train_accuracy = train_correct / train_total
-    avg_train_targ_p1 = sum_target_p1 / max(1, count_p1)
-    avg_train_targ_p0 = sum_target_p0 / max(1, count_p0)
+    train_avg_target = train_sum_target / train_total
     
     # WALIDACJA
     model.eval()
     val_loss, val_correct, val_total = 0, 0, 0
-    val_sum_targ_p1, val_count_p1 = 0.0, 0
-    val_sum_targ_p0, val_count_p0 = 0.0, 0
+    val_sum_target = 0.0
     
     with torch.no_grad():
         for batch_idx, batch in enumerate(val_loader):
@@ -208,24 +197,18 @@ for epoch in range(start_epoch, EPOCHS):
             val_correct += (preds == labels).sum().item()
             val_total += labels.size(0)
 
-            p1_mask = (preds == 1)
-            p0_mask = (preds == 0)
-            val_sum_targ_p1 += labels[p1_mask].sum().item()
-            val_count_p1 += p1_mask.sum().item()
-            val_sum_targ_p0 += labels[p0_mask].sum().item()
-            val_count_p0 += p0_mask.sum().item()
+            val_sum_target += labels.sum().item()
             
             if (batch_idx + 1) % 10 == 0:
                 logger.info(f"Epoch {epoch+1} | Val Batch {batch_idx+1}/{len(val_loader)} - Validation running...")
             
     avg_val_loss = val_loss / len(val_loader)
     val_accuracy = val_correct / val_total
-    avg_val_targ_p1 = val_sum_targ_p1 / max(1, val_count_p1)
-    avg_val_targ_p0 = val_sum_targ_p0 / max(1, val_count_p0)
+    val_avg_target = val_sum_target / val_total
     
     logger.info(f">>> End of epoch {epoch+1}")
-    logger.info(f"TRAIN -> Loss: {avg_train_loss:.4f} | Accuracy: {train_accuracy:.2%} | Avg Target [Pred0: {avg_train_targ_p0:.3f}, Pred1: {avg_train_targ_p1:.3f}]")
-    logger.info(f"VAL   -> Loss: {avg_val_loss:.4f} | Accuracy: {val_accuracy:.2%} | Avg Target [Pred0: {avg_val_targ_p0:.3f}, Pred1: {avg_val_targ_p1:.3f}]")
+    logger.info(f"TRAIN -> Loss: {avg_train_loss:.4f} | Accuracy: {train_accuracy:.2%} | Avg Target {train_avg_target:.3f}")
+    logger.info(f"VAL   -> Loss: {avg_val_loss:.4f} | Accuracy: {val_accuracy:.2%} | Avg Target {val_avg_target:.3f}")
 
     checkpoint = {
         'epoch': epoch,
@@ -249,8 +232,7 @@ model.load_state_dict(torch.load(BEST_MODEL_PATH))
 model.eval()
 
 test_loss, test_correct, test_total = 0, 0, 0
-test_sum_targ_p1, test_count_p1 = 0.0, 0
-test_sum_targ_p0, test_count_p0 = 0.0, 0
+test_sum_target = 0
 
 with torch.no_grad():
     for batch_idx, batch in enumerate(test_loader):
@@ -267,20 +249,15 @@ with torch.no_grad():
         test_correct += (preds == labels).sum().item()
         test_total += labels.size(0)
 
-        p1_mask = (preds == 1)
-        p0_mask = (preds == 0)
-        test_sum_targ_p1 += labels[p1_mask].sum().item()
-        test_count_p1 += p1_mask.sum().item()
-        test_sum_targ_p0 += labels[p0_mask].sum().item()
-        test_count_p0 += p0_mask.sum().item()
+        test_sum_target += labels.sum().item()
 
         if (batch_idx + 1) % 10 == 0:
             logger.info(f"Testing in progress... Batch {batch_idx+1}/{len(test_loader)}")
 
 avg_test_loss = test_loss / len(test_loader)
 test_accuracy = test_correct / test_total
-avg_test_targ_p1 = test_sum_targ_p1 / max(1, test_count_p1)
-avg_test_targ_p0 = test_sum_targ_p0 / max(1, test_count_p0)
+test_avg_target = test_sum_target / test_total
+
 
 logger.info(f">>> FINAL TEST RESULTS <<<")
-logger.info(f"TEST -> Loss: {avg_test_loss:.4f} | Accuracy: {test_accuracy:.2%} | Avg Target [Pred0: {avg_test_targ_p0:.3f}, Pred1: {avg_test_targ_p1:.3f}]")
+logger.info(f"TEST -> Loss: {avg_test_loss:.4f} | Accuracy: {test_accuracy:.2%} | Avg Target {test_avg_target:.3f}")
