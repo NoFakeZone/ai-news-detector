@@ -44,8 +44,8 @@ WARMUP_PROPORTION = 0.1
 TEST_DATA = 'gpt-oss-120b'
 DATA_PATH = r'C:\Users\PC\OneDrive\Pulpit\projekty\ai-news-generator'
 BASIC_POPULARITY_INDEX = False
-WIKIPEDIA_POPULARITY_INDEX = True
-USE_STYLISTIC_FEATURES = True
+WIKIPEDIA_POPULARITY_INDEX = False
+USE_STYLISTIC_FEATURES = False
 
 RESUME_TRAINING = False 
 
@@ -83,9 +83,9 @@ val_text = list(val_text)
 logger.info(f"Train samples: {len(train_text)} | Val samples: {len(val_text)} | Test samples: {len(test_text)}")
 
 # --- INICJALIZACJA DATASETÓW I LOADERÓW ---
-train_dataset = NewsPopularityDataset(train_text, train_features, train_labels, BERT_MODEL_NAME, USE_STYLISTIC_FEATURES)
-val_dataset = NewsPopularityDataset(val_text, val_features, val_labels, BERT_MODEL_NAME, USE_STYLISTIC_FEATURES)
-test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME, USE_STYLISTIC_FEATURES)
+train_dataset = NewsPopularityDataset(train_text, train_features, train_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
+val_dataset = NewsPopularityDataset(val_text, val_features, val_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
+test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
 
 train_loader = DataLoader(train_dataset, batch_size=REAL_BATCH, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=REAL_BATCH, shuffle=False)
