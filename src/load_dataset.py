@@ -99,7 +99,7 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
                     temp_features.append(avg_syllables_per_sentence(t))
                     temp_features.append(avg_word_length(t))
                 else:
-                    temp_features.append(None)
+                    temp_features.append(0)
                 test_features.append(temp_features)
                 test_texts.append(preprocess_for_bert(t))
                 test_labels.append(1)
@@ -143,7 +143,7 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
                         temp_features.append(avg_syllables_per_sentence(t))
                         temp_features.append(avg_word_length(t))
                     else:
-                        temp_features.append(None)
+                        temp_features.append(0)
                     train_features.append(temp_features)
                     train_texts.append(preprocess_for_bert(t))
                     train_labels.append(1)
@@ -177,7 +177,7 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
                     temp_features.append(avg_syllables_per_sentence(t))
                     temp_features.append(avg_word_length(t))
                 else:
-                    temp_features.append(None)
+                    temp_features.append(0)
                 if row['id'] in test_ids:
                     test_features.append(temp_features)
                     test_texts.append(preprocess_for_bert(t))
