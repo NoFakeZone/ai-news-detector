@@ -13,7 +13,8 @@ venv.bak/
 .python_env/
 */.venv/
 */venv/
-
+wb_training_run_nf_gpt-oss-120b
+wb_training_run_nf_gpt-oss-120b/*
 # Conda environments
 conda-env/
 *.conda
