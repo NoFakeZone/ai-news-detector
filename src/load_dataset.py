@@ -7,6 +7,7 @@ from collections import Counter
 from ai_news_detector.features.pos import pos_per_word, UD_TAGS, all_pos_per_word
 from ai_news_detector.features.punctuation import punctuation_per_letter, punctuation_per_word
 from ai_news_detector.features.text_stats import avg_sentence_len, capital_ratio, ttr, ttr_lemmatized
+from ai_news_detector.features.syllables import avg_syllables_per_sentence, avg_word_length
 
 FOLDERS = [
     'gemini-2.5-flash',
@@ -92,6 +93,8 @@ def load_dataset(test_dataset, dataset_path, basic_popularity_index=True, wiki_p
                 temp_features.append(capital_ratio(t))
                 temp_features.append(ttr(t))
                 temp_features.append(ttr_lemmatized(t))
+                temp_features.append(avg_syllables_per_sentence(t))
+                temp_features.append(avg_word_length(t))
                 test_features.append(temp_features)
                 test_texts.append(preprocess_for_bert(t))
                 test_labels.append(1)
@@ -129,6 +132,8 @@ def load_dataset(test_dataset, dataset_path, basic_popularity_index=True, wiki_p
                     temp_features.append(avg_sentence_len(t))
                     temp_features.append(capital_ratio(t))
                     temp_features.append(ttr(t))
+                    temp_features.append(avg_syllables_per_sentence(t))
+                    temp_features.append(avg_word_length(t))
                     train_features.append(temp_features)
                     train_texts.append(preprocess_for_bert(t))
                     train_labels.append(1)
@@ -156,6 +161,8 @@ def load_dataset(test_dataset, dataset_path, basic_popularity_index=True, wiki_p
                 temp_features.append(avg_sentence_len(t))
                 temp_features.append(capital_ratio(t))
                 temp_features.append(ttr(t))
+                temp_features.append(avg_syllables_per_sentence(t))
+                temp_features.append(avg_word_length(t))
                 if row['id'] in test_ids:
                     test_features.append(temp_features)
                     test_texts.append(preprocess_for_bert(t))
