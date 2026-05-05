@@ -6,6 +6,7 @@ class NewsPopularityDataset(Dataset):
     def __init__(self, texts, numeric_features, labels, tokenizer_name, max_length=512):
         self.texts = texts
         self.numeric_features = numeric_features
+        self.numeric_features[:, 20] = (self.numeric_features[:, 20] - self.numeric_features[:, 20].min()) / (self.numeric_features[:, 20].max() - self.numeric_features[:, 20].min())
         self.labels = labels
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
         self.max_length = max_length
@@ -31,6 +32,6 @@ class NewsPopularityDataset(Dataset):
         return {
             'input_ids': encoding['input_ids'].flatten(),
             'attention_mask': encoding['attention_mask'].flatten(),
-            'float_vectors': torch.tensor(features, dtype=torch.float),
-            'labels': torch.tensor(label, dtype=torch.long)
+            'float_vectors': features.to(torch.float),
+            'labels': label.to(torch.long)
         }
