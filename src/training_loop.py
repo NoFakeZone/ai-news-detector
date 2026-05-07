@@ -43,18 +43,18 @@ EPOCHS = 30
 WARMUP_PROPORTION = 0.1 
 TEST_DATA = 'gpt-oss-120b'
 DATA_PATH = r'C:\Users\PC\OneDrive\Pulpit\projekty\ai-news-generator'
-BASIC_POPULARITY_INDEX = False
+BASIC_POPULARITY_INDEX = True
 WIKIPEDIA_POPULARITY_INDEX = False
-USE_STYLISTIC_FEATURES = False
+USE_STYLISTIC_FEATURES = True
 
-RESUME_TRAINING = False 
+RESUME_TRAINING = True
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 logger.info(f'Chosen DEVICE: {device}')
 logger.info(f"All outputs will be saved to directory: {OUTPUT_DIR}/")
 
 # --- PRZYGOTOWANIE DANYCH ---
-data = load_dataset(TEST_DATA, DATA_PATH, USE_STYLISTIC_FEATURES, BASIC_POPULARITY_INDEX, WIKIPEDIA_POPULARITY_INDEX)
+data = load_dataset(TEST_DATA, DATA_PATH, USE_STYLISTIC_FEATURES, BASIC_POPULARITY_INDEX, WIKIPEDIA_POPULARITY_INDEX, max_train_samples=400, max_test_samples=100)
 size_of_train = len(data[3])
 indices = random.sample(range(size_of_train), int(size_of_train * 0.1))
 # ... (Zakładam, że Twoje dane są wczytywane poprawnie tak jak wcześniej) ...
@@ -82,15 +82,6 @@ val_text = list(val_text)
 
 logger.info(f"Train samples: {len(train_text)} | Val samples: {len(val_text)} | Test samples: {len(test_text)}")
 
-# --- INICJALIZACJA DATASETÓW I LOADERÓW ---
-train_dataset = NewsPopularityDataset(train_text, train_features, train_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
-val_dataset = NewsPopularityDataset(val_text, val_features, val_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
-test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
-
-train_loader = DataLoader(train_dataset, batch_size=REAL_BATCH, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=REAL_BATCH, shuffle=False)
-test_loader = DataLoader(test_dataset, batch_size=REAL_BATCH, shuffle=False)
-
 # --- INICJALIZACJA MODELU ---
 model = MultiModalBertModel( 
     bert_model_name=BERT_MODEL_NAME, 
@@ -99,10 +90,33 @@ model = MultiModalBertModel(
 )
 model.to(device)
 
-# --- OPTYMALIZATOR, FUNKCJA STRATY I SCHEDULER ---
 criterion = nn.BCEWithLogitsLoss()
-optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
 
+if RESUME_TRAINING and os.path.exists(CHECKPOINT_PATH):
+    logger.info(f"--- Loading checkpoint from {CHECKPOINT_PATH} ---")
+    checkpoint = torch.load(CHECKPOINT_PATH, map_location=device)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    start_epoch = checkpoint['epoch'] + 1
+    best_val_loss = checkpoint['best_val_loss']
+    logger.info(f"Successfully loaded! Resuming training from epoch {start_epoch + 1}.")
+    min_popularity_index = checkpoint['min_popularity_index'].to('cpu')
+    max_popularity_index = checkpoint['max_popularity_index'].to('cpu')
+else:
+    min_popularity_index = train_features[:, 20].min()
+    max_popularity_index = train_features[:, 20].max()
+    # dla wikipedii
+    # min_popularity_index = 0
+    # max_popularity_index = 1
+# --- INICJALIZACJA DATASETÓW I LOADERÓW ---
+train_dataset = NewsPopularityDataset(train_text, train_features, train_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)
+val_dataset = NewsPopularityDataset(val_text, val_features, val_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)
+test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)
+
+train_loader = DataLoader(train_dataset, batch_size=REAL_BATCH, shuffle=True)
+val_loader = DataLoader(val_dataset, batch_size=REAL_BATCH, shuffle=False)
+test_loader = DataLoader(test_dataset, batch_size=REAL_BATCH, shuffle=False)
+
+optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
 steps_per_epoch = math.ceil(len(train_loader) / BATCH_ACCUMULATION)
 total_training_steps = steps_per_epoch * EPOCHS
 num_warmup_steps = int(total_training_steps * WARMUP_PROPORTION)
@@ -113,19 +127,13 @@ scheduler = get_linear_schedule_with_warmup(
     num_training_steps=total_training_steps
 )
 
+if RESUME_TRAINING and os.path.exists(CHECKPOINT_PATH):
+    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
+
 # --- MECHANIZM WZNAWIANIA TRENINGU ---
 start_epoch = 0
 best_val_loss = float('inf')
-
-if RESUME_TRAINING and os.path.exists(CHECKPOINT_PATH):
-    logger.info(f"--- Loading checkpoint from {CHECKPOINT_PATH} ---")
-    checkpoint = torch.load(CHECKPOINT_PATH, map_location=device)
-    model.load_state_dict(checkpoint['model_state_dict'])
-    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-    scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
-    start_epoch = checkpoint['epoch'] + 1
-    best_val_loss = checkpoint['best_val_loss']
-    logger.info(f"Successfully loaded! Resuming training from epoch {start_epoch + 1}.")
 
 # --- GŁÓWNA PĘTLA TRENINGOWA ---
 for epoch in range(start_epoch, EPOCHS):
@@ -214,13 +222,24 @@ for epoch in range(start_epoch, EPOCHS):
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict(),
         'scheduler_state_dict': scheduler.state_dict(),
-        'best_val_loss': best_val_loss
+        'best_val_loss': best_val_loss,
+        'min_popularity_index': min_popularity_index,
+        'max_popularity_index': max_popularity_index
     }
     torch.save(checkpoint, CHECKPOINT_PATH)
     
     if avg_val_loss < best_val_loss:
         best_val_loss = avg_val_loss
-        torch.save(model.state_dict(), BEST_MODEL_PATH)
+        checkpoint = {
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'scheduler_state_dict': scheduler.state_dict(),
+            'best_val_loss': best_val_loss,
+            'min_popularity_index': min_popularity_index,
+            'max_popularity_index': max_popularity_index
+        }
+        torch.save(checkpoint, BEST_MODEL_PATH)
         logger.info(f"*** New best model saved! (Val Loss: {best_val_loss:.4f}) ***")
     
     logger.info("-" * 50)

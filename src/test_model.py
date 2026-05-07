@@ -24,9 +24,9 @@ TEST_DATA = 'gpt-oss-120b'
 DATA_PATH = r'C:\Users\PC\OneDrive\Pulpit\projekty\ai-news-generator'
 
 # Flagi cech - Ustaw na takie, na jakich trenowano model!
-BASIC_POPULARITY_INDEX = False
+BASIC_POPULARITY_INDEX = True
 WIKIPEDIA_POPULARITY_INDEX = False
-USE_STYLISTIC_FEATURES = False
+USE_STYLISTIC_FEATURES = True
 
 # Ścieżka do wytrenowanego modelu
 MODEL_PATH = os.path.join("wb_training_run_nf_gpt-oss-120b", "best_bert_stylistic_model.pt")
@@ -45,9 +45,6 @@ def main():
 
     logger.info(f"Test samples loaded: {len(test_text)}")
 
-    test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
-    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
-
     # --- 2. INICJALIZACJA I WCZYTANIE MODELU ---
     logger.info(f"Loading model from: {MODEL_PATH}")
     
@@ -60,9 +57,16 @@ def main():
     )
     
     # map_location=device pozwala wczytać model wytrenowany na GPU na maszynę z samym CPU
-    model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+    model_dict = torch.load(MODEL_PATH, map_location=device)
+    model.load_state_dict(model_dict['model_state_dict'])
     model.to(device)
     model.eval()
+
+    min_popularity_index = model_dict['min_popularity_index'].to('cpu')
+    max_popularity_index = model_dict['max_popularity_index'].to('cpu')
+
+    test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)
+    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
     criterion = nn.BCEWithLogitsLoss()
 

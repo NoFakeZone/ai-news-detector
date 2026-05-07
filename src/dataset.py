@@ -3,11 +3,11 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import AutoTokenizer
 
 class NewsPopularityDataset(Dataset):
-    def __init__(self, texts, numeric_features, labels, tokenizer_name, max_length=512, use_features=True):
+    def __init__(self, texts, numeric_features, labels, tokenizer_name, max_length=512, use_features=True, max_popularity_index=1, min_popularity_index=0):
         self.texts = texts
         self.numeric_features = numeric_features
         if use_features:
-            self.numeric_features[:, 20] = (self.numeric_features[:, 20] - self.numeric_features[:, 20].min()) / (self.numeric_features[:, 20].max() - self.numeric_features[:, 20].min())
+            self.numeric_features[:, 20] = (self.numeric_features[:, 20] - min_popularity_index) / (max_popularity_index - min_popularity_index)
         self.labels = labels
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
         self.max_length = max_length

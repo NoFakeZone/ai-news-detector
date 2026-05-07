@@ -15,6 +15,7 @@ venv.bak/
 */venv/
 wb_training_run_nf_gpt-oss-120b
 wb_training_run_nf_gpt-oss-120b/*
+test.ipynb
 # Conda environments
 conda-env/
 *.conda
