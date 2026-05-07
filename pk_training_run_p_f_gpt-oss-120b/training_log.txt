@@ -725,3 +725,51 @@
 2026-05-06 09:46:18,699 [INFO] VAL   -> Loss: 0.0888 | Accuracy: 97.97% | Avg Target 0.412
 2026-05-06 09:46:20,295 [INFO] --------------------------------------------------
 2026-05-06 09:46:20,295 [INFO] --- Starting Epoch 14/30 ---
+2026-05-07 20:15:26,448 [INFO] Chosen DEVICE: cuda
+2026-05-07 20:15:26,448 [INFO] All outputs will be saved to directory: pk_training_run_p_f_gpt-oss-120b/
+2026-05-07 20:18:09,805 [INFO] Train samples: 5777 | Val samples: 641 | Test samples: 2000
+2026-05-07 20:18:10,277 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-07 20:18:10,278 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-07 20:18:10,293 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/config.json "HTTP/1.1 200 OK"
+2026-05-07 20:18:10,429 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-07 20:18:10,449 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-07 20:18:10,597 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-07 20:18:10,747 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-07 20:18:10,965 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-07 20:18:10,979 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/config.json "HTTP/1.1 200 OK"
+2026-05-07 20:18:11,129 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-07 20:18:11,143 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-07 20:18:11,282 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-07 20:18:11,434 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-07 20:18:11,630 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-07 20:18:11,653 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/config.json "HTTP/1.1 200 OK"
+2026-05-07 20:18:11,793 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-07 20:18:11,811 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-07 20:18:11,945 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-07 20:18:12,077 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-07 20:18:12,291 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-07 20:18:12,306 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/config.json "HTTP/1.1 200 OK"
+2026-05-07 20:18:13,113 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-05-07 20:18:13,279 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased "HTTP/1.1 200 OK"
+2026-05-07 20:18:13,640 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/commits/main "HTTP/1.1 200 OK"
+2026-05-07 20:18:13,813 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/discussions?p=0 "HTTP/1.1 200 OK"
+2026-05-07 20:18:13,978 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/commits/refs%2Fpr%2F2 "HTTP/1.1 200 OK"
+2026-05-07 20:18:13,991 [INFO] --- Loading checkpoint from pk_training_run_p_f_gpt-oss-120b\latest_checkpoint.pt ---
+2026-05-07 20:18:14,116 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/refs%2Fpr%2F2/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-05-07 20:18:14,259 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/refs%2Fpr%2F2/model.safetensors "HTTP/1.1 302 Found"
+2026-05-07 20:18:14,793 [INFO] Successfully loaded! Resuming training from epoch 14.
+2026-05-07 20:18:14,794 [INFO] --- Training Complete. Loading best model for Testing ---
+2026-05-07 20:18:18,611 [INFO] Testing in progress... Batch 10/125
+2026-05-07 20:18:22,316 [INFO] Testing in progress... Batch 20/125
+2026-05-07 20:18:26,395 [INFO] Testing in progress... Batch 30/125
+2026-05-07 20:18:30,386 [INFO] Testing in progress... Batch 40/125
+2026-05-07 20:18:34,464 [INFO] Testing in progress... Batch 50/125
+2026-05-07 20:18:38,510 [INFO] Testing in progress... Batch 60/125
+2026-05-07 20:18:42,607 [INFO] Testing in progress... Batch 70/125
+2026-05-07 20:18:46,143 [INFO] Testing in progress... Batch 80/125
+2026-05-07 20:18:49,026 [INFO] Testing in progress... Batch 90/125
+2026-05-07 20:18:51,992 [INFO] Testing in progress... Batch 100/125
+2026-05-07 20:18:54,917 [INFO] Testing in progress... Batch 110/125
+2026-05-07 20:18:57,841 [INFO] Testing in progress... Batch 120/125
+2026-05-07 20:18:59,333 [INFO] >>> FINAL TEST RESULTS <<<
+2026-05-07 20:18:59,333 [INFO] TEST -> Loss: 0.1153 | Accuracy: 96.30% | Avg Target 0.500
