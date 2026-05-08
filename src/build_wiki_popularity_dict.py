@@ -40,5 +40,3 @@ def build_wiki_popularity_dict(num_articles=10000, output_file="wiki_popularity_
 
 if __name__ == "__main__":
     build_wiki_popularity_dict(num_articles=10000) 
-    # Możesz zwiększyć num_articles np. do 50000, jeśli chcesz dokładniejszy słownik, 
-    # ale zajmie to więcej czasu i pamięci RAM.

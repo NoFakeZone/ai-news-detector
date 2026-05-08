@@ -108,9 +108,9 @@ else:
     # min_popularity_index = 0
     # max_popularity_index = 1
 # --- INICJALIZACJA DATASETÓW I LOADERÓW ---
-train_dataset = NewsPopularityDataset(train_text, train_features, train_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)
-val_dataset = NewsPopularityDataset(val_text, val_features, val_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)
-test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)
+train_dataset = NewsPopularityDataset(train_text, train_features, train_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
+val_dataset = NewsPopularityDataset(val_text, val_features, val_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
+test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
 
 train_loader = DataLoader(train_dataset, batch_size=REAL_BATCH, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=REAL_BATCH, shuffle=False)
@@ -246,7 +246,8 @@ for epoch in range(start_epoch, EPOCHS):
 
 # --- TESTOWANIE NAJLEPSZEGO MODELU ---
 logger.info("--- Training Complete. Loading best model for Testing ---")
-model.load_state_dict(torch.load(BEST_MODEL_PATH))
+model_dict = torch.load(BEST_MODEL_PATH, map_location=device)
+model.load_state_dict(model_dict['model_state_dict'])
 model.eval()
 
 test_loss, test_correct, test_total = 0, 0, 0
