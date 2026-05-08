@@ -54,7 +54,7 @@ logger.info(f'Chosen DEVICE: {device}')
 logger.info(f"All outputs will be saved to directory: {OUTPUT_DIR}/")
 
 # --- PRZYGOTOWANIE DANYCH ---
-data = load_dataset(TEST_DATA, DATA_PATH, USE_STYLISTIC_FEATURES, BASIC_POPULARITY_INDEX, WIKIPEDIA_POPULARITY_INDEX, max_train_samples=400, max_test_samples=100)
+data = load_dataset(TEST_DATA, DATA_PATH, USE_STYLISTIC_FEATURES, BASIC_POPULARITY_INDEX, WIKIPEDIA_POPULARITY_INDEX)
 size_of_train = len(data[3])
 indices = random.sample(range(size_of_train), int(size_of_train * 0.1))
 # ... (Zakładam, że Twoje dane są wczytywane poprawnie tak jak wcześniej) ...
@@ -108,9 +108,9 @@ else:
     # min_popularity_index = 0
     # max_popularity_index = 1
 # --- INICJALIZACJA DATASETÓW I LOADERÓW ---
-train_dataset = NewsPopularityDataset(train_text, train_features, train_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
-val_dataset = NewsPopularityDataset(val_text, val_features, val_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
-test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES)
+train_dataset = NewsPopularityDataset(train_text, train_features, train_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)
+val_dataset = NewsPopularityDataset(val_text, val_features, val_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)
+test_dataset = NewsPopularityDataset(test_text, test_features, test_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)
 
 train_loader = DataLoader(train_dataset, batch_size=REAL_BATCH, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=REAL_BATCH, shuffle=False)
