@@ -45,6 +45,7 @@ TEST_DATA = 'gpt-oss-120b'
 DATA_PATH = r'C:\Users\PC\OneDrive\Pulpit\projekty\ai-news-generator'
 BASIC_POPULARITY_INDEX = True
 WIKIPEDIA_POPULARITY_INDEX = False
+NKJP_POPULARITY_INDEX = False
 USE_STYLISTIC_FEATURES = True
 
 RESUME_TRAINING = True
@@ -54,7 +55,7 @@ logger.info(f'Chosen DEVICE: {device}')
 logger.info(f"All outputs will be saved to directory: {OUTPUT_DIR}/")
 
 # --- PRZYGOTOWANIE DANYCH ---
-data = load_dataset(TEST_DATA, DATA_PATH, USE_STYLISTIC_FEATURES, BASIC_POPULARITY_INDEX, WIKIPEDIA_POPULARITY_INDEX)
+data = load_dataset(TEST_DATA, DATA_PATH, USE_STYLISTIC_FEATURES, BASIC_POPULARITY_INDEX, WIKIPEDIA_POPULARITY_INDEX, NKJP_POPULARITY_INDEX)
 size_of_train = len(data[3])
 indices = random.sample(range(size_of_train), int(size_of_train * 0.1))
 # ... (Zakładam, że Twoje dane są wczytywane poprawnie tak jak wcześniej) ...
