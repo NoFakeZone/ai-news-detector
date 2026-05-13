@@ -59,7 +59,8 @@ def preprocess_for_bert(text: str) -> str:
     text = re.sub(r'\s+', ' ', text)
     return text.strip()
 
-def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_popularity_index=True, wiki_popularity_index=False, wiki_dict_path="wiki_popularity_dict.json", max_train_samples=7200, max_test_samples=2000):
+# NOTE: Added nkjp_popularity_index and nkjp_dict_path to the arguments
+def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_popularity_index=True, wiki_popularity_index=False, nkjp_popularity_index=False, wiki_dict_path="wiki_popularity_dict.json", nkjp_dict_path="nkjp_popularity_dict.json", max_train_samples=7200, max_test_samples=2000):
     if test_dataset not in FOLDERS:
         raise ValueError('Invalid dataset name')
     
@@ -78,7 +79,6 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
     # 1. LOAD TEST AI DATA (Label 1)
     # ---------------------------------------------------------
     print(f"Loading AI Test Data (Target: {target_test_ai})...")
-    # sorted() is CRITICAL for getting the exact same files every run
     test_files = sorted(os.listdir(os.path.join(dataset_path, test_dataset))) 
     
     for file in test_files:
@@ -94,7 +94,7 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
                 if len(t.split(' ')) < 15:
                     continue 
                 if len(test_texts) >= target_test_ai:
-                    break # Stop if we reached the limit
+                    break 
                 
                 temp_features = []
                 if use_stylistic_features:
@@ -125,7 +125,7 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
     # 2. LOAD TRAIN AI DATA (Label 1)
     # ---------------------------------------------------------
     train_folders = [folder for folder in FOLDERS if folder != test_dataset]
-    per_folder_limit = target_train_ai // len(train_folders) # Distribute evenly across LLMs
+    per_folder_limit = target_train_ai // len(train_folders) 
     print(f"Loading AI Train Data (Target: {target_train_ai}, ~{per_folder_limit} per model)...")
 
     for folder in train_folders:
@@ -182,19 +182,17 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
 
     with open(os.path.join(dataset_path, 'scraped_news.json'), 'r', encoding='utf-8') as f:
         data = json.load(f)
-        # Sort data by ID to guarantee the same human samples are picked every time
         data = sorted(data, key=lambda x: x.get('id', 0)) 
         
         for row in data:
             if human_test_added >= target_test_human and human_train_added >= target_train_human:
-                break # Stop processing JSON entirely once both quotas are met
+                break 
                 
             texts = [sentence.strip() for sentence in row['body'].split('\n\n')]
             for t in texts:
                 if len(t.split(' ')) < 15:
                     continue 
                 
-                # Check limits BEFORE extracting heavy features
                 is_test_target = row['id'] in test_ids and human_test_added < target_test_human
                 is_train_target = row['id'] in train_ids and human_train_added < target_train_human
                 
@@ -233,7 +231,9 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
     # ==========================================
     # --- POPULARITY INDEX INTEGRATION ---
     # ==========================================
-    if basic_popularity_index or wiki_popularity_index:
+    
+    # Load spaCy if ANY of the indices are True
+    if basic_popularity_index or wiki_popularity_index or nkjp_popularity_index:
         print("\nLoading Polish NLP model for popularity indices...")
         nlp = spacy.load("pl_core_news_md")
 
@@ -257,5 +257,39 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
         append_popularity_feature(train_texts, train_features, wiki_popularity_dict, nlp)
         print("Calculating Wiki popularity index for testing data...")
         append_popularity_feature(test_texts, test_features, wiki_popularity_dict, nlp)
+
+    # ---------------------------------------------------------
+    # NEW: NKJP POPULARITY INDEX WITH "BYĆ" NORMALIZATION
+    # ---------------------------------------------------------
+    if nkjp_popularity_index:
+        print("\n--- Applying NKJP Popularity Index ---")
+        if not os.path.exists(nkjp_dict_path):
+            raise FileNotFoundError(f"NKJP dictionary not found at '{nkjp_dict_path}'. Please run the build script first.")
+            
+        with open(nkjp_dict_path, "r", encoding="utf-8") as f:
+            raw_nkjp_dict = json.load(f)
+            
+        # Normalization Logic: The word "być" becomes exactly 0.1 (1/10)
+        byc_count = raw_nkjp_dict.get("być")
+        
+        if not byc_count or byc_count == 0:
+            print("WARNING: Word 'być' not found or has 0 count. Falling back to max value normalization.")
+            byc_count = max(raw_nkjp_dict.values()) if raw_nkjp_dict else 1
+            normalization_factor = 1.0 # Standard 0.0 to 1.0 scale
+        else:
+            normalization_factor = 0.1 # Force 'być' to be 0.1
+            
+        # Build the normalized dictionary
+        nkjp_popularity_dict = {}
+        for word, count in raw_nkjp_dict.items():
+            # Calculate proportion relative to "być" and multiply by 0.1
+            normalized_score = (count / byc_count) * normalization_factor
+            nkjp_popularity_dict[word] = normalized_score
+            
+        print(f"NKJP Dictionary normalized. Baseline 'być' ({byc_count} occurrences) mapped to {normalization_factor}.")
+        print("Calculating NKJP popularity index for training data...")
+        append_popularity_feature(train_texts, train_features, nkjp_popularity_dict, nlp)
+        print("Calculating NKJP popularity index for testing data...")
+        append_popularity_feature(test_texts, test_features, nkjp_popularity_dict, nlp)
 
     return test_texts, test_labels, test_features, train_texts, train_labels, train_features
