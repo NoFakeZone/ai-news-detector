@@ -59,8 +59,8 @@ def preprocess_for_bert(text: str) -> str:
     text = re.sub(r'\s+', ' ', text)
     return text.strip()
 
-# NOTE: Added nkjp_popularity_index and nkjp_dict_path to the arguments
-def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_popularity_index=True, wiki_popularity_index=False, nkjp_popularity_index=False, wiki_dict_path="wiki_popularity_dict.json", nkjp_dict_path="nkjp_popularity_dict.json", max_train_samples=7200, max_test_samples=2000):
+# NOTE: Added normalize_nkjp parameter
+def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_popularity_index=True, wiki_popularity_index=False, nkjp_popularity_index=False, normalize_nkjp=True, wiki_dict_path="wiki_popularity_dict.json", nkjp_dict_path="nkjp_popularity_dict.json", max_train_samples=7200, max_test_samples=2000):
     if test_dataset not in FOLDERS:
         raise ValueError('Invalid dataset name')
     
@@ -259,7 +259,7 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
         append_popularity_feature(test_texts, test_features, wiki_popularity_dict, nlp)
 
     # ---------------------------------------------------------
-    # NEW: NKJP POPULARITY INDEX WITH "BYĆ" NORMALIZATION
+    # NEW: NKJP POPULARITY INDEX
     # ---------------------------------------------------------
     if nkjp_popularity_index:
         print("\n--- Applying NKJP Popularity Index ---")
@@ -269,24 +269,29 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
         with open(nkjp_dict_path, "r", encoding="utf-8") as f:
             raw_nkjp_dict = json.load(f)
             
-        # Normalization Logic: The word "być" becomes exactly 0.1 (1/10)
-        byc_count = raw_nkjp_dict.get("być")
-        
-        if not byc_count or byc_count == 0:
-            print("WARNING: Word 'być' not found or has 0 count. Falling back to max value normalization.")
-            byc_count = max(raw_nkjp_dict.values()) if raw_nkjp_dict else 1
-            normalization_factor = 1.0 # Standard 0.0 to 1.0 scale
+        if normalize_nkjp:
+            # Normalization Logic: The word "być" becomes exactly 0.1 (1/10)
+            byc_count = raw_nkjp_dict.get("być")
+            
+            if not byc_count or byc_count == 0:
+                print("WARNING: Word 'być' not found or has 0 count. Falling back to max value normalization.")
+                byc_count = max(raw_nkjp_dict.values()) if raw_nkjp_dict else 1
+                normalization_factor = 1.0 # Standard 0.0 to 1.0 scale
+            else:
+                normalization_factor = 0.1 # Force 'być' to be 0.1
+                
+            # Build the normalized dictionary
+            nkjp_popularity_dict = {}
+            for word, count in raw_nkjp_dict.items():
+                # Calculate proportion relative to "być" and multiply by 0.1
+                normalized_score = (count / byc_count) * normalization_factor
+                nkjp_popularity_dict[word] = normalized_score
+                
+            print(f"NKJP Dictionary normalized. Baseline 'być' ({byc_count} occurrences) mapped to {normalization_factor}.")
         else:
-            normalization_factor = 0.1 # Force 'być' to be 0.1
-            
-        # Build the normalized dictionary
-        nkjp_popularity_dict = {}
-        for word, count in raw_nkjp_dict.items():
-            # Calculate proportion relative to "być" and multiply by 0.1
-            normalized_score = (count / byc_count) * normalization_factor
-            nkjp_popularity_dict[word] = normalized_score
-            
-        print(f"NKJP Dictionary normalized. Baseline 'być' ({byc_count} occurrences) mapped to {normalization_factor}.")
+            print("NKJP Dictionary normalization disabled. Using raw occurrences.")
+            nkjp_popularity_dict = raw_nkjp_dict
+
         print("Calculating NKJP popularity index for training data...")
         append_popularity_feature(train_texts, train_features, nkjp_popularity_dict, nlp)
         print("Calculating NKJP popularity index for testing data...")

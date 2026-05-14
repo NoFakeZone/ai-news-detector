@@ -14,7 +14,7 @@ from dataset import NewsPopularityDataset
 from load_dataset import load_dataset
 
 # --- KONFIGURACJA ŚCIEŻEK I FOLDERÓW ---
-OUTPUT_DIR = "wb_training_run_nf_gpt-oss-120b" # Nazwa folderu na logi i modele
+OUTPUT_DIR = "wb_training_run_nf_gemini-2.5-flash" # Nazwa folderu na logi i modele
 os.makedirs(OUTPUT_DIR, exist_ok=True) # Tworzy folder, jeśli nie istnieje
 
 BEST_MODEL_PATH = os.path.join(OUTPUT_DIR, "best_bert_stylistic_model.pt")
@@ -39,23 +39,26 @@ BATCH_SIZE = 16
 REAL_BATCH = 16
 BATCH_ACCUMULATION = int(BATCH_SIZE / REAL_BATCH)
 LEARNING_RATE = 2e-5
-EPOCHS = 30
+EPOCHS = 10
 WARMUP_PROPORTION = 0.1 
-TEST_DATA = 'gpt-oss-120b'
+TEST_DATA = 'gemini-2.5-flash'
 DATA_PATH = r'C:\Users\PC\OneDrive\Pulpit\projekty\ai-news-generator'
 BASIC_POPULARITY_INDEX = True
 WIKIPEDIA_POPULARITY_INDEX = False
+WIKIPEDIA_DICT_PATH = "wiki_popularity_dict_unnormalized.json"
 NKJP_POPULARITY_INDEX = False
 USE_STYLISTIC_FEATURES = True
+NORMALIZE_NKJP = False
 
-RESUME_TRAINING = True
+RESUME_TRAINING = False
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 logger.info(f'Chosen DEVICE: {device}')
 logger.info(f"All outputs will be saved to directory: {OUTPUT_DIR}/")
 
 # --- PRZYGOTOWANIE DANYCH ---
-data = load_dataset(TEST_DATA, DATA_PATH, USE_STYLISTIC_FEATURES, BASIC_POPULARITY_INDEX, WIKIPEDIA_POPULARITY_INDEX, NKJP_POPULARITY_INDEX)
+data = load_dataset(TEST_DATA, DATA_PATH, USE_STYLISTIC_FEATURES, BASIC_POPULARITY_INDEX,
+                    WIKIPEDIA_POPULARITY_INDEX, NKJP_POPULARITY_INDEX, NORMALIZE_NKJP, WIKIPEDIA_DICT_PATH)
 size_of_train = len(data[3])
 indices = random.sample(range(size_of_train), int(size_of_train * 0.1))
 # ... (Zakładam, że Twoje dane są wczytywane poprawnie tak jak wcześniej) ...

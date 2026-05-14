@@ -2,11 +2,11 @@ import spacy
 import json
 from collections import Counter
 from datasets import load_dataset
-from tqdm import tqdm # Do wyświetlania paska postępu
+from tqdm import tqdm # For displaying the progress bar
 
 def build_wiki_popularity_dict(num_articles=10000, output_file="wiki_popularity_dict.json"):
     print(f"--- Downloading {num_articles} articles from Polish Wikipedia ---")
-    # Pobieramy paczkę polskiej wikipedii z HuggingFace
+    # Download the Polish Wikipedia dataset from HuggingFace
     dataset = load_dataset("wikimedia/wikipedia", "20231101.pl", split=f"train[:{num_articles}]")
     texts = dataset['text']
     
@@ -16,11 +16,11 @@ def build_wiki_popularity_dict(num_articles=10000, output_file="wiki_popularity_
     word_counts = Counter()
     
     print("\n--- Processing texts (Lemmatization & Filtering) ---")
-    # nlp.pipe jest zoptymalizowane pod duże zbiory danych. 
-    # Wyłączamy parser i ner żeby znacznie przyspieszyć działanie.
+    # nlp.pipe is optimized for large datasets. 
+    # We disable the parser and ner to significantly speed up processing.
     for doc in tqdm(nlp.pipe(texts, disable=["parser", "ner", "textcat"]), total=len(texts)):
         for token in doc:
-            # token.is_alpha upewnia się, że bierzemy tylko prawdziwe słowa (bez liczb i dziwnych znaków z wiki)
+            # token.is_alpha ensures we only take real words (no numbers or strange wiki symbols)
             if not token.is_stop and not token.is_punct and not token.is_space and token.is_alpha:
                 word_counts[token.lemma_.lower()] += 1
                 
@@ -28,9 +28,10 @@ def build_wiki_popularity_dict(num_articles=10000, output_file="wiki_popularity_
         print("Error: No words processed.")
         return
         
-    print("\n--- Normalizing values ---")
-    max_count = max(word_counts.values())
-    popularity_dict = {word: count / max_count for word, count in word_counts.items()}
+    print("\n--- Preparing raw counts dictionary ---")
+    # Dropped the normalization block.
+    # Convert the Counter directly to a standard dictionary to save raw integer counts.
+    popularity_dict = dict(word_counts)
     
     print(f"--- Saving dictionary with {len(popularity_dict)} unique words ---")
     with open(output_file, "w", encoding="utf-8") as f:
@@ -39,4 +40,4 @@ def build_wiki_popularity_dict(num_articles=10000, output_file="wiki_popularity_
     print(f"Done! Dictionary saved to: {output_file}")
 
 if __name__ == "__main__":
-    build_wiki_popularity_dict(num_articles=10000) 
+    build_wiki_popularity_dict(num_articles=50000, output_file="wiki_popularity_dict_unnormalized.json")
