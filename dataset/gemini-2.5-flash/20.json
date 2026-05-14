@@ -1,0 +1,11 @@
+{
+    "ID": 20,
+    "Provider": "gazeta",
+    "URL": "https://wiadomosci.gazeta.pl/wiadomosci/7,114884,25556201,krzysztof-szczerski-przekazal-stanowisko-dudy-ws-reakcji-rosji.html",
+    "Zdarzenie": "Oficjalne stanowisko prezydenta Andrzeja Dudy w sprawie oskarżeń Władimira Putina dotyczących roli Polski w II wojnie światowej.",
+    "Temat": "Spór historyczny i dyplomatyczny między Polską a Rosją.",
+    "Długość": "Krótki artykuł informacyjny.",
+    "Wygenerowany tytuł": "Spór historyczny na linii Warszawa-Moskwa: Prezydent Duda reaguje na słowa Putina\n",
+    "Wygenerowany tekst": "\nW ostatnich dniach ponownie rozgorzał intensywny spór historyczny i dyplomatyczny pomiędzy Polską a Rosją. Prezydent Andrzej Duda oficjalnie zabrał głos w sprawie powtarzających się oskarżeń prezydenta Rosji Władimira Putina, dotyczących rzekomej roli Polski w wybuchu II wojny światowej.\n\nPrezydent Duda w swoim stanowisku stanowczo odrzucił rosyjskie zarzuty, podkreślając, że Polska była ofiarą, a nie współsprawcą czy agresorem w konflikcie. Przypomniał o napaści Niemiec hitlerowskich 1 września 1939 roku, a następnie o ataku Związku Sowieckiego 17 września tego samego roku, który był konsekwencją paktu Ribbentrop-Mołotow. Polski przywódca zaznaczył, że próby manipulowania historią mają na celu osłabienie pozycji Polski na arenie międzynarodowej oraz zafałszowanie własnych, imperialnych działań.\n\nTen dyplomatyczny incydent wpisuje się w szerszy kontekst długotrwałej narracyjnej wojny historycznej prowadzonej przez Kreml, której celem jest rewizja faktów dotyczących II wojny światowej. Strona polska konsekwentnie podkreśla konieczność obrony prawdy historycznej, zwłaszcza w obliczu prób przekłamywania genezy i przebiegu największego konfliktu zbrojnego w dziejach ludzkości, co stanowi element współczesnej polityki międzynarodowej Rosji.",
+    "Model": "models/gemini-2.5-flash"
+}

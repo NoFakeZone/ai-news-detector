@@ -1,0 +1,11 @@
+{
+    "ID": 114,
+    "Provider": "gazeta",
+    "URL": "https://wiadomosci.gazeta.pl/wiadomosci/7,114883,25546391,policjanci-pojechali-do-wypadku-na-a4-nagrali-drugi-auto-zrobilo.html",
+    "Zdarzenie": "Groźna kolizja drogowa na autostradzie A4, zarejestrowana przez policję podczas obsługi innego wypadku.",
+    "Temat": "Bezpieczeństwo na drogach w okresie świątecznym.",
+    "Długość": "Krótki artykuł informacyjny.",
+    "Wygenerowany tytuł": "Groźne zdarzenie na oczach policji. Ku przestrodze przed świątecznymi wyjazdami\n\n",
+    "Wygenerowany tekst": " Świąteczny okres to czas wzmożonego ruchu na polskich drogach, co niestety przekłada się na wzrost liczby niebezpiecznych zdarzeń. Do mrożącej krew w żyłach sytuacji doszło ostatnio na autostradzie A4. Funkcjonariusze policji, którzy zabezpieczali miejsce wcześniejszego wypadku, zarejestrowali kolejną kolizję, która niemal skończyła się tragicznie.\n\nNa nagraniu udostępnionym przez służby widać, jak nieuwaga oraz niedostosowanie prędkości do warunków panujących na drodze prowadzą do utraty panowania nad pojazdem w bezpośrednim sąsiedztwie pracujących ratowników. Choć tym razem nikt nie zginął, zdarzenie to jest dramatycznym przypomnieniem o tym, jak kluczowa dla bezpieczeństwa jest koncentracja za kierownicą.\n\nPolicja apeluje do wszystkich kierowców wyruszających w świąteczną trasę o zachowanie szczególnej ostrożności, przestrzeganie ograniczeń prędkości i reagowanie na komunikaty służb drogowych. Pamiętajmy, że na drodze nie jesteśmy sami, a nasza odpowiedzialność ma bezpośredni wpływ na życie innych osób. Bezpieczny powrót do domu powinien być priorytetem każdego podróżującego w tym wyjątkowym czasie.",
+    "Model": "models/gemini-3.1-flash-lite-preview"
+}

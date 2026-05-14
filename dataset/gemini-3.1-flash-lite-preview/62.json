@@ -1,0 +1,11 @@
+{
+    "ID": 62,
+    "Provider": "gazeta",
+    "URL": "https://wiadomosci.gazeta.pl/wiadomosci/7,114881,25551531,gubernator-nowego-jorku-atak-na-dom-rabina-byl-aktem-terroryzmu.html",
+    "Zdarzenie": "Atak nożownika na dom rabina w Monsey (stan Nowy Jork) podczas święta Chanuka.",
+    "Temat": "Wzrost incydentów o podłożu antysemickim w USA i reakcja władz.",
+    "Długość": "Krótki artykuł informacyjny.",
+    "Wygenerowany tytuł": "Koszmar w Monsey: atak na dom rabina symbolem narastającej fali antysemityzmu w USA\n\n",
+    "Wygenerowany tekst": " Świętowanie Chanuki w amerykańskim Monsey zostało brutalnie przerwane, gdy uzbrojony napastnik wtargnął do domu rabina, raniąc pięć osób. Ten wstrząsający incydent nie jest odosobnionym przypadkiem, lecz kolejnym ogniwem w niepokojącym łańcuchu zdarzeń, które w ostatnich latach coraz mocniej uderzają w żydowską społeczność w Stanach Zjednoczonych.\n\nStatystyki nie pozostawiają złudzeń – liczba przestępstw z nienawiści wymierzonych w osoby pochodzenia żydowskiego osiągnęła w USA najwyższy poziom od dekad. Eksperci wskazują na niebezpieczną polaryzację społeczną oraz swobodę, z jaką radykalne hasła przenikają do debaty publicznej, podsycając agresję wobec mniejszości.\n\nWładze stanowe i federalne zapewniają o pełnej mobilizacji sił porządkowych, by chronić synagogi i centra kultury żydowskiej. Gubernatorzy oraz przedstawiciele administracji rządowej w Waszyngtonie podkreślają, że antysemityzm jest „trucizną”, z którą Ameryka musi walczyć bezkompromisowo. Mimo to, wielu członków społeczności żydowskiej z narastającym niepokojem pyta o skuteczność tych działań w obliczu rosnącego poczucia zagrożenia w ich własnych domach i miejscach modlitwy.",
+    "Model": "models/gemini-3.1-flash-lite-preview"
+}
