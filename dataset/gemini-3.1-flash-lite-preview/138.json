@@ -1,0 +1,11 @@
+{
+    "ID": 138,
+    "Provider": "gazeta",
+    "URL": "https://wiadomosci.gazeta.pl/wiadomosci/7,114883,25545698,poznan-kobieta-z-dwojgiem-malych-dzieci-w-szpitalu-z-oparzeniami.html",
+    "Zdarzenie": "Wypadek z udziałem biokominka w Poznaniu, w wyniku którego kobieta i dzieci doznali oparzeń.",
+    "Temat": "Bezpieczeństwo użytkowania domowych urządzeń grzewczych.",
+    "Długość": "Krótki artykuł informacyjny.",
+    "Wygenerowany tytuł": "Dramat w Poznaniu: Wypadek z biokominkiem ostrzeżeniem dla wszystkich użytkowników\n\n",
+    "Wygenerowany tekst": " W jednym z poznańskich mieszkań doszło do tragicznego w skutkach wypadku z udziałem biokominka. W wyniku niekontrolowanego zapłonu paliwa, poszkodowana kobieta oraz przebywające z nią dzieci doznali poważnych oparzeń ciała. Zdarzenie to stało się bolesnym przypomnieniem o tym, jak niebezpieczne może być niewłaściwe obchodzenie się z domowymi urządzeniami grzewczymi.\n\nChoć biokominki są cenione za estetykę i łatwość montażu, wymagają rygorystycznego przestrzegania zasad bezpieczeństwa. Eksperci podkreślają, że głównym błędem użytkowników jest dolewanie paliwa do wciąż gorącego urządzenia. Nawet jeśli płomień nie jest widoczny, rozgrzany palnik może doprowadzić do natychmiastowego zapłonu oparów biopaliwa, co w ułamku sekundy wywołuje wybuch ognia.\n\nAby uniknąć tragedii, należy pamiętać o trzech podstawowych zasadach: nigdy nie uzupełniaj paliwa w trakcie pracy urządzenia ani gdy jest ono rozgrzane, zawsze używaj paliwa dedykowanego przez producenta i przechowuj je z dala od źródeł ciepła. Bezpieczeństwo zależy przede wszystkim od naszej czujności – chwila nieuwagi w pobliżu otwartego ognia może mieć tragiczne konsekwencje dla zdrowia i życia domowników.",
+    "Model": "models/gemini-3.1-flash-lite-preview"
+}

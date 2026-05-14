@@ -1,0 +1,11 @@
+{
+    "ID": 522,
+    "Provider": "businessinsider",
+    "URL": "https://businessinsider.com.pl/polityka/szymon-holownia-powiedzial-z-czego-sfinansuje-kampanie-prezydencka/j7hcb1h",
+    "Zdarzenie": "Szymon Hołownia ogłosił zamiar kandydowania na urząd prezydenta i wyjaśnił źródła finansowania swojej kampanii.",
+    "Temat": "Finansowanie kampanii wyborczej Szymona Hołowni.",
+    "Długość": "Krótki artykuł informacyjny.",
+    "Wygenerowany tytuł": "Finansowanie kampanii wyborczej Szymona Hołowni\n\n",
+    "Wygenerowany tekst": "\nSzymon Hołownia, popularny dziennikarz i lider ruchu obywatelskiego, ogłosił wczoraj swoją kandydaturę na urząd prezydenta RP. W trakcie konferencji prasowej ujawnił, że kampania będzie finansowana wyłącznie ze środków prywatnych oraz darowizn od obywateli, wykluczając udział partii politycznych i funduszy publicznych.\n\nWedług przedstawionych dokumentów, pierwsze wpłaty pochodzą od funduszu stworzonego przez fundację Hołowni, zgromadzonego w ciągu ostatnich sześciu miesięcy łącznie w wysokości 10 milionów złotych. Dodatkowo, kampania przyjął wyraźny apel do sympatyków, zachęcając do wpłat proponowanych w kwotach nieprzekraczających 5 000 złotych, co ma zapewnić transparentność i zgodność z obowiązującym prawem wyborczym.\n\nKomitet wyborczy Hołowni zobowiązał się do publikowania na bieżąco wszystkich wpływów i wydatków na dedykowanej stronie internetowej, co ma umożliwić obywatelom monitorowanie finansów kampanii w czasie rzeczywistym. Decyzja o wykluczeniu funduszy partyjnych ma podkreślić niezależność kandydata i jego odwołanie do społeczeństwa obywatelskiego.",
+    "Model": "@cf/openai/gpt-oss-120b"
+}

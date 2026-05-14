@@ -1,0 +1,11 @@
+{
+    "ID": 118,
+    "Provider": "gazeta",
+    "URL": "https://wiadomosci.gazeta.pl/pogoda-i-klimat/7,198071,25546607,po-swietach-w-polsce-wiecej-sniegu-ale-nadal-glownie-w-gorach.html",
+    "Zdarzenie": "Wydanie ostrzeżeń meteorologicznych przez IMGW dotyczących oblodzenia i opadów śniegu w Polsce.",
+    "Temat": "Warunki pogodowe w okresie poświątecznym.",
+    "Długość": "Krótki artykuł informacyjny.",
+    "Wygenerowany tytuł": "Zima nie odpuszcza. IMGW ostrzega przed oblodzeniem i opadami śniegu\n\n",
+    "Wygenerowany tekst": " Okres poświąteczny przynosi wyraźne załamanie pogody w Polsce. Instytut Meteorologii i Gospodarki Wodnej wydał serię ostrzeżeń przed niebezpiecznymi zjawiskami atmosferycznymi, które mogą znacząco utrudnić podróżowanie w najbliższych dniach.\n\nZgodnie z komunikatami synoptyków, w wielu regionach kraju prognozowane są intensywne opady śniegu oraz marznące opady powodujące gołoledź. Na drogach i chodnikach zrobi się bardzo ślisko, dlatego służby meteorologiczne apelują do kierowców oraz pieszych o zachowanie szczególnej ostrożności. \n\nW związku z trudnymi warunkami pogodowymi warto śledzić na bieżąco lokalne komunikaty pogodowe i dostosować prędkość jazdy do panującej nawierzchni. Synoptycy zaznaczają, że warunki zimowe mogą utrzymać się przez najbliższe kilkadziesiąt godzin, dlatego planując powroty z wyjazdów świątecznych, należy doliczyć więcej czasu na dotarcie do celu.",
+    "Model": "models/gemini-3.1-flash-lite-preview"
+}

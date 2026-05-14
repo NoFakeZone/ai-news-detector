@@ -1,0 +1,11 @@
+{
+    "ID": 1061,
+    "Provider": "onet",
+    "URL": "https://wiadomosci.onet.pl/kraj/jacek-kurski-do-rpo-nie-wywierano-naciskow-na-mariusza-kowalewskiego/q618s12",
+    "Zdarzenie": "Odpowiedź Jacka Kurskiego na pismo RPO w sprawie rzekomych nacisków na dziennikarza Mariusza Kowalewskiego.",
+    "Temat": "Konflikt wewnątrz TVP i kwestia tajemnicy dziennikarskiej.",
+    "Długość": "Krótki artykuł informacyjny.",
+    "Wygenerowany tytuł": "Jacek Kurski odpowiada na pismo RPO – wewnętrzny spór w TVP o tajemnicę dziennikarską  \n\n",
+    "Wygenerowany tekst": "  \nW środę (17 kwietnia) redakcja Rzecznika Prasowego Obywateli (RPO) skierowała do prezesa TVP, Jacka Kurskiego, pismo, w którym zarzuca się rzekome naciski wywierane na dziennikarza Mariusza Kowalewskiego w sprawie ujawnienia źródeł informacji. Kurski w odpowiedzi odrzucił te oskarżenia, podkreślając, że władze stacji nie ingerują w pracę reporterów i nie stosują żadnych form przymusu wobec mediów.\n\nW swoim oświadczeniu dyrektor naczelny TVP zaznaczył, że wszelkie decyzje w sprawie redakcyjnej są podejmowane wyłącznie przez redakcję i że ewentualne nieporozumienia wynikają z „nieprecyzyjnego przekazu” między poszczególnymi jednostkami organizacyjnymi nadawcy. Dodał, że TVP szanuje tajemnicę dziennikarską i zapewnia, że żadne działania nie zagrażają ochronie źródeł informacji.\n\nZ kolei RPO utrzymuje, że istnieją dowody na próbę wywarcia presji na Kowalewskiego, co stanowi naruszenie przepisów o wolności mediów oraz zasad etyki dziennikarskiej. Organizacja zapowiada dalsze działania, w tym możliwość skierowania sprawy do Krajowej Rady Radiofonii i Telewizji.\n\nIncydent wywołał szeroką debatę w środowisku medialnym i wśród opinii publicznej. Eksperci podkreślają, że konflikt wewnątrz TVP może mieć wpływ na postrzeganie niezależności publicznego nadawcy. Wstrzymując się od jednoznacznej oceny sytuacji, zwracają uwagę na potrzebę transparentności i respektowania kluczowego dla dziennikarstwa prawa – tajemnicy dziennikarskiej.",
+    "Model": "@cf/openai/gpt-oss-120b"
+}

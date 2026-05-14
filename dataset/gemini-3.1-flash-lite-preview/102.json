@@ -1,0 +1,11 @@
+{
+    "ID": 102,
+    "Provider": "gazeta",
+    "URL": "https://wiadomosci.gazeta.pl/wiadomosci/7,114883,25548891,wybuch-gazu-w-szczyrku-prokuratura-zlozyla-zazalenie-na-areszt.html",
+    "Zdarzenie": "Złożenie przez prokuraturę zażalenia na decyzję sądu w sprawie długości aresztu dla jednego z podejrzanych o spowodowanie wybuchu gazu w Szczyrku.",
+    "Temat": "Postępy w śledztwie dotyczącym katastrofy budowlanej.",
+    "Długość": "Krótki artykuł informacyjny.",
+    "Wygenerowany tytuł": "Katastrofa w Szczyrku: Prokuratura walczy o przedłużenie aresztu dla podejrzanego\n\n",
+    "Wygenerowany tekst": " Śledztwo w sprawie tragicznego wybuchu gazu w Szczyrku, do którego doszło w grudniu 2019 roku, wchodzi w kolejną fazę. Prokuratura Okręgowa w Bielsku-Białej złożyła zażalenie na decyzję sądu, który nie zgodził się na przedłużenie tymczasowego aresztu dla jednego z podejrzanych w tej sprawie.\n\nPrzypomnijmy, że w wyniku katastrofy budowlanej spowodowanej przewierceniem gazociągu zginęło osiem osób, w tym dzieci. Śledczy od początku podkreślają, że sprawa jest niezwykle zawiła i wymaga skrupulatnego gromadzenia materiału dowodowego. Zdaniem prokuratury, dalsza izolacja podejrzanego jest niezbędna dla prawidłowego przebiegu postępowania, ze względu na obawę matactwa. Sąd drugiej instancji rozpatrzy wniosek w najbliższym czasie. Mimo upływu lat, sprawa pozostaje jednym z najbardziej wstrząsających wydarzeń w regionie, a organy ścigania zapewniają, że dążą do postawienia przed sądem wszystkich osób odpowiedzialnych za doprowadzenie do tragedii.",
+    "Model": "models/gemini-3.1-flash-lite-preview"
+}

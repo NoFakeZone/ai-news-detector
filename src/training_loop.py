@@ -14,7 +14,7 @@ from dataset import NewsPopularityDataset
 from load_dataset import load_dataset
 
 # --- KONFIGURACJA ŚCIEŻEK I FOLDERÓW ---
-OUTPUT_DIR = "wb_training_run_nf_gpt-oss-120b" # Nazwa folderu na logi i modele
+OUTPUT_DIR = "ag_training/stylistic_features/nemotron-3-120b-a12b" # Nazwa folderu na logi i modele
 os.makedirs(OUTPUT_DIR, exist_ok=True) # Tworzy folder, jeśli nie istnieje
 
 BEST_MODEL_PATH = os.path.join(OUTPUT_DIR, "best_bert_stylistic_model.pt")
@@ -39,11 +39,11 @@ BATCH_SIZE = 16
 REAL_BATCH = 16
 BATCH_ACCUMULATION = int(BATCH_SIZE / REAL_BATCH)
 LEARNING_RATE = 2e-5
-EPOCHS = 30
+EPOCHS = 10
 WARMUP_PROPORTION = 0.1 
-TEST_DATA = 'gpt-oss-120b'
-DATA_PATH = r'C:\Users\PC\OneDrive\Pulpit\projekty\ai-news-generator'
-BASIC_POPULARITY_INDEX = True
+TEST_DATA = 'nemotron-3-120b-a12b'
+DATA_PATH = r'C:\Users\foktp\Desktop\AI\ai-news-generator'
+BASIC_POPULARITY_INDEX = False
 WIKIPEDIA_POPULARITY_INDEX = False
 NKJP_POPULARITY_INDEX = False
 USE_STYLISTIC_FEATURES = True

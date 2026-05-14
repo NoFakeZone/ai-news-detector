@@ -1,0 +1,11 @@
+{
+    "ID": 1342,
+    "Provider": "onet",
+    "URL": "https://wiadomosci.onet.pl/kraj/historyczny-wynik-pll-lot-w-2019-r/4zjzvez",
+    "Zdarzenie": "Osiągnięcie przez PLL LOT wyniku 10 milionów przewiezionych pasażerów w 2019 roku.",
+    "Temat": "Rozwój i strategia biznesowa polskiego przewoźnika lotniczego.",
+    "Długość": "Krótki artykuł informacyjny.",
+    "Wygenerowany tytuł": "10 milionów pasażerów w 2019 r. – jak LOT buduje swoją pozycję na rynku\n\n",
+    "Wygenerowany tekst": "  \nPolski przewoźnik lotniczy PLL LOT odnotował przełomowy wynik – w 2019 roku przetransportował 10 milionów pasażerów. Sukces ten jest efektem kilku kluczowych elementów strategii rozwojowej firmy.  \n\nPo pierwsze, LOT konsekwentnie rozbudowuje siatkę połączeń, łącząc polskie miasta nie tylko z tradycyjnymi hubami Europy, ale także z rynkami Azji i Ameryki Północnej. Dzięki nowym lotom do Nowego Jorku, Seulu i Dubaju linia przyciąga podróżnych biznesowych i turystów poszukujących bezpośrednich połączeń.  \n\nPo drugie, przewoźnik intensywnie modernizuje flotę – w 2019 roku wprowadził do eksploatacji nowoczesne samoloty Boeing 787 Dreamliner i Airbus A321neo, które oferują większą efektywność paliwową i wyższy komfort. Niższe koszty eksploatacji sprzyjają konkurencyjnym cenom biletów.  \n\nKolejnym filarem jest digitalizacja usług. LOT zainwestował w aplikacje mobilne, systemy samoobsługowe oraz program lojalnościowy Miles & More, co podnosi satysfakcję klientów i zwiększa lojalność.  \n\nNie bez znaczenia pozostaje także polityka kosztowa – optymalizacja struktury organizacyjnej i renegocjacje umów z partnerami przyczyniły się do poprawy rentowności.  \n\nW efekcie, przekroczenie progu 10 milionów pasażerów nie jest jedynie liczbą, lecz dowodem na to, że przemyślana strategia rozwoju, modernizacja floty i innowacje cyfrowe pozwalają LOTowi umocnić pozycję lidera na rynku lotniczym w regionie. ",
+    "Model": "@cf/openai/gpt-oss-120b"
+}
