@@ -14,7 +14,7 @@ from dataset import NewsPopularityDataset
 from load_dataset import load_dataset
 
 # --- KONFIGURACJA ŚCIEŻEK I FOLDERÓW ---
-OUTPUT_DIR = "ag_training/stylistic_features/nemotron-3-120b-a12b" # Nazwa folderu na logi i modele
+OUTPUT_DIR = "ag_training/wiki_unnormalized/llama-3.3-70b-instruct-fp8-fast" # Nazwa folderu na logi i modele
 os.makedirs(OUTPUT_DIR, exist_ok=True) # Tworzy folder, jeśli nie istnieje
 
 BEST_MODEL_PATH = os.path.join(OUTPUT_DIR, "best_bert_stylistic_model.pt")
@@ -41,16 +41,16 @@ BATCH_ACCUMULATION = int(BATCH_SIZE / REAL_BATCH)
 LEARNING_RATE = 2e-5
 EPOCHS = 10
 WARMUP_PROPORTION = 0.1 
-TEST_DATA = 'nemotron-3-120b-a12b'
+TEST_DATA = 'llama-3.3-70b-instruct-fp8-fast'
 DATA_PATH = r'C:\Users\foktp\Desktop\AI\ai-news-generator'
 BASIC_POPULARITY_INDEX = False
-WIKIPEDIA_POPULARITY_INDEX = False
+WIKIPEDIA_POPULARITY_INDEX = True
 WIKIPEDIA_DICT_PATH = "wiki_popularity_dict_unnormalized.json"
 NKJP_POPULARITY_INDEX = False
-USE_STYLISTIC_FEATURES = True
+USE_STYLISTIC_FEATURES = False
 NORMALIZE_NKJP = False
 
-RESUME_TRAINING = False
+RESUME_TRAINING = True
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 logger.info(f'Chosen DEVICE: {device}')
@@ -106,11 +106,11 @@ if RESUME_TRAINING and os.path.exists(CHECKPOINT_PATH):
     min_popularity_index = checkpoint['min_popularity_index'].to('cpu')
     max_popularity_index = checkpoint['max_popularity_index'].to('cpu')
 else:
-    min_popularity_index = train_features[:, 20].min()
-    max_popularity_index = train_features[:, 20].max()
+    #min_popularity_index = train_features[:, 20].min()
+    #max_popularity_index = train_features[:, 20].max()
     # dla wikipedii
-    # min_popularity_index = 0
-    # max_popularity_index = 1
+    min_popularity_index = 0
+    max_popularity_index = 1
 # --- INICJALIZACJA DATASETÓW I LOADERÓW ---
 train_dataset = NewsPopularityDataset(train_text, train_features, train_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)
 val_dataset = NewsPopularityDataset(val_text, val_features, val_labels, BERT_MODEL_NAME, use_features=USE_STYLISTIC_FEATURES, min_popularity_index=min_popularity_index, max_popularity_index=max_popularity_index)

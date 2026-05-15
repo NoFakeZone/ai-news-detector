@@ -1,0 +1,511 @@
+2026-05-15 17:07:51,089 [INFO] Chosen DEVICE: cuda
+2026-05-15 17:07:51,089 [INFO] All outputs will be saved to directory: ag_training/wiki_unnormalized/nemotron-3-120b-a12b/
+2026-05-15 17:09:10,001 [INFO] Train samples: 5883 | Val samples: 653 | Test samples: 1691
+2026-05-15 17:09:10,381 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 17:09:10,382 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-15 17:09:10,392 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/config.json "HTTP/1.1 200 OK"
+2026-05-15 17:09:11,015 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-05-15 17:09:11,202 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased "HTTP/1.1 200 OK"
+2026-05-15 17:09:11,395 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/commits/main "HTTP/1.1 200 OK"
+2026-05-15 17:09:11,538 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/discussions?p=0 "HTTP/1.1 200 OK"
+2026-05-15 17:09:11,697 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/commits/refs%2Fpr%2F2 "HTTP/1.1 200 OK"
+2026-05-15 17:09:11,828 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/refs%2Fpr%2F2/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-05-15 17:09:11,964 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/refs%2Fpr%2F2/model.safetensors "HTTP/1.1 302 Found"
+2026-05-15 17:10:49,264 [INFO] Chosen DEVICE: cuda
+2026-05-15 17:10:49,264 [INFO] All outputs will be saved to directory: ag_training/wiki_unnormalized/nemotron-3-120b-a12b/
+2026-05-15 17:12:05,886 [INFO] Train samples: 5883 | Val samples: 653 | Test samples: 1691
+2026-05-15 17:12:06,284 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 17:12:06,284 [WARNING] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-15 17:12:06,292 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/config.json "HTTP/1.1 200 OK"
+2026-05-15 17:12:06,820 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-05-15 17:12:06,958 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased "HTTP/1.1 200 OK"
+2026-05-15 17:12:07,139 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/commits/main "HTTP/1.1 200 OK"
+2026-05-15 17:12:07,282 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/discussions?p=0 "HTTP/1.1 200 OK"
+2026-05-15 17:12:07,372 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 17:12:07,379 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/config.json "HTTP/1.1 200 OK"
+2026-05-15 17:12:07,448 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/commits/refs%2Fpr%2F2 "HTTP/1.1 200 OK"
+2026-05-15 17:12:07,511 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 17:12:07,520 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-15 17:12:07,587 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/refs%2Fpr%2F2/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-05-15 17:12:07,654 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-15 17:12:07,723 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/refs%2Fpr%2F2/model.safetensors "HTTP/1.1 302 Found"
+2026-05-15 17:12:07,788 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-15 17:12:08,074 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 17:12:08,086 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/config.json "HTTP/1.1 200 OK"
+2026-05-15 17:12:08,217 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 17:12:08,227 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-15 17:12:08,357 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-15 17:12:08,495 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-15 17:12:08,670 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 17:12:08,679 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/config.json "HTTP/1.1 200 OK"
+2026-05-15 17:12:08,809 [INFO] HTTP Request: HEAD https://huggingface.co/allegro/herbert-base-cased/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 17:12:08,819 [INFO] HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/allegro/herbert-base-cased/50e33e0567be0c0b313832314c586e3df0dc2297/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-15 17:12:08,953 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-15 17:12:09,089 [INFO] HTTP Request: GET https://huggingface.co/api/models/allegro/herbert-base-cased/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-15 17:12:09,137 [INFO] --- Starting Epoch 1/10 ---
+2026-05-15 17:12:12,407 [INFO] Epoch 1 | Train Batch 10/368 | Loss: 6.6293 | Acc: 68.75% | Avg Target [0.46875]
+2026-05-15 17:12:15,192 [INFO] Epoch 1 | Train Batch 20/368 | Loss: 12.2437 | Acc: 37.50% | Avg Target [0.45]
+2026-05-15 17:12:17,986 [INFO] Epoch 1 | Train Batch 30/368 | Loss: 13.7335 | Acc: 31.25% | Avg Target [0.43333333333333335]
+2026-05-15 17:12:20,779 [INFO] Epoch 1 | Train Batch 40/368 | Loss: 10.2074 | Acc: 50.00% | Avg Target [0.4359375]
+2026-05-15 17:12:23,656 [INFO] Epoch 1 | Train Batch 50/368 | Loss: 11.6472 | Acc: 31.25% | Avg Target [0.43625]
+2026-05-15 17:12:26,546 [INFO] Epoch 1 | Train Batch 60/368 | Loss: 17.8751 | Acc: 43.75% | Avg Target [0.434375]
+2026-05-15 17:12:29,446 [INFO] Epoch 1 | Train Batch 70/368 | Loss: 8.2537 | Acc: 56.25% | Avg Target [0.4348214285714286]
+2026-05-15 17:12:32,248 [INFO] Epoch 1 | Train Batch 80/368 | Loss: 17.5005 | Acc: 43.75% | Avg Target [0.4375]
+2026-05-15 17:12:35,054 [INFO] Epoch 1 | Train Batch 90/368 | Loss: 14.1714 | Acc: 56.25% | Avg Target [0.4354166666666667]
+2026-05-15 17:12:37,856 [INFO] Epoch 1 | Train Batch 100/368 | Loss: 8.3515 | Acc: 50.00% | Avg Target [0.435625]
+2026-05-15 17:12:40,658 [INFO] Epoch 1 | Train Batch 110/368 | Loss: 12.4500 | Acc: 50.00% | Avg Target [0.4375]
+2026-05-15 17:12:43,459 [INFO] Epoch 1 | Train Batch 120/368 | Loss: 6.9455 | Acc: 56.25% | Avg Target [0.4427083333333333]
+2026-05-15 17:12:46,266 [INFO] Epoch 1 | Train Batch 130/368 | Loss: 14.0606 | Acc: 56.25% | Avg Target [0.44326923076923075]
+2026-05-15 17:12:49,069 [INFO] Epoch 1 | Train Batch 140/368 | Loss: 9.7432 | Acc: 43.75% | Avg Target [0.44776785714285716]
+2026-05-15 17:12:51,877 [INFO] Epoch 1 | Train Batch 150/368 | Loss: 10.0057 | Acc: 50.00% | Avg Target [0.445]
+2026-05-15 17:12:54,683 [INFO] Epoch 1 | Train Batch 160/368 | Loss: 14.4283 | Acc: 56.25% | Avg Target [0.44453125]
+2026-05-15 17:12:57,486 [INFO] Epoch 1 | Train Batch 170/368 | Loss: 13.5138 | Acc: 50.00% | Avg Target [0.4452205882352941]
+2026-05-15 17:13:00,300 [INFO] Epoch 1 | Train Batch 180/368 | Loss: 15.9426 | Acc: 43.75% | Avg Target [0.44513888888888886]
+2026-05-15 17:13:03,112 [INFO] Epoch 1 | Train Batch 190/368 | Loss: 28.5601 | Acc: 37.50% | Avg Target [0.44375]
+2026-05-15 17:13:05,920 [INFO] Epoch 1 | Train Batch 200/368 | Loss: 4.4206 | Acc: 56.25% | Avg Target [0.448125]
+2026-05-15 17:13:08,731 [INFO] Epoch 1 | Train Batch 210/368 | Loss: 17.7239 | Acc: 43.75% | Avg Target [0.44821428571428573]
+2026-05-15 17:13:11,539 [INFO] Epoch 1 | Train Batch 220/368 | Loss: 10.7411 | Acc: 37.50% | Avg Target [0.4502840909090909]
+2026-05-15 17:13:14,349 [INFO] Epoch 1 | Train Batch 230/368 | Loss: 9.8758 | Acc: 62.50% | Avg Target [0.44864130434782606]
+2026-05-15 17:13:17,165 [INFO] Epoch 1 | Train Batch 240/368 | Loss: 11.8521 | Acc: 43.75% | Avg Target [0.44895833333333335]
+2026-05-15 17:13:19,979 [INFO] Epoch 1 | Train Batch 250/368 | Loss: 9.9242 | Acc: 56.25% | Avg Target [0.44875]
+2026-05-15 17:13:22,791 [INFO] Epoch 1 | Train Batch 260/368 | Loss: 7.8966 | Acc: 37.50% | Avg Target [0.4478365384615385]
+2026-05-15 17:13:25,599 [INFO] Epoch 1 | Train Batch 270/368 | Loss: 9.1735 | Acc: 62.50% | Avg Target [0.4465277777777778]
+2026-05-15 17:13:28,400 [INFO] Epoch 1 | Train Batch 280/368 | Loss: 18.9861 | Acc: 43.75% | Avg Target [0.4459821428571429]
+2026-05-15 17:13:31,209 [INFO] Epoch 1 | Train Batch 290/368 | Loss: 6.9831 | Acc: 56.25% | Avg Target [0.44568965517241377]
+2026-05-15 17:13:34,022 [INFO] Epoch 1 | Train Batch 300/368 | Loss: 7.8121 | Acc: 43.75% | Avg Target [0.44625]
+2026-05-15 17:13:36,837 [INFO] Epoch 1 | Train Batch 310/368 | Loss: 8.5155 | Acc: 50.00% | Avg Target [0.44455645161290325]
+2026-05-15 17:13:39,657 [INFO] Epoch 1 | Train Batch 320/368 | Loss: 9.3612 | Acc: 62.50% | Avg Target [0.4451171875]
+2026-05-15 17:13:42,470 [INFO] Epoch 1 | Train Batch 330/368 | Loss: 1.8354 | Acc: 56.25% | Avg Target [0.44583333333333336]
+2026-05-15 17:13:45,283 [INFO] Epoch 1 | Train Batch 340/368 | Loss: 12.0038 | Acc: 56.25% | Avg Target [0.446875]
+2026-05-15 17:13:48,104 [INFO] Epoch 1 | Train Batch 350/368 | Loss: 6.5968 | Acc: 81.25% | Avg Target [0.44785714285714284]
+2026-05-15 17:13:50,923 [INFO] Epoch 1 | Train Batch 360/368 | Loss: 4.7578 | Acc: 43.75% | Avg Target [0.4486111111111111]
+2026-05-15 17:13:54,022 [INFO] Epoch 1 | Val Batch 10/41 - Validation running...
+2026-05-15 17:13:54,958 [INFO] Epoch 1 | Val Batch 20/41 - Validation running...
+2026-05-15 17:13:55,893 [INFO] Epoch 1 | Val Batch 30/41 - Validation running...
+2026-05-15 17:13:56,828 [INFO] Epoch 1 | Val Batch 40/41 - Validation running...
+2026-05-15 17:13:56,904 [INFO] >>> End of epoch 1
+2026-05-15 17:13:56,904 [INFO] TRAIN -> Loss: 10.6821 | Accuracy: 53.49% | Avg Target 0.449
+2026-05-15 17:13:56,904 [INFO] VAL   -> Loss: 2.3783 | Accuracy: 75.80% | Avg Target 0.455
+2026-05-15 17:13:58,919 [INFO] *** New best model saved! (Val Loss: 2.3783) ***
+2026-05-15 17:13:58,919 [INFO] --------------------------------------------------
+2026-05-15 17:13:58,919 [INFO] --- Starting Epoch 2/10 ---
+2026-05-15 17:14:01,835 [INFO] Epoch 2 | Train Batch 10/368 | Loss: 3.0618 | Acc: 81.25% | Avg Target [0.49375]
+2026-05-15 17:14:04,644 [INFO] Epoch 2 | Train Batch 20/368 | Loss: 7.0958 | Acc: 62.50% | Avg Target [0.45625]
+2026-05-15 17:14:07,443 [INFO] Epoch 2 | Train Batch 30/368 | Loss: 4.4483 | Acc: 68.75% | Avg Target [0.4583333333333333]
+2026-05-15 17:14:10,245 [INFO] Epoch 2 | Train Batch 40/368 | Loss: 7.1843 | Acc: 62.50% | Avg Target [0.459375]
+2026-05-15 17:14:13,045 [INFO] Epoch 2 | Train Batch 50/368 | Loss: 8.0591 | Acc: 62.50% | Avg Target [0.46375]
+2026-05-15 17:14:15,852 [INFO] Epoch 2 | Train Batch 60/368 | Loss: 8.0362 | Acc: 50.00% | Avg Target [0.459375]
+2026-05-15 17:14:18,658 [INFO] Epoch 2 | Train Batch 70/368 | Loss: 10.9811 | Acc: 50.00% | Avg Target [0.45357142857142857]
+2026-05-15 17:14:21,473 [INFO] Epoch 2 | Train Batch 80/368 | Loss: 2.8246 | Acc: 68.75% | Avg Target [0.45078125]
+2026-05-15 17:14:24,289 [INFO] Epoch 2 | Train Batch 90/368 | Loss: 7.2259 | Acc: 43.75% | Avg Target [0.4444444444444444]
+2026-05-15 17:14:27,104 [INFO] Epoch 2 | Train Batch 100/368 | Loss: 9.0597 | Acc: 56.25% | Avg Target [0.45125]
+2026-05-15 17:14:29,916 [INFO] Epoch 2 | Train Batch 110/368 | Loss: 2.9470 | Acc: 87.50% | Avg Target [0.44943181818181815]
+2026-05-15 17:14:32,729 [INFO] Epoch 2 | Train Batch 120/368 | Loss: 1.8251 | Acc: 87.50% | Avg Target [0.45208333333333334]
+2026-05-15 17:14:35,547 [INFO] Epoch 2 | Train Batch 130/368 | Loss: 5.2248 | Acc: 87.50% | Avg Target [0.4533653846153846]
+2026-05-15 17:14:38,468 [INFO] Epoch 2 | Train Batch 140/368 | Loss: 6.3271 | Acc: 68.75% | Avg Target [0.44776785714285716]
+2026-05-15 17:14:41,487 [INFO] Epoch 2 | Train Batch 150/368 | Loss: 6.3262 | Acc: 68.75% | Avg Target [0.44416666666666665]
+2026-05-15 17:14:44,517 [INFO] Epoch 2 | Train Batch 160/368 | Loss: 4.2182 | Acc: 68.75% | Avg Target [0.439453125]
+2026-05-15 17:14:47,432 [INFO] Epoch 2 | Train Batch 170/368 | Loss: 7.9553 | Acc: 56.25% | Avg Target [0.43933823529411764]
+2026-05-15 17:14:50,473 [INFO] Epoch 2 | Train Batch 180/368 | Loss: 6.3542 | Acc: 68.75% | Avg Target [0.4395833333333333]
+2026-05-15 17:14:53,328 [INFO] Epoch 2 | Train Batch 190/368 | Loss: 3.9466 | Acc: 68.75% | Avg Target [0.4411184210526316]
+2026-05-15 17:14:56,166 [INFO] Epoch 2 | Train Batch 200/368 | Loss: 10.7503 | Acc: 50.00% | Avg Target [0.44375]
+2026-05-15 17:14:59,006 [INFO] Epoch 2 | Train Batch 210/368 | Loss: 2.9555 | Acc: 81.25% | Avg Target [0.44226190476190474]
+2026-05-15 17:15:01,874 [INFO] Epoch 2 | Train Batch 220/368 | Loss: 10.4019 | Acc: 68.75% | Avg Target [0.44176136363636365]
+2026-05-15 17:15:04,723 [INFO] Epoch 2 | Train Batch 230/368 | Loss: 5.9729 | Acc: 56.25% | Avg Target [0.44429347826086957]
+2026-05-15 17:15:07,563 [INFO] Epoch 2 | Train Batch 240/368 | Loss: 6.9615 | Acc: 62.50% | Avg Target [0.44557291666666665]
+2026-05-15 17:15:10,408 [INFO] Epoch 2 | Train Batch 250/368 | Loss: 6.5329 | Acc: 75.00% | Avg Target [0.44425]
+2026-05-15 17:15:13,239 [INFO] Epoch 2 | Train Batch 260/368 | Loss: 6.7348 | Acc: 50.00% | Avg Target [0.44375]
+2026-05-15 17:15:16,079 [INFO] Epoch 2 | Train Batch 270/368 | Loss: 6.4305 | Acc: 75.00% | Avg Target [0.44328703703703703]
+2026-05-15 17:15:18,931 [INFO] Epoch 2 | Train Batch 280/368 | Loss: 9.6099 | Acc: 75.00% | Avg Target [0.4466517857142857]
+2026-05-15 17:15:21,768 [INFO] Epoch 2 | Train Batch 290/368 | Loss: 7.5682 | Acc: 68.75% | Avg Target [0.44741379310344825]
+2026-05-15 17:15:24,610 [INFO] Epoch 2 | Train Batch 300/368 | Loss: 6.3619 | Acc: 75.00% | Avg Target [0.4483333333333333]
+2026-05-15 17:15:27,455 [INFO] Epoch 2 | Train Batch 310/368 | Loss: 3.6799 | Acc: 62.50% | Avg Target [0.4483870967741935]
+2026-05-15 17:15:30,297 [INFO] Epoch 2 | Train Batch 320/368 | Loss: 9.4825 | Acc: 50.00% | Avg Target [0.4486328125]
+2026-05-15 17:15:33,136 [INFO] Epoch 2 | Train Batch 330/368 | Loss: 2.5145 | Acc: 75.00% | Avg Target [0.4471590909090909]
+2026-05-15 17:15:35,990 [INFO] Epoch 2 | Train Batch 340/368 | Loss: 6.6247 | Acc: 68.75% | Avg Target [0.4496323529411765]
+2026-05-15 17:15:38,834 [INFO] Epoch 2 | Train Batch 350/368 | Loss: 3.0279 | Acc: 81.25% | Avg Target [0.45071428571428573]
+2026-05-15 17:15:41,678 [INFO] Epoch 2 | Train Batch 360/368 | Loss: 5.4287 | Acc: 68.75% | Avg Target [0.45034722222222223]
+2026-05-15 17:15:44,795 [INFO] Epoch 2 | Val Batch 10/41 - Validation running...
+2026-05-15 17:15:45,746 [INFO] Epoch 2 | Val Batch 20/41 - Validation running...
+2026-05-15 17:15:46,694 [INFO] Epoch 2 | Val Batch 30/41 - Validation running...
+2026-05-15 17:15:47,644 [INFO] Epoch 2 | Val Batch 40/41 - Validation running...
+2026-05-15 17:15:47,721 [INFO] >>> End of epoch 2
+2026-05-15 17:15:47,721 [INFO] TRAIN -> Loss: 5.6212 | Accuracy: 69.23% | Avg Target 0.449
+2026-05-15 17:15:47,721 [INFO] VAL   -> Loss: 1.0796 | Accuracy: 91.88% | Avg Target 0.455
+2026-05-15 17:15:49,878 [INFO] *** New best model saved! (Val Loss: 1.0796) ***
+2026-05-15 17:15:49,878 [INFO] --------------------------------------------------
+2026-05-15 17:15:49,879 [INFO] --- Starting Epoch 3/10 ---
+2026-05-15 17:15:52,826 [INFO] Epoch 3 | Train Batch 10/368 | Loss: 8.9284 | Acc: 75.00% | Avg Target [0.45625]
+2026-05-15 17:15:55,673 [INFO] Epoch 3 | Train Batch 20/368 | Loss: 0.7354 | Acc: 87.50% | Avg Target [0.45625]
+2026-05-15 17:15:58,523 [INFO] Epoch 3 | Train Batch 30/368 | Loss: 3.5745 | Acc: 75.00% | Avg Target [0.4583333333333333]
+2026-05-15 17:16:01,368 [INFO] Epoch 3 | Train Batch 40/368 | Loss: 2.2513 | Acc: 68.75% | Avg Target [0.44375]
+2026-05-15 17:16:04,211 [INFO] Epoch 3 | Train Batch 50/368 | Loss: 0.8594 | Acc: 87.50% | Avg Target [0.43875]
+2026-05-15 17:16:07,049 [INFO] Epoch 3 | Train Batch 60/368 | Loss: 7.8964 | Acc: 75.00% | Avg Target [0.44166666666666665]
+2026-05-15 17:16:09,893 [INFO] Epoch 3 | Train Batch 70/368 | Loss: 4.0145 | Acc: 87.50% | Avg Target [0.45089285714285715]
+2026-05-15 17:16:12,745 [INFO] Epoch 3 | Train Batch 80/368 | Loss: 6.7010 | Acc: 81.25% | Avg Target [0.4515625]
+2026-05-15 17:16:15,599 [INFO] Epoch 3 | Train Batch 90/368 | Loss: 2.0549 | Acc: 87.50% | Avg Target [0.45902777777777776]
+2026-05-15 17:16:18,444 [INFO] Epoch 3 | Train Batch 100/368 | Loss: 0.7271 | Acc: 81.25% | Avg Target [0.459375]
+2026-05-15 17:16:21,283 [INFO] Epoch 3 | Train Batch 110/368 | Loss: 1.6674 | Acc: 93.75% | Avg Target [0.45681818181818185]
+2026-05-15 17:16:24,134 [INFO] Epoch 3 | Train Batch 120/368 | Loss: 11.5198 | Acc: 56.25% | Avg Target [0.45416666666666666]
+2026-05-15 17:16:26,982 [INFO] Epoch 3 | Train Batch 130/368 | Loss: 4.0101 | Acc: 68.75% | Avg Target [0.4528846153846154]
+2026-05-15 17:16:29,820 [INFO] Epoch 3 | Train Batch 140/368 | Loss: 2.1806 | Acc: 75.00% | Avg Target [0.4504464285714286]
+2026-05-15 17:16:32,812 [INFO] Epoch 3 | Train Batch 150/368 | Loss: 3.0304 | Acc: 68.75% | Avg Target [0.45625]
+2026-05-15 17:16:35,667 [INFO] Epoch 3 | Train Batch 160/368 | Loss: 2.3318 | Acc: 87.50% | Avg Target [0.457421875]
+2026-05-15 17:16:38,575 [INFO] Epoch 3 | Train Batch 170/368 | Loss: 7.0470 | Acc: 81.25% | Avg Target [0.4602941176470588]
+2026-05-15 17:16:41,550 [INFO] Epoch 3 | Train Batch 180/368 | Loss: 6.4368 | Acc: 56.25% | Avg Target [0.45868055555555554]
+2026-05-15 17:16:44,575 [INFO] Epoch 3 | Train Batch 190/368 | Loss: 7.4404 | Acc: 68.75% | Avg Target [0.45394736842105265]
+2026-05-15 17:16:47,509 [INFO] Epoch 3 | Train Batch 200/368 | Loss: 0.2645 | Acc: 93.75% | Avg Target [0.45125]
+2026-05-15 17:16:50,436 [INFO] Epoch 3 | Train Batch 210/368 | Loss: 5.7325 | Acc: 75.00% | Avg Target [0.4494047619047619]
+2026-05-15 17:16:53,367 [INFO] Epoch 3 | Train Batch 220/368 | Loss: 3.2463 | Acc: 87.50% | Avg Target [0.453125]
+2026-05-15 17:16:56,290 [INFO] Epoch 3 | Train Batch 230/368 | Loss: 3.1544 | Acc: 93.75% | Avg Target [0.4543478260869565]
+2026-05-15 17:16:59,240 [INFO] Epoch 3 | Train Batch 240/368 | Loss: 2.8313 | Acc: 81.25% | Avg Target [0.45416666666666666]
+2026-05-15 17:17:02,179 [INFO] Epoch 3 | Train Batch 250/368 | Loss: 1.6675 | Acc: 75.00% | Avg Target [0.4545]
+2026-05-15 17:17:05,127 [INFO] Epoch 3 | Train Batch 260/368 | Loss: 7.0741 | Acc: 87.50% | Avg Target [0.4564903846153846]
+2026-05-15 17:17:08,084 [INFO] Epoch 3 | Train Batch 270/368 | Loss: 1.6070 | Acc: 87.50% | Avg Target [0.4534722222222222]
+2026-05-15 17:17:11,165 [INFO] Epoch 3 | Train Batch 280/368 | Loss: 3.2768 | Acc: 68.75% | Avg Target [0.45066964285714284]
+2026-05-15 17:17:14,179 [INFO] Epoch 3 | Train Batch 290/368 | Loss: 1.7648 | Acc: 81.25% | Avg Target [0.4517241379310345]
+2026-05-15 17:17:17,128 [INFO] Epoch 3 | Train Batch 300/368 | Loss: 2.4501 | Acc: 81.25% | Avg Target [0.45145833333333335]
+2026-05-15 17:17:20,068 [INFO] Epoch 3 | Train Batch 310/368 | Loss: 6.4676 | Acc: 56.25% | Avg Target [0.45120967741935486]
+2026-05-15 17:17:22,994 [INFO] Epoch 3 | Train Batch 320/368 | Loss: 3.2957 | Acc: 93.75% | Avg Target [0.45]
+2026-05-15 17:17:25,925 [INFO] Epoch 3 | Train Batch 330/368 | Loss: 0.6140 | Acc: 93.75% | Avg Target [0.4498106060606061]
+2026-05-15 17:17:28,908 [INFO] Epoch 3 | Train Batch 340/368 | Loss: 1.9826 | Acc: 81.25% | Avg Target [0.44871323529411766]
+2026-05-15 17:17:31,890 [INFO] Epoch 3 | Train Batch 350/368 | Loss: 2.1768 | Acc: 93.75% | Avg Target [0.44839285714285715]
+2026-05-15 17:17:34,870 [INFO] Epoch 3 | Train Batch 360/368 | Loss: 1.9698 | Acc: 81.25% | Avg Target [0.44809027777777777]
+2026-05-15 17:17:38,128 [INFO] Epoch 3 | Val Batch 10/41 - Validation running...
+2026-05-15 17:17:39,139 [INFO] Epoch 3 | Val Batch 20/41 - Validation running...
+2026-05-15 17:17:40,145 [INFO] Epoch 3 | Val Batch 30/41 - Validation running...
+2026-05-15 17:17:41,168 [INFO] Epoch 3 | Val Batch 40/41 - Validation running...
+2026-05-15 17:17:41,251 [INFO] >>> End of epoch 3
+2026-05-15 17:17:41,251 [INFO] TRAIN -> Loss: 3.1884 | Accuracy: 80.21% | Avg Target 0.449
+2026-05-15 17:17:41,251 [INFO] VAL   -> Loss: 1.2353 | Accuracy: 92.50% | Avg Target 0.455
+2026-05-15 17:17:42,362 [INFO] --------------------------------------------------
+2026-05-15 17:17:42,363 [INFO] --- Starting Epoch 4/10 ---
+2026-05-15 17:17:45,307 [INFO] Epoch 4 | Train Batch 10/368 | Loss: 6.3160 | Acc: 81.25% | Avg Target [0.45]
+2026-05-15 17:17:48,259 [INFO] Epoch 4 | Train Batch 20/368 | Loss: 0.5198 | Acc: 87.50% | Avg Target [0.446875]
+2026-05-15 17:17:51,270 [INFO] Epoch 4 | Train Batch 30/368 | Loss: 5.7494 | Acc: 68.75% | Avg Target [0.4354166666666667]
+2026-05-15 17:17:54,159 [INFO] Epoch 4 | Train Batch 40/368 | Loss: 4.0129 | Acc: 87.50% | Avg Target [0.4375]
+2026-05-15 17:17:57,012 [INFO] Epoch 4 | Train Batch 50/368 | Loss: 2.0261 | Acc: 81.25% | Avg Target [0.4325]
+2026-05-15 17:17:59,867 [INFO] Epoch 4 | Train Batch 60/368 | Loss: 0.1893 | Acc: 87.50% | Avg Target [0.4322916666666667]
+2026-05-15 17:18:02,711 [INFO] Epoch 4 | Train Batch 70/368 | Loss: 3.1632 | Acc: 87.50% | Avg Target [0.43839285714285714]
+2026-05-15 17:18:05,554 [INFO] Epoch 4 | Train Batch 80/368 | Loss: 2.1890 | Acc: 87.50% | Avg Target [0.43359375]
+2026-05-15 17:18:08,404 [INFO] Epoch 4 | Train Batch 90/368 | Loss: 2.2088 | Acc: 87.50% | Avg Target [0.43680555555555556]
+2026-05-15 17:18:11,254 [INFO] Epoch 4 | Train Batch 100/368 | Loss: 0.6988 | Acc: 81.25% | Avg Target [0.44375]
+2026-05-15 17:18:14,099 [INFO] Epoch 4 | Train Batch 110/368 | Loss: 3.1252 | Acc: 75.00% | Avg Target [0.44829545454545455]
+2026-05-15 17:18:16,944 [INFO] Epoch 4 | Train Batch 120/368 | Loss: 4.8581 | Acc: 81.25% | Avg Target [0.44635416666666666]
+2026-05-15 17:18:19,785 [INFO] Epoch 4 | Train Batch 130/368 | Loss: 0.8791 | Acc: 87.50% | Avg Target [0.4480769230769231]
+2026-05-15 17:18:22,632 [INFO] Epoch 4 | Train Batch 140/368 | Loss: 1.2623 | Acc: 87.50% | Avg Target [0.44821428571428573]
+2026-05-15 17:18:25,482 [INFO] Epoch 4 | Train Batch 150/368 | Loss: 3.3142 | Acc: 81.25% | Avg Target [0.45416666666666666]
+2026-05-15 17:18:28,329 [INFO] Epoch 4 | Train Batch 160/368 | Loss: 0.8936 | Acc: 81.25% | Avg Target [0.453125]
+2026-05-15 17:18:31,178 [INFO] Epoch 4 | Train Batch 170/368 | Loss: 1.5153 | Acc: 87.50% | Avg Target [0.4525735294117647]
+2026-05-15 17:18:34,096 [INFO] Epoch 4 | Train Batch 180/368 | Loss: 2.4717 | Acc: 81.25% | Avg Target [0.4510416666666667]
+2026-05-15 17:18:36,989 [INFO] Epoch 4 | Train Batch 190/368 | Loss: 12.6050 | Acc: 81.25% | Avg Target [0.45361842105263156]
+2026-05-15 17:18:39,879 [INFO] Epoch 4 | Train Batch 200/368 | Loss: 3.0561 | Acc: 81.25% | Avg Target [0.454375]
+2026-05-15 17:18:42,807 [INFO] Epoch 4 | Train Batch 210/368 | Loss: 2.3321 | Acc: 81.25% | Avg Target [0.45267857142857143]
+2026-05-15 17:18:45,665 [INFO] Epoch 4 | Train Batch 220/368 | Loss: 2.9391 | Acc: 81.25% | Avg Target [0.4536931818181818]
+2026-05-15 17:18:48,673 [INFO] Epoch 4 | Train Batch 230/368 | Loss: 2.3610 | Acc: 87.50% | Avg Target [0.45]
+2026-05-15 17:18:51,643 [INFO] Epoch 4 | Train Batch 240/368 | Loss: 0.5045 | Acc: 93.75% | Avg Target [0.44869791666666664]
+2026-05-15 17:18:54,530 [INFO] Epoch 4 | Train Batch 250/368 | Loss: 3.2319 | Acc: 75.00% | Avg Target [0.448]
+2026-05-15 17:18:57,385 [INFO] Epoch 4 | Train Batch 260/368 | Loss: 2.0666 | Acc: 75.00% | Avg Target [0.4495192307692308]
+2026-05-15 17:19:00,234 [INFO] Epoch 4 | Train Batch 270/368 | Loss: 4.7925 | Acc: 62.50% | Avg Target [0.44837962962962963]
+2026-05-15 17:19:03,091 [INFO] Epoch 4 | Train Batch 280/368 | Loss: 1.2944 | Acc: 87.50% | Avg Target [0.44821428571428573]
+2026-05-15 17:19:05,999 [INFO] Epoch 4 | Train Batch 290/368 | Loss: 0.4081 | Acc: 93.75% | Avg Target [0.44849137931034483]
+2026-05-15 17:19:08,852 [INFO] Epoch 4 | Train Batch 300/368 | Loss: 0.3432 | Acc: 93.75% | Avg Target [0.44729166666666664]
+2026-05-15 17:19:11,720 [INFO] Epoch 4 | Train Batch 310/368 | Loss: 2.3179 | Acc: 93.75% | Avg Target [0.4491935483870968]
+2026-05-15 17:19:14,567 [INFO] Epoch 4 | Train Batch 320/368 | Loss: 0.0004 | Acc: 100.00% | Avg Target [0.450390625]
+2026-05-15 17:19:17,421 [INFO] Epoch 4 | Train Batch 330/368 | Loss: 0.5079 | Acc: 87.50% | Avg Target [0.4509469696969697]
+2026-05-15 17:19:20,263 [INFO] Epoch 4 | Train Batch 340/368 | Loss: 0.0931 | Acc: 93.75% | Avg Target [0.45091911764705883]
+2026-05-15 17:19:23,110 [INFO] Epoch 4 | Train Batch 350/368 | Loss: 2.1239 | Acc: 87.50% | Avg Target [0.4514285714285714]
+2026-05-15 17:19:25,959 [INFO] Epoch 4 | Train Batch 360/368 | Loss: 1.5800 | Acc: 81.25% | Avg Target [0.44947916666666665]
+2026-05-15 17:19:29,086 [INFO] Epoch 4 | Val Batch 10/41 - Validation running...
+2026-05-15 17:19:30,045 [INFO] Epoch 4 | Val Batch 20/41 - Validation running...
+2026-05-15 17:19:31,002 [INFO] Epoch 4 | Val Batch 30/41 - Validation running...
+2026-05-15 17:19:31,958 [INFO] Epoch 4 | Val Batch 40/41 - Validation running...
+2026-05-15 17:19:32,035 [INFO] >>> End of epoch 4
+2026-05-15 17:19:32,035 [INFO] TRAIN -> Loss: 1.9586 | Accuracy: 88.02% | Avg Target 0.449
+2026-05-15 17:19:32,037 [INFO] VAL   -> Loss: 1.0042 | Accuracy: 94.95% | Avg Target 0.455
+2026-05-15 17:19:34,271 [INFO] *** New best model saved! (Val Loss: 1.0042) ***
+2026-05-15 17:19:34,271 [INFO] --------------------------------------------------
+2026-05-15 17:19:34,271 [INFO] --- Starting Epoch 5/10 ---
+2026-05-15 17:19:37,275 [INFO] Epoch 5 | Train Batch 10/368 | Loss: 2.1308 | Acc: 87.50% | Avg Target [0.41875]
+2026-05-15 17:19:40,127 [INFO] Epoch 5 | Train Batch 20/368 | Loss: 4.2175 | Acc: 75.00% | Avg Target [0.440625]
+2026-05-15 17:19:42,977 [INFO] Epoch 5 | Train Batch 30/368 | Loss: 4.9303 | Acc: 75.00% | Avg Target [0.4354166666666667]
+2026-05-15 17:19:45,832 [INFO] Epoch 5 | Train Batch 40/368 | Loss: 0.0252 | Acc: 100.00% | Avg Target [0.44375]
+2026-05-15 17:19:48,683 [INFO] Epoch 5 | Train Batch 50/368 | Loss: 2.4781 | Acc: 81.25% | Avg Target [0.43875]
+2026-05-15 17:19:51,538 [INFO] Epoch 5 | Train Batch 60/368 | Loss: 0.5496 | Acc: 93.75% | Avg Target [0.440625]
+2026-05-15 17:19:54,381 [INFO] Epoch 5 | Train Batch 70/368 | Loss: 0.4617 | Acc: 93.75% | Avg Target [0.44375]
+2026-05-15 17:19:57,234 [INFO] Epoch 5 | Train Batch 80/368 | Loss: 2.5447 | Acc: 75.00% | Avg Target [0.45]
+2026-05-15 17:20:00,088 [INFO] Epoch 5 | Train Batch 90/368 | Loss: 2.4544 | Acc: 93.75% | Avg Target [0.45069444444444445]
+2026-05-15 17:20:02,938 [INFO] Epoch 5 | Train Batch 100/368 | Loss: 0.0018 | Acc: 100.00% | Avg Target [0.446875]
+2026-05-15 17:20:05,791 [INFO] Epoch 5 | Train Batch 110/368 | Loss: 2.3063 | Acc: 81.25% | Avg Target [0.45170454545454547]
+2026-05-15 17:20:08,651 [INFO] Epoch 5 | Train Batch 120/368 | Loss: 6.4116 | Acc: 62.50% | Avg Target [0.4473958333333333]
+2026-05-15 17:20:11,508 [INFO] Epoch 5 | Train Batch 130/368 | Loss: 0.0003 | Acc: 100.00% | Avg Target [0.45048076923076924]
+2026-05-15 17:20:14,363 [INFO] Epoch 5 | Train Batch 140/368 | Loss: 1.3100 | Acc: 81.25% | Avg Target [0.453125]
+2026-05-15 17:20:17,216 [INFO] Epoch 5 | Train Batch 150/368 | Loss: 0.1641 | Acc: 87.50% | Avg Target [0.4554166666666667]
+2026-05-15 17:20:20,067 [INFO] Epoch 5 | Train Batch 160/368 | Loss: 4.5387 | Acc: 87.50% | Avg Target [0.455859375]
+2026-05-15 17:20:22,922 [INFO] Epoch 5 | Train Batch 170/368 | Loss: 0.4906 | Acc: 87.50% | Avg Target [0.4577205882352941]
+2026-05-15 17:20:25,786 [INFO] Epoch 5 | Train Batch 180/368 | Loss: 0.0003 | Acc: 100.00% | Avg Target [0.4597222222222222]
+2026-05-15 17:20:28,642 [INFO] Epoch 5 | Train Batch 190/368 | Loss: 0.9141 | Acc: 93.75% | Avg Target [0.45822368421052634]
+2026-05-15 17:20:31,494 [INFO] Epoch 5 | Train Batch 200/368 | Loss: 0.5889 | Acc: 87.50% | Avg Target [0.4584375]
+2026-05-15 17:20:34,347 [INFO] Epoch 5 | Train Batch 210/368 | Loss: 1.0357 | Acc: 93.75% | Avg Target [0.4583333333333333]
+2026-05-15 17:20:37,207 [INFO] Epoch 5 | Train Batch 220/368 | Loss: 1.5183 | Acc: 68.75% | Avg Target [0.45426136363636366]
+2026-05-15 17:20:40,062 [INFO] Epoch 5 | Train Batch 230/368 | Loss: 0.0829 | Acc: 93.75% | Avg Target [0.4573369565217391]
+2026-05-15 17:20:42,918 [INFO] Epoch 5 | Train Batch 240/368 | Loss: 0.3102 | Acc: 93.75% | Avg Target [0.4557291666666667]
+2026-05-15 17:20:45,770 [INFO] Epoch 5 | Train Batch 250/368 | Loss: 0.7632 | Acc: 93.75% | Avg Target [0.45425]
+2026-05-15 17:20:48,620 [INFO] Epoch 5 | Train Batch 260/368 | Loss: 0.0768 | Acc: 93.75% | Avg Target [0.4560096153846154]
+2026-05-15 17:20:51,480 [INFO] Epoch 5 | Train Batch 270/368 | Loss: 0.6241 | Acc: 93.75% | Avg Target [0.45810185185185187]
+2026-05-15 17:20:54,333 [INFO] Epoch 5 | Train Batch 280/368 | Loss: 5.7194 | Acc: 75.00% | Avg Target [0.45870535714285715]
+2026-05-15 17:20:57,187 [INFO] Epoch 5 | Train Batch 290/368 | Loss: 2.5594 | Acc: 81.25% | Avg Target [0.4560344827586207]
+2026-05-15 17:21:00,042 [INFO] Epoch 5 | Train Batch 300/368 | Loss: 1.4565 | Acc: 93.75% | Avg Target [0.45708333333333334]
+2026-05-15 17:21:02,898 [INFO] Epoch 5 | Train Batch 310/368 | Loss: 5.8883 | Acc: 75.00% | Avg Target [0.4568548387096774]
+2026-05-15 17:21:05,749 [INFO] Epoch 5 | Train Batch 320/368 | Loss: 0.9131 | Acc: 93.75% | Avg Target [0.4541015625]
+2026-05-15 17:21:08,600 [INFO] Epoch 5 | Train Batch 330/368 | Loss: 0.0001 | Acc: 100.00% | Avg Target [0.453030303030303]
+2026-05-15 17:21:11,456 [INFO] Epoch 5 | Train Batch 340/368 | Loss: 0.0087 | Acc: 100.00% | Avg Target [0.4514705882352941]
+2026-05-15 17:21:14,308 [INFO] Epoch 5 | Train Batch 350/368 | Loss: 3.2472 | Acc: 87.50% | Avg Target [0.4494642857142857]
+2026-05-15 17:21:17,168 [INFO] Epoch 5 | Train Batch 360/368 | Loss: 3.4096 | Acc: 81.25% | Avg Target [0.44895833333333335]
+2026-05-15 17:21:20,302 [INFO] Epoch 5 | Val Batch 10/41 - Validation running...
+2026-05-15 17:21:21,261 [INFO] Epoch 5 | Val Batch 20/41 - Validation running...
+2026-05-15 17:21:22,218 [INFO] Epoch 5 | Val Batch 30/41 - Validation running...
+2026-05-15 17:21:23,178 [INFO] Epoch 5 | Val Batch 40/41 - Validation running...
+2026-05-15 17:21:23,258 [INFO] >>> End of epoch 5
+2026-05-15 17:21:23,258 [INFO] TRAIN -> Loss: 1.3919 | Accuracy: 90.40% | Avg Target 0.449
+2026-05-15 17:21:23,258 [INFO] VAL   -> Loss: 0.9815 | Accuracy: 95.41% | Avg Target 0.455
+2026-05-15 17:21:25,552 [INFO] *** New best model saved! (Val Loss: 0.9815) ***
+2026-05-15 17:21:25,552 [INFO] --------------------------------------------------
+2026-05-15 17:21:25,552 [INFO] --- Starting Epoch 6/10 ---
+2026-05-15 17:21:28,529 [INFO] Epoch 6 | Train Batch 10/368 | Loss: 1.2175 | Acc: 93.75% | Avg Target [0.5375]
+2026-05-15 17:21:31,373 [INFO] Epoch 6 | Train Batch 20/368 | Loss: 0.0117 | Acc: 100.00% | Avg Target [0.5]
+2026-05-15 17:21:34,227 [INFO] Epoch 6 | Train Batch 30/368 | Loss: 0.0003 | Acc: 100.00% | Avg Target [0.46458333333333335]
+2026-05-15 17:21:37,067 [INFO] Epoch 6 | Train Batch 40/368 | Loss: 2.1652 | Acc: 87.50% | Avg Target [0.453125]
+2026-05-15 17:21:39,912 [INFO] Epoch 6 | Train Batch 50/368 | Loss: 9.6735 | Acc: 87.50% | Avg Target [0.445]
+2026-05-15 17:21:42,764 [INFO] Epoch 6 | Train Batch 60/368 | Loss: 0.5128 | Acc: 93.75% | Avg Target [0.434375]
+2026-05-15 17:21:45,618 [INFO] Epoch 6 | Train Batch 70/368 | Loss: 1.1374 | Acc: 93.75% | Avg Target [0.4348214285714286]
+2026-05-15 17:21:48,470 [INFO] Epoch 6 | Train Batch 80/368 | Loss: 1.4435 | Acc: 75.00% | Avg Target [0.4328125]
+2026-05-15 17:21:51,320 [INFO] Epoch 6 | Train Batch 90/368 | Loss: 3.0952 | Acc: 87.50% | Avg Target [0.4340277777777778]
+2026-05-15 17:21:54,180 [INFO] Epoch 6 | Train Batch 100/368 | Loss: 3.9334 | Acc: 75.00% | Avg Target [0.425625]
+2026-05-15 17:21:57,036 [INFO] Epoch 6 | Train Batch 110/368 | Loss: 1.2960 | Acc: 93.75% | Avg Target [0.42556818181818185]
+2026-05-15 17:21:59,892 [INFO] Epoch 6 | Train Batch 120/368 | Loss: 0.5020 | Acc: 93.75% | Avg Target [0.425]
+2026-05-15 17:22:02,742 [INFO] Epoch 6 | Train Batch 130/368 | Loss: 1.3779 | Acc: 93.75% | Avg Target [0.4307692307692308]
+2026-05-15 17:22:05,594 [INFO] Epoch 6 | Train Batch 140/368 | Loss: 0.1842 | Acc: 87.50% | Avg Target [0.43214285714285716]
+2026-05-15 17:22:08,459 [INFO] Epoch 6 | Train Batch 150/368 | Loss: 2.7577 | Acc: 75.00% | Avg Target [0.435]
+2026-05-15 17:22:11,315 [INFO] Epoch 6 | Train Batch 160/368 | Loss: 1.4303 | Acc: 87.50% | Avg Target [0.433203125]
+2026-05-15 17:22:14,170 [INFO] Epoch 6 | Train Batch 170/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.43529411764705883]
+2026-05-15 17:22:17,014 [INFO] Epoch 6 | Train Batch 180/368 | Loss: 0.1587 | Acc: 93.75% | Avg Target [0.4392361111111111]
+2026-05-15 17:22:19,852 [INFO] Epoch 6 | Train Batch 190/368 | Loss: 0.0001 | Acc: 100.00% | Avg Target [0.4388157894736842]
+2026-05-15 17:22:22,708 [INFO] Epoch 6 | Train Batch 200/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4403125]
+2026-05-15 17:22:25,559 [INFO] Epoch 6 | Train Batch 210/368 | Loss: 1.2705 | Acc: 81.25% | Avg Target [0.4446428571428571]
+2026-05-15 17:22:28,408 [INFO] Epoch 6 | Train Batch 220/368 | Loss: 0.7547 | Acc: 93.75% | Avg Target [0.4474431818181818]
+2026-05-15 17:22:31,268 [INFO] Epoch 6 | Train Batch 230/368 | Loss: 0.3958 | Acc: 93.75% | Avg Target [0.44755434782608694]
+2026-05-15 17:22:34,203 [INFO] Epoch 6 | Train Batch 240/368 | Loss: 0.5511 | Acc: 93.75% | Avg Target [0.4471354166666667]
+2026-05-15 17:22:37,263 [INFO] Epoch 6 | Train Batch 250/368 | Loss: 0.0065 | Acc: 100.00% | Avg Target [0.447]
+2026-05-15 17:22:40,364 [INFO] Epoch 6 | Train Batch 260/368 | Loss: 0.0003 | Acc: 100.00% | Avg Target [0.44495192307692305]
+2026-05-15 17:22:43,441 [INFO] Epoch 6 | Train Batch 270/368 | Loss: 1.6780 | Acc: 93.75% | Avg Target [0.444212962962963]
+2026-05-15 17:22:46,580 [INFO] Epoch 6 | Train Batch 280/368 | Loss: 0.0723 | Acc: 93.75% | Avg Target [0.44642857142857145]
+2026-05-15 17:22:49,556 [INFO] Epoch 6 | Train Batch 290/368 | Loss: 3.0123 | Acc: 93.75% | Avg Target [0.44612068965517243]
+2026-05-15 17:22:52,481 [INFO] Epoch 6 | Train Batch 300/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4452083333333333]
+2026-05-15 17:22:55,401 [INFO] Epoch 6 | Train Batch 310/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4465725806451613]
+2026-05-15 17:22:58,315 [INFO] Epoch 6 | Train Batch 320/368 | Loss: 0.6768 | Acc: 93.75% | Avg Target [0.4470703125]
+2026-05-15 17:23:01,240 [INFO] Epoch 6 | Train Batch 330/368 | Loss: 0.1758 | Acc: 93.75% | Avg Target [0.44829545454545455]
+2026-05-15 17:23:04,216 [INFO] Epoch 6 | Train Batch 340/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.45]
+2026-05-15 17:23:07,193 [INFO] Epoch 6 | Train Batch 350/368 | Loss: 0.4273 | Acc: 93.75% | Avg Target [0.44875]
+2026-05-15 17:23:10,174 [INFO] Epoch 6 | Train Batch 360/368 | Loss: 2.0834 | Acc: 81.25% | Avg Target [0.4486111111111111]
+2026-05-15 17:23:13,374 [INFO] Epoch 6 | Val Batch 10/41 - Validation running...
+2026-05-15 17:23:14,351 [INFO] Epoch 6 | Val Batch 20/41 - Validation running...
+2026-05-15 17:23:15,325 [INFO] Epoch 6 | Val Batch 30/41 - Validation running...
+2026-05-15 17:23:16,307 [INFO] Epoch 6 | Val Batch 40/41 - Validation running...
+2026-05-15 17:23:16,385 [INFO] >>> End of epoch 6
+2026-05-15 17:23:16,385 [INFO] TRAIN -> Loss: 1.1166 | Accuracy: 92.49% | Avg Target 0.449
+2026-05-15 17:23:16,385 [INFO] VAL   -> Loss: 1.0071 | Accuracy: 95.87% | Avg Target 0.455
+2026-05-15 17:23:17,484 [INFO] --------------------------------------------------
+2026-05-15 17:23:17,484 [INFO] --- Starting Epoch 7/10 ---
+2026-05-15 17:23:20,395 [INFO] Epoch 7 | Train Batch 10/368 | Loss: 1.3368 | Acc: 93.75% | Avg Target [0.38125]
+2026-05-15 17:23:23,308 [INFO] Epoch 7 | Train Batch 20/368 | Loss: 2.6635 | Acc: 87.50% | Avg Target [0.3875]
+2026-05-15 17:23:26,232 [INFO] Epoch 7 | Train Batch 30/368 | Loss: 1.6755 | Acc: 81.25% | Avg Target [0.4270833333333333]
+2026-05-15 17:23:29,152 [INFO] Epoch 7 | Train Batch 40/368 | Loss: 0.4691 | Acc: 93.75% | Avg Target [0.4421875]
+2026-05-15 17:23:32,084 [INFO] Epoch 7 | Train Batch 50/368 | Loss: 0.0001 | Acc: 100.00% | Avg Target [0.435]
+2026-05-15 17:23:35,000 [INFO] Epoch 7 | Train Batch 60/368 | Loss: 1.1632 | Acc: 93.75% | Avg Target [0.440625]
+2026-05-15 17:23:37,919 [INFO] Epoch 7 | Train Batch 70/368 | Loss: 0.6072 | Acc: 93.75% | Avg Target [0.45]
+2026-05-15 17:23:40,878 [INFO] Epoch 7 | Train Batch 80/368 | Loss: 0.4442 | Acc: 87.50% | Avg Target [0.44765625]
+2026-05-15 17:23:43,797 [INFO] Epoch 7 | Train Batch 90/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4527777777777778]
+2026-05-15 17:23:46,797 [INFO] Epoch 7 | Train Batch 100/368 | Loss: 1.3293 | Acc: 87.50% | Avg Target [0.455]
+2026-05-15 17:23:49,863 [INFO] Epoch 7 | Train Batch 110/368 | Loss: 0.5832 | Acc: 93.75% | Avg Target [0.45170454545454547]
+2026-05-15 17:23:52,815 [INFO] Epoch 7 | Train Batch 120/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4546875]
+2026-05-15 17:23:55,764 [INFO] Epoch 7 | Train Batch 130/368 | Loss: 1.3445 | Acc: 93.75% | Avg Target [0.45865384615384613]
+2026-05-15 17:23:58,631 [INFO] Epoch 7 | Train Batch 140/368 | Loss: 0.1714 | Acc: 93.75% | Avg Target [0.4602678571428571]
+2026-05-15 17:24:01,481 [INFO] Epoch 7 | Train Batch 150/368 | Loss: 0.3635 | Acc: 87.50% | Avg Target [0.4554166666666667]
+2026-05-15 17:24:04,368 [INFO] Epoch 7 | Train Batch 160/368 | Loss: 2.1310 | Acc: 93.75% | Avg Target [0.4546875]
+2026-05-15 17:24:07,414 [INFO] Epoch 7 | Train Batch 170/368 | Loss: 2.7631 | Acc: 81.25% | Avg Target [0.4522058823529412]
+2026-05-15 17:24:10,346 [INFO] Epoch 7 | Train Batch 180/368 | Loss: 1.3984 | Acc: 93.75% | Avg Target [0.4527777777777778]
+2026-05-15 17:24:13,306 [INFO] Epoch 7 | Train Batch 190/368 | Loss: 0.3021 | Acc: 87.50% | Avg Target [0.45230263157894735]
+2026-05-15 17:24:16,189 [INFO] Epoch 7 | Train Batch 200/368 | Loss: 0.0058 | Acc: 100.00% | Avg Target [0.4521875]
+2026-05-15 17:24:19,067 [INFO] Epoch 7 | Train Batch 210/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.45208333333333334]
+2026-05-15 17:24:21,976 [INFO] Epoch 7 | Train Batch 220/368 | Loss: 0.1635 | Acc: 93.75% | Avg Target [0.45085227272727274]
+2026-05-15 17:24:24,917 [INFO] Epoch 7 | Train Batch 230/368 | Loss: 0.0001 | Acc: 100.00% | Avg Target [0.45108695652173914]
+2026-05-15 17:24:27,842 [INFO] Epoch 7 | Train Batch 240/368 | Loss: 0.0150 | Acc: 100.00% | Avg Target [0.45208333333333334]
+2026-05-15 17:24:30,728 [INFO] Epoch 7 | Train Batch 250/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.45125]
+2026-05-15 17:24:33,659 [INFO] Epoch 7 | Train Batch 260/368 | Loss: 2.6010 | Acc: 87.50% | Avg Target [0.4478365384615385]
+2026-05-15 17:24:36,560 [INFO] Epoch 7 | Train Batch 270/368 | Loss: 0.0366 | Acc: 100.00% | Avg Target [0.44814814814814813]
+2026-05-15 17:24:39,450 [INFO] Epoch 7 | Train Batch 280/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44910714285714287]
+2026-05-15 17:24:42,348 [INFO] Epoch 7 | Train Batch 290/368 | Loss: 0.6191 | Acc: 93.75% | Avg Target [0.4478448275862069]
+2026-05-15 17:24:45,289 [INFO] Epoch 7 | Train Batch 300/368 | Loss: 0.3932 | Acc: 93.75% | Avg Target [0.44875]
+2026-05-15 17:24:48,170 [INFO] Epoch 7 | Train Batch 310/368 | Loss: 0.6086 | Acc: 93.75% | Avg Target [0.4485887096774194]
+2026-05-15 17:24:51,156 [INFO] Epoch 7 | Train Batch 320/368 | Loss: 0.0877 | Acc: 93.75% | Avg Target [0.44765625]
+2026-05-15 17:24:54,006 [INFO] Epoch 7 | Train Batch 330/368 | Loss: 0.4272 | Acc: 87.50% | Avg Target [0.44753787878787876]
+2026-05-15 17:24:56,852 [INFO] Epoch 7 | Train Batch 340/368 | Loss: 0.0393 | Acc: 100.00% | Avg Target [0.446875]
+2026-05-15 17:24:59,694 [INFO] Epoch 7 | Train Batch 350/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44875]
+2026-05-15 17:25:02,681 [INFO] Epoch 7 | Train Batch 360/368 | Loss: 0.0283 | Acc: 100.00% | Avg Target [0.4487847222222222]
+2026-05-15 17:25:06,003 [INFO] Epoch 7 | Val Batch 10/41 - Validation running...
+2026-05-15 17:25:06,995 [INFO] Epoch 7 | Val Batch 20/41 - Validation running...
+2026-05-15 17:25:07,957 [INFO] Epoch 7 | Val Batch 30/41 - Validation running...
+2026-05-15 17:25:08,927 [INFO] Epoch 7 | Val Batch 40/41 - Validation running...
+2026-05-15 17:25:09,005 [INFO] >>> End of epoch 7
+2026-05-15 17:25:09,005 [INFO] TRAIN -> Loss: 0.7717 | Accuracy: 94.53% | Avg Target 0.449
+2026-05-15 17:25:09,005 [INFO] VAL   -> Loss: 1.0434 | Accuracy: 95.41% | Avg Target 0.455
+2026-05-15 17:25:10,194 [INFO] --------------------------------------------------
+2026-05-15 17:25:10,194 [INFO] --- Starting Epoch 8/10 ---
+2026-05-15 17:25:13,105 [INFO] Epoch 8 | Train Batch 10/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.43125]
+2026-05-15 17:25:15,977 [INFO] Epoch 8 | Train Batch 20/368 | Loss: 0.0739 | Acc: 93.75% | Avg Target [0.43125]
+2026-05-15 17:25:18,868 [INFO] Epoch 8 | Train Batch 30/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44375]
+2026-05-15 17:25:21,736 [INFO] Epoch 8 | Train Batch 40/368 | Loss: 0.0060 | Acc: 100.00% | Avg Target [0.4515625]
+2026-05-15 17:25:24,593 [INFO] Epoch 8 | Train Batch 50/368 | Loss: 0.0009 | Acc: 100.00% | Avg Target [0.44125]
+2026-05-15 17:25:27,438 [INFO] Epoch 8 | Train Batch 60/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44479166666666664]
+2026-05-15 17:25:30,285 [INFO] Epoch 8 | Train Batch 70/368 | Loss: 0.0121 | Acc: 100.00% | Avg Target [0.44642857142857145]
+2026-05-15 17:25:33,130 [INFO] Epoch 8 | Train Batch 80/368 | Loss: 0.7202 | Acc: 93.75% | Avg Target [0.44609375]
+2026-05-15 17:25:35,973 [INFO] Epoch 8 | Train Batch 90/368 | Loss: 0.0125 | Acc: 100.00% | Avg Target [0.43819444444444444]
+2026-05-15 17:25:38,917 [INFO] Epoch 8 | Train Batch 100/368 | Loss: 0.3733 | Acc: 93.75% | Avg Target [0.445625]
+2026-05-15 17:25:41,788 [INFO] Epoch 8 | Train Batch 110/368 | Loss: 2.5234 | Acc: 93.75% | Avg Target [0.4409090909090909]
+2026-05-15 17:25:44,697 [INFO] Epoch 8 | Train Batch 120/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44114583333333335]
+2026-05-15 17:25:47,570 [INFO] Epoch 8 | Train Batch 130/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44134615384615383]
+2026-05-15 17:25:50,451 [INFO] Epoch 8 | Train Batch 140/368 | Loss: 0.4437 | Acc: 93.75% | Avg Target [0.4388392857142857]
+2026-05-15 17:25:53,303 [INFO] Epoch 8 | Train Batch 150/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.43875]
+2026-05-15 17:25:56,161 [INFO] Epoch 8 | Train Batch 160/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.437890625]
+2026-05-15 17:25:59,047 [INFO] Epoch 8 | Train Batch 170/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.43529411764705883]
+2026-05-15 17:26:01,911 [INFO] Epoch 8 | Train Batch 180/368 | Loss: 0.0011 | Acc: 100.00% | Avg Target [0.43645833333333334]
+2026-05-15 17:26:04,861 [INFO] Epoch 8 | Train Batch 190/368 | Loss: 1.1757 | Acc: 93.75% | Avg Target [0.4342105263157895]
+2026-05-15 17:26:07,771 [INFO] Epoch 8 | Train Batch 200/368 | Loss: 0.1507 | Acc: 93.75% | Avg Target [0.4375]
+2026-05-15 17:26:10,662 [INFO] Epoch 8 | Train Batch 210/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.43839285714285714]
+2026-05-15 17:26:13,572 [INFO] Epoch 8 | Train Batch 220/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4403409090909091]
+2026-05-15 17:26:16,574 [INFO] Epoch 8 | Train Batch 230/368 | Loss: 1.9455 | Acc: 87.50% | Avg Target [0.44375]
+2026-05-15 17:26:19,420 [INFO] Epoch 8 | Train Batch 240/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.446875]
+2026-05-15 17:26:22,275 [INFO] Epoch 8 | Train Batch 250/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.448]
+2026-05-15 17:26:25,116 [INFO] Epoch 8 | Train Batch 260/368 | Loss: 0.6527 | Acc: 87.50% | Avg Target [0.4502403846153846]
+2026-05-15 17:26:27,958 [INFO] Epoch 8 | Train Batch 270/368 | Loss: 0.5368 | Acc: 93.75% | Avg Target [0.44884259259259257]
+2026-05-15 17:26:30,971 [INFO] Epoch 8 | Train Batch 280/368 | Loss: 0.5288 | Acc: 87.50% | Avg Target [0.44933035714285713]
+2026-05-15 17:26:33,878 [INFO] Epoch 8 | Train Batch 290/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44892241379310344]
+2026-05-15 17:26:36,717 [INFO] Epoch 8 | Train Batch 300/368 | Loss: 4.8954 | Acc: 93.75% | Avg Target [0.44895833333333335]
+2026-05-15 17:26:39,559 [INFO] Epoch 8 | Train Batch 310/368 | Loss: 0.1153 | Acc: 93.75% | Avg Target [0.4493951612903226]
+2026-05-15 17:26:42,411 [INFO] Epoch 8 | Train Batch 320/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.449609375]
+2026-05-15 17:26:45,257 [INFO] Epoch 8 | Train Batch 330/368 | Loss: 2.6481 | Acc: 93.75% | Avg Target [0.45018939393939394]
+2026-05-15 17:26:48,093 [INFO] Epoch 8 | Train Batch 340/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.45073529411764707]
+2026-05-15 17:26:50,935 [INFO] Epoch 8 | Train Batch 350/368 | Loss: 0.0034 | Acc: 100.00% | Avg Target [0.45089285714285715]
+2026-05-15 17:26:53,791 [INFO] Epoch 8 | Train Batch 360/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44913194444444443]
+2026-05-15 17:26:56,981 [INFO] Epoch 8 | Val Batch 10/41 - Validation running...
+2026-05-15 17:26:57,936 [INFO] Epoch 8 | Val Batch 20/41 - Validation running...
+2026-05-15 17:26:58,892 [INFO] Epoch 8 | Val Batch 30/41 - Validation running...
+2026-05-15 17:26:59,844 [INFO] Epoch 8 | Val Batch 40/41 - Validation running...
+2026-05-15 17:26:59,921 [INFO] >>> End of epoch 8
+2026-05-15 17:26:59,923 [INFO] TRAIN -> Loss: 0.5879 | Accuracy: 95.72% | Avg Target 0.449
+2026-05-15 17:26:59,923 [INFO] VAL   -> Loss: 1.1016 | Accuracy: 95.87% | Avg Target 0.455
+2026-05-15 17:27:01,210 [INFO] --------------------------------------------------
+2026-05-15 17:27:01,210 [INFO] --- Starting Epoch 9/10 ---
+2026-05-15 17:27:04,108 [INFO] Epoch 9 | Train Batch 10/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.45625]
+2026-05-15 17:27:07,047 [INFO] Epoch 9 | Train Batch 20/368 | Loss: 0.0128 | Acc: 100.00% | Avg Target [0.415625]
+2026-05-15 17:27:09,915 [INFO] Epoch 9 | Train Batch 30/368 | Loss: 0.2880 | Acc: 93.75% | Avg Target [0.42916666666666664]
+2026-05-15 17:27:12,843 [INFO] Epoch 9 | Train Batch 40/368 | Loss: 3.1401 | Acc: 93.75% | Avg Target [0.434375]
+2026-05-15 17:27:15,717 [INFO] Epoch 9 | Train Batch 50/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.435]
+2026-05-15 17:27:18,573 [INFO] Epoch 9 | Train Batch 60/368 | Loss: 1.5109 | Acc: 87.50% | Avg Target [0.4270833333333333]
+2026-05-15 17:27:21,458 [INFO] Epoch 9 | Train Batch 70/368 | Loss: 0.0944 | Acc: 93.75% | Avg Target [0.4205357142857143]
+2026-05-15 17:27:24,332 [INFO] Epoch 9 | Train Batch 80/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.42578125]
+2026-05-15 17:27:27,179 [INFO] Epoch 9 | Train Batch 90/368 | Loss: 0.0231 | Acc: 100.00% | Avg Target [0.42986111111111114]
+2026-05-15 17:27:30,018 [INFO] Epoch 9 | Train Batch 100/368 | Loss: 2.9444 | Acc: 87.50% | Avg Target [0.43625]
+2026-05-15 17:27:32,869 [INFO] Epoch 9 | Train Batch 110/368 | Loss: 1.0122 | Acc: 93.75% | Avg Target [0.4380681818181818]
+2026-05-15 17:27:35,705 [INFO] Epoch 9 | Train Batch 120/368 | Loss: 0.0312 | Acc: 100.00% | Avg Target [0.4390625]
+2026-05-15 17:27:38,553 [INFO] Epoch 9 | Train Batch 130/368 | Loss: 2.4556 | Acc: 87.50% | Avg Target [0.4375]
+2026-05-15 17:27:41,396 [INFO] Epoch 9 | Train Batch 140/368 | Loss: 0.0037 | Acc: 100.00% | Avg Target [0.44151785714285713]
+2026-05-15 17:27:44,238 [INFO] Epoch 9 | Train Batch 150/368 | Loss: 0.7607 | Acc: 93.75% | Avg Target [0.4379166666666667]
+2026-05-15 17:27:47,077 [INFO] Epoch 9 | Train Batch 160/368 | Loss: 0.0041 | Acc: 100.00% | Avg Target [0.4390625]
+2026-05-15 17:27:49,913 [INFO] Epoch 9 | Train Batch 170/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.43933823529411764]
+2026-05-15 17:27:52,747 [INFO] Epoch 9 | Train Batch 180/368 | Loss: 0.0005 | Acc: 100.00% | Avg Target [0.440625]
+2026-05-15 17:27:55,581 [INFO] Epoch 9 | Train Batch 190/368 | Loss: 0.3476 | Acc: 87.50% | Avg Target [0.44144736842105264]
+2026-05-15 17:27:58,418 [INFO] Epoch 9 | Train Batch 200/368 | Loss: 0.0033 | Acc: 100.00% | Avg Target [0.444375]
+2026-05-15 17:28:01,269 [INFO] Epoch 9 | Train Batch 210/368 | Loss: 0.0006 | Acc: 100.00% | Avg Target [0.44226190476190474]
+2026-05-15 17:28:04,107 [INFO] Epoch 9 | Train Batch 220/368 | Loss: 1.3770 | Acc: 87.50% | Avg Target [0.4434659090909091]
+2026-05-15 17:28:06,949 [INFO] Epoch 9 | Train Batch 230/368 | Loss: 0.9663 | Acc: 87.50% | Avg Target [0.4440217391304348]
+2026-05-15 17:28:09,822 [INFO] Epoch 9 | Train Batch 240/368 | Loss: 0.4796 | Acc: 93.75% | Avg Target [0.44375]
+2026-05-15 17:28:12,723 [INFO] Epoch 9 | Train Batch 250/368 | Loss: 0.0002 | Acc: 100.00% | Avg Target [0.44175]
+2026-05-15 17:28:15,593 [INFO] Epoch 9 | Train Batch 260/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4439903846153846]
+2026-05-15 17:28:18,482 [INFO] Epoch 9 | Train Batch 270/368 | Loss: 0.2259 | Acc: 93.75% | Avg Target [0.4444444444444444]
+2026-05-15 17:28:21,323 [INFO] Epoch 9 | Train Batch 280/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44375]
+2026-05-15 17:28:24,195 [INFO] Epoch 9 | Train Batch 290/368 | Loss: 0.4630 | Acc: 93.75% | Avg Target [0.44612068965517243]
+2026-05-15 17:28:27,132 [INFO] Epoch 9 | Train Batch 300/368 | Loss: 1.7728 | Acc: 93.75% | Avg Target [0.4475]
+2026-05-15 17:28:29,980 [INFO] Epoch 9 | Train Batch 310/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44717741935483873]
+2026-05-15 17:28:32,815 [INFO] Epoch 9 | Train Batch 320/368 | Loss: 1.3744 | Acc: 93.75% | Avg Target [0.4484375]
+2026-05-15 17:28:35,661 [INFO] Epoch 9 | Train Batch 330/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4486742424242424]
+2026-05-15 17:28:38,537 [INFO] Epoch 9 | Train Batch 340/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4494485294117647]
+2026-05-15 17:28:41,380 [INFO] Epoch 9 | Train Batch 350/368 | Loss: 1.6627 | Acc: 93.75% | Avg Target [0.4494642857142857]
+2026-05-15 17:28:44,290 [INFO] Epoch 9 | Train Batch 360/368 | Loss: 6.9435 | Acc: 87.50% | Avg Target [0.4486111111111111]
+2026-05-15 17:28:47,405 [INFO] Epoch 9 | Val Batch 10/41 - Validation running...
+2026-05-15 17:28:48,358 [INFO] Epoch 9 | Val Batch 20/41 - Validation running...
+2026-05-15 17:28:49,306 [INFO] Epoch 9 | Val Batch 30/41 - Validation running...
+2026-05-15 17:28:50,262 [INFO] Epoch 9 | Val Batch 40/41 - Validation running...
+2026-05-15 17:28:50,338 [INFO] >>> End of epoch 9
+2026-05-15 17:28:50,338 [INFO] TRAIN -> Loss: 0.5489 | Accuracy: 96.11% | Avg Target 0.449
+2026-05-15 17:28:50,338 [INFO] VAL   -> Loss: 1.0803 | Accuracy: 96.48% | Avg Target 0.455
+2026-05-15 17:28:51,408 [INFO] --------------------------------------------------
+2026-05-15 17:28:51,408 [INFO] --- Starting Epoch 10/10 ---
+2026-05-15 17:28:54,273 [INFO] Epoch 10 | Train Batch 10/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4375]
+2026-05-15 17:28:57,130 [INFO] Epoch 10 | Train Batch 20/368 | Loss: 0.4155 | Acc: 87.50% | Avg Target [0.4375]
+2026-05-15 17:28:59,965 [INFO] Epoch 10 | Train Batch 30/368 | Loss: 0.7171 | Acc: 93.75% | Avg Target [0.4270833333333333]
+2026-05-15 17:29:02,807 [INFO] Epoch 10 | Train Batch 40/368 | Loss: 0.0521 | Acc: 93.75% | Avg Target [0.434375]
+2026-05-15 17:29:05,646 [INFO] Epoch 10 | Train Batch 50/368 | Loss: 1.0748 | Acc: 93.75% | Avg Target [0.43]
+2026-05-15 17:29:08,486 [INFO] Epoch 10 | Train Batch 60/368 | Loss: 0.4518 | Acc: 93.75% | Avg Target [0.42083333333333334]
+2026-05-15 17:29:11,331 [INFO] Epoch 10 | Train Batch 70/368 | Loss: 0.0019 | Acc: 100.00% | Avg Target [0.4294642857142857]
+2026-05-15 17:29:14,175 [INFO] Epoch 10 | Train Batch 80/368 | Loss: 1.2128 | Acc: 93.75% | Avg Target [0.43515625]
+2026-05-15 17:29:17,025 [INFO] Epoch 10 | Train Batch 90/368 | Loss: 0.5008 | Acc: 93.75% | Avg Target [0.4388888888888889]
+2026-05-15 17:29:19,865 [INFO] Epoch 10 | Train Batch 100/368 | Loss: 0.1092 | Acc: 93.75% | Avg Target [0.44125]
+2026-05-15 17:29:22,720 [INFO] Epoch 10 | Train Batch 110/368 | Loss: 0.2336 | Acc: 93.75% | Avg Target [0.44431818181818183]
+2026-05-15 17:29:25,614 [INFO] Epoch 10 | Train Batch 120/368 | Loss: 0.0001 | Acc: 100.00% | Avg Target [0.44895833333333335]
+2026-05-15 17:29:28,517 [INFO] Epoch 10 | Train Batch 130/368 | Loss: 0.0706 | Acc: 93.75% | Avg Target [0.44759615384615387]
+2026-05-15 17:29:31,351 [INFO] Epoch 10 | Train Batch 140/368 | Loss: 1.4822 | Acc: 93.75% | Avg Target [0.4473214285714286]
+2026-05-15 17:29:34,238 [INFO] Epoch 10 | Train Batch 150/368 | Loss: 0.0006 | Acc: 100.00% | Avg Target [0.44375]
+2026-05-15 17:29:37,152 [INFO] Epoch 10 | Train Batch 160/368 | Loss: 2.7287 | Acc: 87.50% | Avg Target [0.443359375]
+2026-05-15 17:29:40,000 [INFO] Epoch 10 | Train Batch 170/368 | Loss: 0.5663 | Acc: 93.75% | Avg Target [0.44448529411764703]
+2026-05-15 17:29:42,851 [INFO] Epoch 10 | Train Batch 180/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44513888888888886]
+2026-05-15 17:29:45,696 [INFO] Epoch 10 | Train Batch 190/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4473684210526316]
+2026-05-15 17:29:48,540 [INFO] Epoch 10 | Train Batch 200/368 | Loss: 1.6537 | Acc: 93.75% | Avg Target [0.44625]
+2026-05-15 17:29:51,385 [INFO] Epoch 10 | Train Batch 210/368 | Loss: 0.3634 | Acc: 93.75% | Avg Target [0.44345238095238093]
+2026-05-15 17:29:54,235 [INFO] Epoch 10 | Train Batch 220/368 | Loss: 1.7298 | Acc: 87.50% | Avg Target [0.4440340909090909]
+2026-05-15 17:29:57,079 [INFO] Epoch 10 | Train Batch 230/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.4453804347826087]
+2026-05-15 17:29:59,924 [INFO] Epoch 10 | Train Batch 240/368 | Loss: 2.0771 | Acc: 81.25% | Avg Target [0.44479166666666664]
+2026-05-15 17:30:02,768 [INFO] Epoch 10 | Train Batch 250/368 | Loss: 0.6678 | Acc: 93.75% | Avg Target [0.44575]
+2026-05-15 17:30:05,617 [INFO] Epoch 10 | Train Batch 260/368 | Loss: 0.0003 | Acc: 100.00% | Avg Target [0.4478365384615385]
+2026-05-15 17:30:08,456 [INFO] Epoch 10 | Train Batch 270/368 | Loss: 4.2958 | Acc: 87.50% | Avg Target [0.4465277777777778]
+2026-05-15 17:30:11,310 [INFO] Epoch 10 | Train Batch 280/368 | Loss: 0.2504 | Acc: 93.75% | Avg Target [0.4466517857142857]
+2026-05-15 17:30:14,158 [INFO] Epoch 10 | Train Batch 290/368 | Loss: 0.0000 | Acc: 100.00% | Avg Target [0.44870689655172413]
+2026-05-15 17:30:17,009 [INFO] Epoch 10 | Train Batch 300/368 | Loss: 0.6374 | Acc: 93.75% | Avg Target [0.4504166666666667]
+2026-05-15 17:30:19,849 [INFO] Epoch 10 | Train Batch 310/368 | Loss: 0.0001 | Acc: 100.00% | Avg Target [0.44879032258064516]
+2026-05-15 17:30:22,691 [INFO] Epoch 10 | Train Batch 320/368 | Loss: 0.0001 | Acc: 100.00% | Avg Target [0.4501953125]
+2026-05-15 17:30:25,544 [INFO] Epoch 10 | Train Batch 330/368 | Loss: 0.1081 | Acc: 93.75% | Avg Target [0.44772727272727275]
+2026-05-15 17:30:28,383 [INFO] Epoch 10 | Train Batch 340/368 | Loss: 0.2409 | Acc: 93.75% | Avg Target [0.4476102941176471]
+2026-05-15 17:30:31,227 [INFO] Epoch 10 | Train Batch 350/368 | Loss: 3.6838 | Acc: 93.75% | Avg Target [0.45017857142857143]
+2026-05-15 17:30:34,080 [INFO] Epoch 10 | Train Batch 360/368 | Loss: 0.0318 | Acc: 100.00% | Avg Target [0.44930555555555557]
+2026-05-15 17:30:37,202 [INFO] Epoch 10 | Val Batch 10/41 - Validation running...
+2026-05-15 17:30:38,158 [INFO] Epoch 10 | Val Batch 20/41 - Validation running...
+2026-05-15 17:30:39,114 [INFO] Epoch 10 | Val Batch 30/41 - Validation running...
+2026-05-15 17:30:40,065 [INFO] Epoch 10 | Val Batch 40/41 - Validation running...
+2026-05-15 17:30:40,144 [INFO] >>> End of epoch 10
+2026-05-15 17:30:40,144 [INFO] TRAIN -> Loss: 0.5129 | Accuracy: 96.52% | Avg Target 0.449
+2026-05-15 17:30:40,144 [INFO] VAL   -> Loss: 1.1838 | Accuracy: 95.71% | Avg Target 0.455
+2026-05-15 17:30:41,251 [INFO] --------------------------------------------------
+2026-05-15 17:30:41,251 [INFO] --- Training Complete. Loading best model for Testing ---
+2026-05-15 17:30:42,524 [INFO] Testing in progress... Batch 10/106
+2026-05-15 17:30:43,478 [INFO] Testing in progress... Batch 20/106
+2026-05-15 17:30:44,434 [INFO] Testing in progress... Batch 30/106
+2026-05-15 17:30:45,390 [INFO] Testing in progress... Batch 40/106
+2026-05-15 17:30:46,342 [INFO] Testing in progress... Batch 50/106
+2026-05-15 17:30:47,297 [INFO] Testing in progress... Batch 60/106
+2026-05-15 17:30:48,246 [INFO] Testing in progress... Batch 70/106
+2026-05-15 17:30:49,192 [INFO] Testing in progress... Batch 80/106
+2026-05-15 17:30:50,141 [INFO] Testing in progress... Batch 90/106
+2026-05-15 17:30:51,092 [INFO] Testing in progress... Batch 100/106
+2026-05-15 17:30:51,623 [INFO] >>> FINAL TEST RESULTS <<<
+2026-05-15 17:30:51,623 [INFO] TEST -> Loss: 1.3684 | Accuracy: 92.61% | Avg Target 0.409
