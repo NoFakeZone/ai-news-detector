@@ -17,6 +17,8 @@ wb_training_run_nf_gpt-oss-120b
 wb_training_run_nf_gpt-oss-120b/*
 src/feature_bert_copy.py
 src/training_loop_copy.py
+src/eda.parquet
+wb_newer
 wb_trainings
 test.ipynb
 # Conda environments

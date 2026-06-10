@@ -71,31 +71,38 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
     target_train_human = max_train_samples - target_train_ai
 
     test_ids = []
-    test_texts = []
-    test_labels = []
-    test_features = []
+    
+    # Tymczasowe listy dla testowych (żeby je na koniec zbalansować)
+    temp_test_texts_ai = []
+    temp_test_labels_ai = []
+    temp_test_features_ai = []
+    
+    temp_test_texts_human = []
+    temp_test_labels_human = []
+    temp_test_features_human = []
     
     # ---------------------------------------------------------
-    # 1. LOAD TEST AI DATA (Label 1)
+    # 1. LOAD TEST AI DATA (Label 1) - BEZ FALLBACKU
     # ---------------------------------------------------------
     print(f"Loading AI Test Data (Target: {target_test_ai})...")
     test_files = sorted(os.listdir(os.path.join(dataset_path, test_dataset))) 
     
     for file in test_files:
-        if len(test_texts) >= target_test_ai:
+        if len(temp_test_texts_ai) >= target_test_ai:
             break
             
         with open(os.path.join(dataset_path, test_dataset, file), 'r', encoding='utf-8') as f:
             data = json.load(f)
-            test_ids.append(int(file.split('.')[0]))
+            doc_id = int(file.split('.')[0])
             texts = [sentence.strip() for sentence in data['Wygenerowany tekst'].split('\n\n')]
             
             for t in texts:
                 if len(t.split(' ')) < 15:
                     continue 
-                if len(test_texts) >= target_test_ai:
+                if len(temp_test_texts_ai) >= target_test_ai:
                     break 
                 
+                test_ids.append(doc_id)
                 temp_features = []
                 if use_stylistic_features:
                     pos_ratios = all_pos_per_word(t)
@@ -111,65 +118,72 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
                     temp_features.append(avg_word_length(t))
                 else:
                     temp_features.append(0)
-                test_features.append(temp_features)
-                test_texts.append(preprocess_for_bert(t))
-                test_labels.append(1)
+                temp_test_features_ai.append(temp_features)
+                temp_test_texts_ai.append(preprocess_for_bert(t))
+                temp_test_labels_ai.append(1)
 
-    test_ids = set(test_ids)
+    test_ids = set(test_ids) # Optymalizacja do szybkiego wyszukiwania
     train_ids = []
     train_texts = []
     train_labels = []
     train_features = []
 
     # ---------------------------------------------------------
-    # 2. LOAD TRAIN AI DATA (Label 1)
+    # 2. LOAD TRAIN AI DATA (Label 1) - Z PRZEPLOTEM (INTERLEAVING)
     # ---------------------------------------------------------
     train_folders = [folder for folder in FOLDERS if folder != test_dataset]
-    per_folder_limit = target_train_ai // len(train_folders) 
-    print(f"Loading AI Train Data (Target: {target_train_ai}, ~{per_folder_limit} per model)...")
+    print(f"Loading AI Train Data (Target: {target_train_ai})...")
+    
+    # Tworzymy listę plików dla każdego folderu
+    all_train_files = {folder: sorted(os.listdir(os.path.join(dataset_path, folder))) for folder in train_folders}
+    
+    # Przeplatamy pliki
+    interleaved_files = []
+    max_files = max([len(files) for files in all_train_files.values()]) if all_train_files else 0
+    for i in range(max_files):
+        for folder in train_folders:
+            if i < len(all_train_files[folder]):
+                interleaved_files.append((folder, all_train_files[folder][i]))
 
-    for folder in train_folders:
-        folder_count = 0
-        train_files = sorted(os.listdir(os.path.join(dataset_path, folder)))
-        
-        for file in train_files:
-            if folder_count >= per_folder_limit:
-                break
+    # Przetwarzamy przeplataną listę aż uzyskamy dokładny target
+    for folder, file in interleaved_files:
+        if len(train_texts) >= target_train_ai:
+            break
+            
+        doc_id = int(file.split('.')[0])
+        if doc_id in test_ids:
+            continue
+            
+        with open(os.path.join(dataset_path, folder, file), 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            texts = [sentence.strip() for sentence in data['Wygenerowany tekst'].split('\n\n')]
+            
+            for t in texts:
+                if len(t.split(' ')) < 15:
+                    continue 
+                if len(train_texts) >= target_train_ai:
+                    break
                 
-            with open(os.path.join(dataset_path, folder, file), 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                if int(file.split('.')[0]) in test_ids:
-                    continue
-                
-                train_ids.append(int(file.split('.')[0]))
-                texts = [sentence.strip() for sentence in data['Wygenerowany tekst'].split('\n\n')]
-                
-                for t in texts:
-                    if len(t.split(' ')) < 15:
-                        continue 
-                    if folder_count >= per_folder_limit:
-                        break
+                train_ids.append(doc_id)
+                temp_features = []
+                if use_stylistic_features:
+                    pos_ratios = all_pos_per_word(t)
+                    for pos in UD_TAGS:
+                        temp_features.append(pos_ratios[pos])
+                    temp_features.append(punctuation_per_letter(t))
+                    temp_features.append(punctuation_per_word(t))
+                    temp_features.append(avg_sentence_len(t))
+                    temp_features.append(capital_ratio(t))
+                    temp_features.append(ttr(t))
+                    temp_features.append(ttr_lemmatized(t))
+                    temp_features.append(avg_syllables_per_sentence(t))
+                    temp_features.append(avg_word_length(t))
+                else:
+                    temp_features.append(0)
                     
-                    temp_features = []
-                    if use_stylistic_features:
-                        pos_ratios = all_pos_per_word(t)
-                        for pos in UD_TAGS:
-                            temp_features.append(pos_ratios[pos])
-                        temp_features.append(punctuation_per_letter(t))
-                        temp_features.append(punctuation_per_word(t))
-                        temp_features.append(avg_sentence_len(t))
-                        temp_features.append(capital_ratio(t))
-                        temp_features.append(ttr(t))
-                        temp_features.append(ttr_lemmatized(t))
-                        temp_features.append(avg_syllables_per_sentence(t))
-                        temp_features.append(avg_word_length(t))
-                    else:
-                        temp_features.append(0)
-                        
-                    train_features.append(temp_features)
-                    train_texts.append(preprocess_for_bert(t))
-                    train_labels.append(1)
-                    folder_count += 1
+                train_features.append(temp_features)
+                train_texts.append(preprocess_for_bert(t))
+                train_labels.append(1)
 
     train_ids = set(train_ids)
 
@@ -177,15 +191,16 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
     # 3. LOAD HUMAN DATA (Label 0)
     # ---------------------------------------------------------
     print(f"Loading Human Data (Target Train: {target_train_human}, Target Test: {target_test_human})...")
-    human_test_added = 0
     human_train_added = 0
+    used_human_ids = set()
 
     with open(os.path.join(dataset_path, 'scraped_news.json'), 'r', encoding='utf-8') as f:
         data = json.load(f)
         data = sorted(data, key=lambda x: x.get('id', 0)) 
         
+        # --- ETAP 1: Próba ścisłego dopasowania po ID ---
         for row in data:
-            if human_test_added >= target_test_human and human_train_added >= target_train_human:
+            if len(temp_test_texts_human) >= target_test_human and human_train_added >= target_train_human:
                 break 
                 
             texts = [sentence.strip() for sentence in row['body'].split('\n\n')]
@@ -193,7 +208,7 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
                 if len(t.split(' ')) < 15:
                     continue 
                 
-                is_test_target = row['id'] in test_ids and human_test_added < target_test_human
+                is_test_target = row['id'] in test_ids and len(temp_test_texts_human) < target_test_human
                 is_train_target = row['id'] in train_ids and human_train_added < target_train_human
                 
                 if not is_test_target and not is_train_target:
@@ -215,16 +230,72 @@ def load_dataset(test_dataset, dataset_path, use_stylistic_features=True, basic_
                 else:
                     temp_features.append(0)
                 
+                used_human_ids.add(row['id'])
+
                 if is_test_target:
-                    test_features.append(temp_features)
-                    test_texts.append(preprocess_for_bert(t))
-                    test_labels.append(0)
-                    human_test_added += 1
+                    temp_test_features_human.append(temp_features)
+                    temp_test_texts_human.append(preprocess_for_bert(t))
+                    temp_test_labels_human.append(0)
                 elif is_train_target:
                     train_features.append(temp_features)
                     train_texts.append(preprocess_for_bert(t))
                     train_labels.append(0)
                     human_train_added += 1
+
+        # --- ETAP 2: "Dobieranie" TYLKO dla danych treningowych ---
+        if human_train_added < target_train_human:
+            print(f"Fallback: Missing exact ID matches. Filling remaining gaps for TRAIN ONLY (Need: {target_train_human - human_train_added})...")
+            
+            for row in data:
+                if human_train_added >= target_train_human:
+                    break 
+                
+                if row['id'] in used_human_ids:
+                    continue # Pomijamy już użyte artykuły
+                    
+                texts = [sentence.strip() for sentence in row['body'].split('\n\n')]
+                for t in texts:
+                    if len(t.split(' ')) < 15:
+                        continue 
+                    
+                    if human_train_added >= target_train_human:
+                        break
+
+                    temp_features = []
+                    if use_stylistic_features:
+                        pos_ratios = all_pos_per_word(t)
+                        for pos in UD_TAGS:
+                            temp_features.append(pos_ratios[pos])
+                        temp_features.append(punctuation_per_letter(t))
+                        temp_features.append(punctuation_per_word(t))
+                        temp_features.append(avg_sentence_len(t))
+                        temp_features.append(capital_ratio(t))
+                        temp_features.append(ttr(t))
+                        temp_features.append(ttr_lemmatized(t))
+                        temp_features.append(avg_syllables_per_sentence(t))
+                        temp_features.append(avg_word_length(t))
+                    else:
+                        temp_features.append(0)
+
+                    used_human_ids.add(row['id'])
+
+                    train_features.append(temp_features)
+                    train_texts.append(preprocess_for_bert(t))
+                    train_labels.append(0)
+                    human_train_added += 1
+
+    # ==========================================
+    # --- BALANSOWANIE ZBIORU TESTOWEGO ---
+    # ==========================================
+    actual_test_ai = len(temp_test_texts_ai)
+    actual_test_human = len(temp_test_texts_human)
+    balanced_test_size = min(actual_test_ai, actual_test_human)
+
+    print(f"Test balancing: Found {actual_test_ai} AI and {actual_test_human} Human. Cropping to {balanced_test_size} per class for perfect 50/50 split.")
+
+    test_texts = temp_test_texts_ai[:balanced_test_size] + temp_test_texts_human[:balanced_test_size]
+    test_labels = temp_test_labels_ai[:balanced_test_size] + temp_test_labels_human[:balanced_test_size]
+    test_features = temp_test_features_ai[:balanced_test_size] + temp_test_features_human[:balanced_test_size]
 
     print(f"Final Counts -> TRAIN: {len(train_texts)} | TEST: {len(test_texts)}")
 
