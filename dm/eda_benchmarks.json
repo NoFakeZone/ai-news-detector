@@ -1,0 +1,55 @@
+{
+  "signals": [
+    {
+      "id": "avg_sentence_len",
+      "label": "Średnia długość zdania",
+      "description": "Teksty generowane maszynowo mają krótsze zdania.",
+      "direction": "lower_is_ai",
+      "human_center": 19.0,
+      "ai_center": 11.0,
+      "weight": 0.25,
+      "chart_keyword": "mają",
+      "unit": "słów/zdanie"
+    },
+    {
+      "id": "ttr_lemmatized",
+      "label": "Lematyzowany wskaźnik TTR",
+      "description": "Teksty generowane maszynowo mniej powtarzają słowa (wyższa różnorodność lematów).",
+      "direction": "higher_is_ai",
+      "human_center": 0.9,
+      "ai_center": 0.98,
+      "weight": 0.25,
+      "chart_keyword": "mniej",
+      "unit": "0–1"
+    },
+    {
+      "id": "pos_adp",
+      "label": "Udział przyimków (ADP)",
+      "description": "Teksty AI mają bardziej płaski rozkład przyimków — większe odchylenie od typowej wartości ludzkiej sugeruje styl maszynowy.",
+      "direction": "deviation_is_ai",
+      "human_center": 0.125,
+      "spread": 0.06,
+      "weight": 0.2,
+      "chart_keyword": "Eksploracyjna analiza danych",
+      "chart_exclude": ["mają", "mniej"],
+      "unit": "udział"
+    },
+    {
+      "id": "basic_popularity_index",
+      "label": "Bazowy indeks popularności",
+      "description": "Najlepiej rozróżnia autorstwo w analizie eksploracyjnej — wyższe wartości częściej wskazują na tekst AI.",
+      "direction": "higher_is_ai",
+      "human_center": 0.05,
+      "ai_center": 0.1,
+      "weight": 0.3,
+      "chart_keyword": "Bazowy",
+      "unit": "0–1"
+    }
+  ],
+  "reference_only": {
+    "id": "wiki_popularity_index",
+    "label": "Indeks popularności (Wikipedia)",
+    "description": "W analizie eksploracyjnej najsłabiej rozróżniał autorstwo — pokazywany wyłącznie informacyjnie, bez wpływu na wynik.",
+    "chart_keyword": null
+  }
+}
